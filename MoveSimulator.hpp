@@ -7,6 +7,9 @@
 
 class MoveSimulator
 {
+  private:
+    void updateLocation(Vertex&, MoveMap&) const;
+
   public:
     MoveSimulator();
     void doTick(Crowd&, MoveMap&) const;

@@ -1,7 +1,11 @@
 
+#include <cstdlib>
+
 #include "Crowd.hpp"
 
-Crowd::Crowd(): vertices(new vector<Vertex>())
+using namespace std;
+
+Crowd::Crowd(): _age(0), vertices(new vector<Vertex>())
 {
   // Nothing to do here.
 }
@@ -9,6 +13,15 @@ Crowd::Crowd(): vertices(new vector<Vertex>())
 int Crowd::size() const
 {
   return this->vertices->size();
+}
+
+Vertex& Crowd::at(int i) const
+{
+  if (i < this->vertices->size())
+  {
+    return this->vertices->at(i);
+  }
+  exit(EXIT_FAILURE);
 }
 
 vector<Vertex>& Crowd::getVertices() const
@@ -33,4 +46,15 @@ bool Crowd::remove(Vertex v)
     }
   }
   return false;
+}
+
+int Crowd::age() const
+{
+  return this->_age;
+}
+
+int Crowd::age(int n)
+{
+  this->_age = n;
+  return this->_age;
 }

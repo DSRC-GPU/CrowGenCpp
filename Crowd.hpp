@@ -15,14 +15,18 @@ using namespace std;
 class Crowd
 {
   private:
+    int _age;
     vector<Vertex>* vertices;
 
   public:
     Crowd();
     int size() const;
+    Vertex& at(int) const;
     vector<Vertex>& getVertices() const;
     bool add(Vertex);
     bool remove(Vertex);
+    int age() const;
+    int age(int);
 };
 
 #endif
