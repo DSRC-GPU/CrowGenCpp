@@ -11,14 +11,9 @@ int Crowd::size() const
   return this->vertices->size();
 }
 
-vector<Vertex>::iterator Crowd::begin() const
+vector<Vertex>& Crowd::getVertices() const
 {
-  return this->vertices->begin();
-}
-
-vector<Vertex>::iterator Crowd::end() const
-{
-  return this->vertices->end();
+  return *this->vertices;
 }
 
 bool Crowd::add(Vertex v)

@@ -20,8 +20,7 @@ class Crowd
   public:
     Crowd();
     int size() const;
-    vector<Vertex>::iterator begin() const;
-    vector<Vertex>::iterator end() const;
+    vector<Vertex>& getVertices() const;
     bool add(Vertex);
     bool remove(Vertex);
 };

@@ -1,6 +1,16 @@
 
+#ifndef CROWDGENERATOR_HPP
+#define CROWDGENERATOR_HPP
+
+#include "Crowd.hpp"
+#include "MoveMap.hpp"
+
 class CrowdGenerator
 {
+  private:
+    int getRandomX(MoveMap&) const;
+    int getRandomY(MoveMap&) const;
+
   public:
     CrowdGenerator();
 
@@ -9,3 +19,5 @@ class CrowdGenerator
     // given MoveMap.
     void populate(Crowd&, MoveMap&) const;
 };
+
+#endif

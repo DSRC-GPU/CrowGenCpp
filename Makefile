@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -Wshadow -pedantic -O3
 CXX     = g++ $(DEBUGDEFS) -g
 
 TARGETS = main 
-OBJECTS = main.o Vertex.o Crowd.o MoveMap.o MapParser.o
+OBJECTS = main.o Vertex.o Crowd.o MoveMap.o MapParser.o CrowdGenerator.o
 
 
 # ----- Make Rules -----
