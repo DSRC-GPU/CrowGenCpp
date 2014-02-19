@@ -2,6 +2,9 @@
 #ifndef VERTEX_HPP
 #define VERTEX_HPP
 
+/*
+ * The Vertex class represents a single node in a crowd.
+ */
 class Vertex
 {
   private:
