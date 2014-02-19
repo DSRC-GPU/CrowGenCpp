@@ -1,10 +1,11 @@
 
 #include <iostream>
 
-#include "Vertex.hpp"
 #include "Crowd.hpp"
-#include "MoveMap.hpp"
 #include "CrowdGenerator.hpp"
+#include "MoveMap.hpp"
+#include "MoveSimulator.hpp"
+#include "Vertex.hpp"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ int main()
 
   cout << "MoveMap test" << endl;
 
-  MoveMap mm(6000,10,100);
+  MoveMap mm(60,10,100);
 
   cout << mm.population() << endl;
   cout << mm.width() << endl;
@@ -51,6 +52,12 @@ int main()
     cout << vect.at(i).y() << endl;
     cout << "---" << endl;
   }
+
+  cout << "MoveSimulator test" << endl;
+
+  MoveSimulator ms;
+
+  ms.doTick(c, mm);
 
   return 0;
 }
