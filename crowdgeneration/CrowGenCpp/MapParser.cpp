@@ -18,8 +18,7 @@ bool MapParser::setMapFile(string filename)
   return true;
 }
 
-void MapParser::parse(MoveMap* mm) const
+void MapParser::parse(vector<MoveMap>& vec) const
 {
   // TODO Parse actual file.
-  mm = new MoveMap(10000, 500, 500);
 }

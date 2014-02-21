@@ -3,6 +3,7 @@
 #define MAPPARSER_HPP
 
 #include <string>
+#include <vector>
 
 #include "MoveMap.hpp"
 
@@ -17,7 +18,7 @@ class MapParser
     MapParser();
     MapParser(string);
     bool setMapFile(string);
-    void parse(MoveMap*) const;
+    void parse(vector<MoveMap>&) const;
 };
 
 #endif

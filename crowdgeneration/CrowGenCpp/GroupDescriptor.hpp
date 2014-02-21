@@ -2,7 +2,7 @@
 #ifndef MOVEMAP_HPP
 #define MOVEMAP_HPP
 
-class MoveMap
+class GroupDescriptor
 {
   private:
     int mm_width, mm_height;
@@ -12,7 +12,7 @@ class MoveMap
     int **mm_charmap;
 
   public:
-    MoveMap(int p, int w, int h);
+    GroupDescriptor(int p, int w, int h);
 
     // Gives the direction (1-9 a la numpad) the crowd is moving in, at the
     // given coordinates on the map.
