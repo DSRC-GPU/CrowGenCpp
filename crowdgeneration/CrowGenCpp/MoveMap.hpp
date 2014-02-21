@@ -8,6 +8,9 @@ class MoveMap
     int mm_width, mm_height;
     int mm_population;
 
+    // Dynamically allocated 2d array used to store char map.
+    int **mm_charmap;
+
   public:
     MoveMap(int p, int w, int h);
 
