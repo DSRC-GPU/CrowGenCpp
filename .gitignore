@@ -27,3 +27,8 @@
 *.zip
 *.tar
 *.gz
+
+# Images
+*.png
+*.jpg
+*.jpeg
