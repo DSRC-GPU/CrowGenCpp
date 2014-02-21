@@ -2,11 +2,12 @@ DEBUGDEFS = -DDEBUG
 
 # ----- Make Macros -----
 
-CXXFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic -O3 
+CXXFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic -O3
 CXX     = g++ $(DEBUGDEFS) -g
 
 TARGETS = main 
-OBJECTS = main.o Vertex.o Crowd.o MoveMap.o MapParser.o CrowdGenerator.o MoveSimulator.o directions.o
+OBJECTS = main.o Vertex.o Crowd.o MoveMap.o MapParser.o CrowdGenerator.o\
+ MoveSimulator.o directions.o tinyxml2-master/tinyxml2.o
 
 
 # ----- Make Rules -----
