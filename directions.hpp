@@ -1,4 +1,8 @@
 
+#include <vector>
+
+using namespace std;
+
 namespace directions
 {
   extern vector<int> DIRS_1_X;
@@ -19,4 +23,7 @@ namespace directions
   extern vector<int> DIRS_7_Y;
   extern vector<int> DIRS_8_Y;
   extern vector<int> DIRS_9_Y;
+
+  extern vector<int> DIRS_X[10];
+  extern vector<int> DIRS_Y[10];
 }

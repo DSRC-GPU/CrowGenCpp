@@ -1,5 +1,10 @@
 
+#include <cstdlib>
+
 #include "MoveSimulator.hpp"
+#include "directions.hpp"
+
+using namespace std;
 
 MoveSimulator::MoveSimulator()
 {
@@ -24,24 +29,13 @@ void MoveSimulator::doTick(Crowd& c, MoveMap& mm, int n) const
 
 void MoveSimulator::updateLocation(Vertex& v, MoveMap& mm) const
 {
-  vector<int>& xs = lookupXDirectionVector(mm.getCrowdDirection(v.x(), v.y()));
-  vector<int>& ys = lookupYDirectionVector(mm.getCrowdDirection(v.x(), v.y()));
+  vector<int>& xs = directions::DIRS_X[mm.getCrowdDirection(v.x(), v.y()) - 1];
+  vector<int>& ys = directions::DIRS_X[mm.getCrowdDirection(v.x(), v.y()) - 1]; 
 
   // Change the position of the vertex to its current position + a random
   // possible offset selected from the vector of possible offsets (based on its
   // direction).
-  v.x(v.x() + xs.at(xs.begin() + (rand() % xs.size())));
-  v.y(v.y() + ys.at(ys.begin() + (rand() % ys.size())));
+  v.x(v.x() + xs.at(rand() % xs.size()));
+  v.y(v.y() + ys.at(rand() % ys.size()));
 }
 
-vector<int>& lookupXDirectionVector(int direction)
-{
-  // FIXME Lookup the correct vector.
-  return 0;
-}
-
-vector<int>& lookupYDirectionVector(int direction)
-{
-  // FIXME Lookup the correct vector.
-  return 0;
-}

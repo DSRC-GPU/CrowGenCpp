@@ -21,4 +21,28 @@ namespace directions
   vector<int> DIRS_7_Y = { 1, 0 };
   vector<int> DIRS_8_Y = { 1, 0 };
   vector<int> DIRS_9_Y = { 1, 0 };
+
+  vector<int> DIRS_X[10] = {
+    DIRS_1_X,
+    DIRS_2_X,
+    DIRS_3_X,
+    DIRS_4_X,
+    DIRS_5_X,
+    DIRS_6_X,
+    DIRS_7_X,
+    DIRS_8_X,
+    DIRS_9_X
+  };
+
+  vector<int> DIRS_Y[10] = {
+    DIRS_1_Y,
+    DIRS_2_Y,
+    DIRS_3_Y,
+    DIRS_4_Y,
+    DIRS_5_Y,
+    DIRS_6_Y,
+    DIRS_7_Y,
+    DIRS_8_Y,
+    DIRS_9_Y
+  };
 }
