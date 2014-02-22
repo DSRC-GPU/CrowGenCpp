@@ -3,9 +3,9 @@
 
 GroupDescriptor::GroupDescriptor(int p, int w, int h)
 {
-  this->mm_population = p;
-  this->mm_width = w;
-  this->mm_height = h;
+  this->_population = p;
+  this->_width = w;
+  this->_height = h;
 }
 
 int GroupDescriptor::getCrowdDirection(int x, int y) const
@@ -16,42 +16,42 @@ int GroupDescriptor::getCrowdDirection(int x, int y) const
 
 int GroupDescriptor::height() const
 {
-  return this->mm_height;
+  return this->_height;
 }
 
 int GroupDescriptor::height(int h)
 {
   if (h > 0)
   {
-    this->mm_height = h;
+    this->_height = h;
   }
-  return this->mm_height;
+  return this->_height;
 }
 
 int GroupDescriptor::width() const
 {
-  return this->mm_width;
+  return this->_width;
 } 
 
 int GroupDescriptor::width(int w)
 {
   if (w > 0)
   {
-    this->mm_width = w;
+    this->_width = w;
   }
-  return this->mm_width;
+  return this->_width;
 }
 
 int GroupDescriptor::population() const
 {
-  return this->mm_population;
+  return this->_population;
 }
 
 int GroupDescriptor::population(int p)
 {
   if (p >= 0)
   {
-    this->mm_population = p;
+    this->_population = p;
   }
-  return this->mm_population;
+  return this->_population;
 }
