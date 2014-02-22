@@ -2,14 +2,20 @@
 #ifndef MOVEMAP_HPP
 #define MOVEMAP_HPP
 
+#include <vector>
+
+#include "Box.hpp"
+
+using namespace std;
+
 class GroupDescriptor
 {
   private:
     int _width, _height;
     int _population;
-
-    // Dynamically allocated 2d array used to store char map.
-     const char *_charmap;
+    const char *_charmap;
+    vector<Box> sources;
+    vector<Box> sinks;
 
   public:
     GroupDescriptor(int p, int w, int h);

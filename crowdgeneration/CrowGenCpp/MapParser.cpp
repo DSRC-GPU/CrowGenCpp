@@ -30,8 +30,8 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
   XMLDocument doc;
   doc.LoadFile("testmap.xml");
   const char* nodename = "groupdescriptor";
-  const XMLElement *gdxml = doc.FirstChildElement(nodename);
 
+  const XMLElement *gdxml = doc.FirstChildElement(nodename);
   while (gdxml != NULL)
   {
     GroupDescriptor gd;
@@ -41,6 +41,7 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
     gd.height(atoi(gdxml->FirstChildElement("map")->Attribute("height")));
     gd.charmap(gdxml->FirstChildElement("map")->GetText());
     vec.push_back(gd);
+
     gdxml = gdxml->NextSiblingElement(nodename);
   }
 }
