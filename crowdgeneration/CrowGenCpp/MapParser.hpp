@@ -7,12 +7,17 @@
 
 #include "GroupDescriptor.hpp"
 
+#include "tinyxml2-master/tinyxml2.h"
+
 using namespace std;
+using namespace tinyxml2;
 
 class MapParser
 {
   private:
     string mapFileName;
+    void parseSources(GroupDescriptor&, const XMLElement*&) const;
+    void parseSinks(GroupDescriptor&, const XMLElement*&) const;
 
   public:
     MapParser();

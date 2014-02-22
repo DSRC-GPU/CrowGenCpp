@@ -10,7 +10,7 @@ GroupDescriptor::GroupDescriptor(int p, int w, int h)
 
 GroupDescriptor::GroupDescriptor()
 {
-  // No initialization.
+
 }
 
 int GroupDescriptor::getCrowdDirection(int x, int y) const
@@ -70,5 +70,15 @@ const char* GroupDescriptor::charmap(const char* cmap)
 {
   this->_charmap = cmap;
   return this->_charmap;
+}
+
+vector<Box>& GroupDescriptor::sources()
+{
+  return _sources;
+}
+
+vector<Box>& GroupDescriptor::sinks()
+{
+  return _sinks;
 }
 
