@@ -3,17 +3,17 @@
 #define MOVESUMULATOR_HPP
 
 #include "Crowd.hpp"
-#include "MoveMap.hpp"
+#include "GroupDescriptor.hpp"
 
 class MoveSimulator
 {
   private:
-    void updateLocation(Vertex&, MoveMap&) const;
+    void updateLocation(Vertex&, GroupDescriptor&) const;
 
   public:
     MoveSimulator();
-    void doTick(Crowd&, MoveMap&) const;
-    void doTick(Crowd&, MoveMap&, int n) const;
+    void doTick(Crowd&, GroupDescriptor&) const;
+    void doTick(Crowd&, GroupDescriptor&, int n) const;
 };
 
 #endif

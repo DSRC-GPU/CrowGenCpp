@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "MoveMap.hpp"
+#include "GroupDescriptor.hpp"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class MapParser
     MapParser();
     MapParser(string);
     bool setMapFile(string);
-    void parse(vector<MoveMap>&) const;
+    void parse(vector<GroupDescriptor>&) const;
 };
 
 #endif

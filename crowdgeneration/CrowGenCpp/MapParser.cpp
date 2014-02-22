@@ -18,7 +18,7 @@ bool MapParser::setMapFile(string filename)
   return true;
 }
 
-void MapParser::parse(vector<MoveMap>& vec) const
+void MapParser::parse(vector<GroupDescriptor>& vec) const
 {
   // TODO Parse actual file.
 }

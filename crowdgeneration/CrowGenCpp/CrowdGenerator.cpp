@@ -10,7 +10,7 @@ CrowdGenerator::CrowdGenerator()
   // Nothing to do here.
 }
 
-void CrowdGenerator::populate(Crowd& c, MoveMap& mm) const
+void CrowdGenerator::populate(Crowd& c, GroupDescriptor& mm) const
 {
   // TODO Populate crowd.
   for (int i = 0; i < mm.population(); i++)
@@ -22,12 +22,12 @@ void CrowdGenerator::populate(Crowd& c, MoveMap& mm) const
   }
 }
 
-int CrowdGenerator::getRandomX(MoveMap& mm) const
+int CrowdGenerator::getRandomX(GroupDescriptor& mm) const
 {
   return rand() % mm.width();
 }
 
-int CrowdGenerator::getRandomY(MoveMap& mm) const
+int CrowdGenerator::getRandomY(GroupDescriptor& mm) const
 {
   return rand() % mm.height();
 }

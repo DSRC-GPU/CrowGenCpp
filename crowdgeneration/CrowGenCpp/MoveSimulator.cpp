@@ -11,7 +11,7 @@ MoveSimulator::MoveSimulator()
   // Nothing to do here.
 }
 
-void MoveSimulator::doTick(Crowd& c, MoveMap& mm) const
+void MoveSimulator::doTick(Crowd& c, GroupDescriptor& mm) const
 {
   for (int i = 0; i < c.size(); i++)
   {
@@ -19,7 +19,7 @@ void MoveSimulator::doTick(Crowd& c, MoveMap& mm) const
   }
 }
 
-void MoveSimulator::doTick(Crowd& c, MoveMap& mm, int n) const
+void MoveSimulator::doTick(Crowd& c, GroupDescriptor& mm, int n) const
 {
   for (int i = 0; i < n; i++)
   {
@@ -27,7 +27,7 @@ void MoveSimulator::doTick(Crowd& c, MoveMap& mm, int n) const
   }
 }
 
-void MoveSimulator::updateLocation(Vertex& v, MoveMap& mm) const
+void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
 {
   vector<int>& xs = directions::DIRS_X[mm.getCrowdDirection(v.x(), v.y()) - 1];
   vector<int>& ys = directions::DIRS_X[mm.getCrowdDirection(v.x(), v.y()) - 1]; 

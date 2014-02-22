@@ -3,7 +3,7 @@
 
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
-#include "MoveMap.hpp"
+#include "GroupDescriptor.hpp"
 #include "MoveSimulator.hpp"
 #include "Vertex.hpp"
 
@@ -29,9 +29,9 @@ int main()
   c.remove(v);
   cout << c.size() << endl;
 
-  cout << "MoveMap test" << endl;
+  cout << "GroupDescriptor test" << endl;
 
-  MoveMap mm(60,10,100);
+  GroupDescriptor mm(60,10,100);
 
   cout << mm.population() << endl;
   cout << mm.width() << endl;
