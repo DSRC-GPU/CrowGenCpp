@@ -1,6 +1,8 @@
 
 #include "GroupDescriptor.hpp"
 
+#include <algorithm>
+
 GroupDescriptor::GroupDescriptor(int p, int w, int h)
 {
   this->_population = p;
@@ -17,6 +19,17 @@ int GroupDescriptor::getCrowdDirection(int x, int y) const
 {
   // TODO Determine the actual direction at this location from the parsed file.
   return 6; // People are moving to the right.
+}
+
+int GroupDescriptor::gid() const
+{
+  return _gid;
+}
+
+int GroupDescriptor::gid(int ngid)
+{
+  _gid = ngid;
+  return _gid;
 }
 
 int GroupDescriptor::height() const
@@ -68,7 +81,11 @@ const char* GroupDescriptor::charmap() const
 
 const char* GroupDescriptor::charmap(const char* cmap)
 {
-  this->_charmap = cmap;
+  string rawmap(cmap);
+  rawmap.erase(std::remove(rawmap.begin(), rawmap.end(), ' '), rawmap.end());
+  rawmap.erase(std::remove(rawmap.begin(), rawmap.begin() + 1, '\n'),
+      rawmap.begin() + 1);
+  this->_charmap = rawmap.c_str();
   return this->_charmap;
 }
 

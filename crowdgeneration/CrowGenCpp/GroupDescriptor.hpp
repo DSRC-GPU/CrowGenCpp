@@ -11,6 +11,7 @@ using namespace std;
 class GroupDescriptor
 {
   private:
+    int _gid;
     int _width, _height;
     int _population;
     const char *_charmap;
@@ -26,6 +27,8 @@ class GroupDescriptor
     // given coordinates on the map.
     int getCrowdDirection(int x, int y) const;
 
+    int gid() const;
+    int gid(int);
     int height() const;
     int height(int h);
     int width() const;

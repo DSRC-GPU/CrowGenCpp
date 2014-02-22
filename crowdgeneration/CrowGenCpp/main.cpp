@@ -39,6 +39,8 @@ int main()
   parser.parse(descriptors);
   cout << descriptors.size() << endl;
 
+  cout << descriptors.at(0).charmap();
+
   cout << "CrowdGenerator test" << endl;
 
   CrowdGenerator cg; 
@@ -46,14 +48,6 @@ int main()
   cout << c.size() << endl;
   cg.populate(c, descriptors);
   cout << c.size() << endl;
-
-  vector<Vertex> vect = c.getVertices();
-  for (size_t i = 0; i < vect.size(); i++)
-  {
-    cout << vect.at(i).x() << endl;
-    cout << vect.at(i).y() << endl;
-    cout << "---" << endl;
-  }
 
   cout << "MoveSimulator test" << endl;
 
