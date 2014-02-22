@@ -8,11 +8,15 @@
 class Vertex
 {
   private:
-    int id;
+    int _id, _gid;
     int xpos, ypos;
 
   public:
     Vertex(int);
+    int id() const;
+    int id(int nid);
+    int gid() const;
+    int gid(int ngid);
     int x() const;
     int x(int newx);
     int y() const;

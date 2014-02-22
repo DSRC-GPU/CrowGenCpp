@@ -10,6 +10,7 @@ class CrowdGenerator
   private:
     int getRandomX(GroupDescriptor&) const;
     int getRandomY(GroupDescriptor&) const;
+    void populate(Crowd&, GroupDescriptor&) const;
 
   public:
     CrowdGenerator();
@@ -18,7 +19,7 @@ class CrowdGenerator
     // number of vertices generated is equal to the population specified in the
     // given GroupDescriptor.
     // FIXME This method needs to run over multiple descriptors.
-    void populate(Crowd&, GroupDescriptor&) const;
+    void populate(Crowd&, vector<GroupDescriptor>&) const;
 };
 
 #endif

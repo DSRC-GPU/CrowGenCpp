@@ -72,6 +72,16 @@ const char* GroupDescriptor::charmap(const char* cmap)
   return this->_charmap;
 }
 
+Box& GroupDescriptor::spawn()
+{
+  return _spawn;
+}
+
+void GroupDescriptor::spawn(Box nbox)
+{
+  _spawn = nbox;
+}
+
 vector<Box>& GroupDescriptor::sources()
 {
   return _sources;

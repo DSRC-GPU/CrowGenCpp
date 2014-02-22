@@ -10,3 +10,9 @@ take care of:
 3. The number of people in the group.
 4. Runtime (simulation time) source and sink.
 
+
+Workflow:
+
+1. parse map file and obtain groupdescriptors.
+2. generate crowd on groupdescriptors.
+3. simulate movement of crowd (using groupdescriptors).

@@ -14,6 +14,7 @@ class GroupDescriptor
     int _width, _height;
     int _population;
     const char *_charmap;
+    Box _spawn;
     vector<Box> _sources;
     vector<Box> _sinks;
 
@@ -33,6 +34,8 @@ class GroupDescriptor
     int population(int p);
     const char* charmap() const;
     const char* charmap(const char*);
+    Box& spawn();
+    void spawn(Box);
     vector<Box>& sources();
     vector<Box>& sinks();
 };

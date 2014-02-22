@@ -10,24 +10,46 @@ CrowdGenerator::CrowdGenerator()
   // Nothing to do here.
 }
 
-void CrowdGenerator::populate(Crowd& c, GroupDescriptor& mm) const
+void CrowdGenerator::populate(Crowd& c, vector<GroupDescriptor>& gds) const
 {
-  // TODO Populate crowd.
-  for (int i = 0; i < mm.population(); i++)
+  for (int i = 0; i < gds.size(); i++)
+  {
+    populate(c, gds.at(i));
+  }
+}
+
+void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd) const
+{
+  for (int i = 0; i < gd.population(); i++)
   {
     Vertex v(i);
-    v.x(getRandomX(mm));
-    v.y(getRandomY(mm));
+    v.x(getRandomX(gd));
+    v.y(getRandomY(gd));
     c.add(v);
   }
 }
 
-int CrowdGenerator::getRandomX(GroupDescriptor& mm) const
-{
-  return rand() % mm.width();
+int CrowdGenerator::getRandomX(GroupDescriptor& gd) const
+{ 
+  int i = 0;
+  Box& spawnBox = gd.spawn();
+  int spawnWidth = spawnBox.upperX() - spawnBox.lowerX();
+  int res = spawnBox.upperX();
+  if (spawnWidth > 0)
+  {
+    res = rand() % spawnWidth + spawnBox.lowerX();
+  }
+  return res;
 }
 
-int CrowdGenerator::getRandomY(GroupDescriptor& mm) const
+int CrowdGenerator::getRandomY(GroupDescriptor& gd) const
 {
-  return rand() % mm.height();
+  Box& spawnBox = gd.spawn();
+  int spawnHeight = spawnBox.upperY() - spawnBox.lowerY();
+  int res = spawnBox.upperY();
+  if (spawnHeight > 0)
+  {
+    res = rand() % spawnHeight + spawnBox.lowerY();
+  }
+  return res;
 }

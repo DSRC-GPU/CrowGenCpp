@@ -44,7 +44,7 @@ int main()
   CrowdGenerator cg; 
 
   cout << c.size() << endl;
-  // cg.populate(c, mm);
+  cg.populate(c, descriptors);
   cout << c.size() << endl;
 
   vector<Vertex> vect = c.getVertices();

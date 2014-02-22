@@ -3,7 +3,29 @@
 
 Vertex::Vertex(int vid): xpos(0), ypos(0)
 {
-  this->id = vid;
+  this->_id = vid;
+}
+
+int Vertex::id() const
+{
+  return _id;
+}
+
+int Vertex::id(int nid)
+{
+  _id = nid;
+  return _id;
+}
+
+int Vertex::gid() const
+{
+  return _gid;
+}
+
+int Vertex::gid(int ngid)
+{
+  _gid = ngid;
+  return _gid;
 }
 
 int Vertex::x() const
@@ -30,5 +52,5 @@ int Vertex::y(int newy)
 
 bool Vertex::equal(Vertex other) const
 {
-  return this->id == other.id;
+  return this->_id == other._id;
 }

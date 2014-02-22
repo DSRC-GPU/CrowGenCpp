@@ -1,6 +1,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <cstring>
 
 #include "MapParser.hpp"
 
@@ -71,6 +72,13 @@ void MapParser::parseSources(GroupDescriptor& gd, const XMLElement*& gdxml) cons
     sourceBox.lowerY(atoi(yborder->Attribute(startstr)));
     sourceBox.upperY(atoi(yborder->Attribute(endstr)));
     gd.sources().push_back(sourceBox);
+
+    const char* type = sourcesxml->Attribute("type");
+    const char* spawn = "spawn";
+    if (type && strcmp(spawn, type) == 0)
+    {
+      gd.spawn(sourceBox);
+    }
 
     sourcesxml = sourcesxml->NextSiblingElement(sourcestr);
   }

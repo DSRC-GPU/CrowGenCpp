@@ -3,7 +3,7 @@
   <groupdescriptor gid="1">
     <population>500</population>
     <sources>
-      <source type="box">
+      <source type="spawn">
         <xborder start="0" end="0"></xborder>
         <yborder start="10" end="50"></yborder>
       </source>
