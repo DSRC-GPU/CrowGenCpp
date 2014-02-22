@@ -38,7 +38,7 @@ int Box::upperX(int nx)
 
 int Box::lowerY() const
 {
-  return uy;
+  return ly;
 }
 
 int Box::lowerY(int ny)

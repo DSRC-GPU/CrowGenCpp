@@ -12,6 +12,7 @@ class MoveSimulator
 
   public:
     MoveSimulator();
+    // FIXME These methods need to run over vectors of descriptors.
     void doTick(Crowd&, GroupDescriptor&) const;
     void doTick(Crowd&, GroupDescriptor&, int n) const;
 };

@@ -1,5 +1,6 @@
 
 #include <cstdlib>
+#include <iostream>
 
 #include "MapParser.hpp"
 
@@ -8,12 +9,12 @@ MapParser::MapParser(): mapFileName("")
   // Nothing to do here.
 }
 
-MapParser::MapParser(string filename)
+MapParser::MapParser(const char* filename)
 {
   this->mapFileName = filename;
 }
 
-bool MapParser::setMapFile(string filename)
+bool MapParser::setMapFile(const char* filename)
 {
   // TODO Check if file exists.
   this->mapFileName = filename;
@@ -23,10 +24,17 @@ bool MapParser::setMapFile(string filename)
 void MapParser::parse(vector<GroupDescriptor>& vec) const
 {
   XMLDocument doc;
-  doc.LoadFile("testmap.xml");
+  doc.LoadFile(mapFileName);
   const char* nodename = "groupdescriptor";
 
-  const XMLElement *gdxml = doc.FirstChildElement(nodename);
+  const XMLElement *gdxml = doc
+   .FirstChildElement("crowd")->FirstChildElement(nodename);
+  if (!gdxml)
+  {
+    cout << "Error in map file." << endl;
+    exit(EXIT_FAILURE);
+  }
+
   while (gdxml)
   {
     GroupDescriptor gd;
@@ -45,18 +53,19 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
 void MapParser::parseSources(GroupDescriptor& gd, const XMLElement*& gdxml) const
 {
   // TODO Put these strings in a seperate namespace/file.
-  const char* sourcestr = "source";
+  const char* sourcestr = "sources";
   const char* xborderstr = "xborder";
   const char* yborderstr = "yborder";
   const char* startstr = "start";
   const char* endstr = "end";
 
-  const XMLElement* sourcesxml = gdxml->FirstChildElement(sourcestr);
+  const XMLElement* sourcesxml = gdxml->FirstChildElement(sourcestr)
+   ->FirstChildElement("source");
   while (sourcesxml)
   {
     Box sourceBox;
-    const XMLElement* xborder = gdxml->FirstChildElement(xborderstr);
-    const XMLElement* yborder = gdxml->FirstChildElement(yborderstr);
+    const XMLElement* xborder = sourcesxml->FirstChildElement(xborderstr);
+    const XMLElement* yborder = sourcesxml->FirstChildElement(yborderstr);
     sourceBox.lowerX(atoi(xborder->Attribute(startstr)));
     sourceBox.upperX(atoi(xborder->Attribute(endstr)));
     sourceBox.lowerY(atoi(yborder->Attribute(startstr)));
@@ -76,12 +85,13 @@ void MapParser::parseSinks(GroupDescriptor& gd, const XMLElement*& gdxml) const
   const char* startstr = "start";
   const char* endstr = "end";
 
-  const XMLElement* sinksxml = gdxml->FirstChildElement(sinksstr);
+  const XMLElement* sinksxml = gdxml->FirstChildElement(sinksstr)
+   ->FirstChildElement("sink");
   while (sinksxml)
   {
     Box sourceBox;
-    const XMLElement* xborder = gdxml->FirstChildElement(xborderstr);
-    const XMLElement* yborder = gdxml->FirstChildElement(yborderstr);
+    const XMLElement* xborder = sinksxml->FirstChildElement(xborderstr);
+    const XMLElement* yborder = sinksxml->FirstChildElement(yborderstr);
     sourceBox.lowerX(atoi(xborder->Attribute(startstr)));
     sourceBox.upperX(atoi(xborder->Attribute(endstr)));
     sourceBox.lowerY(atoi(yborder->Attribute(startstr)));

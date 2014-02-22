@@ -1,10 +1,12 @@
 
 #include <iostream>
+#include <vector>
 
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
 #include "GroupDescriptor.hpp"
 #include "MoveSimulator.hpp"
+#include "MapParser.hpp"
 #include "Vertex.hpp"
 
 using namespace std;
@@ -29,20 +31,20 @@ int main()
   c.remove(v);
   cout << c.size() << endl;
 
-  cout << "GroupDescriptor test" << endl;
+  cout << "MapParser test" << endl;
 
-  GroupDescriptor mm(60,10,100);
-
-  cout << mm.population() << endl;
-  cout << mm.width() << endl;
-  cout << mm.height() << endl;
+  MapParser parser("testmap.xml");
+  vector<GroupDescriptor> descriptors;
+  cout << descriptors.size() << endl;
+  parser.parse(descriptors);
+  cout << descriptors.size() << endl;
 
   cout << "CrowdGenerator test" << endl;
 
   CrowdGenerator cg; 
 
   cout << c.size() << endl;
-  cg.populate(c, mm);
+  // cg.populate(c, mm);
   cout << c.size() << endl;
 
   vector<Vertex> vect = c.getVertices();
@@ -57,7 +59,7 @@ int main()
 
   MoveSimulator ms;
 
-  ms.doTick(c, mm);
+  //ms.doTick(c, mm);
 
   return 0;
 }

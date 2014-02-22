@@ -15,14 +15,14 @@ using namespace tinyxml2;
 class MapParser
 {
   private:
-    string mapFileName;
+    const char* mapFileName;
     void parseSources(GroupDescriptor&, const XMLElement*&) const;
     void parseSinks(GroupDescriptor&, const XMLElement*&) const;
 
   public:
     MapParser();
-    MapParser(string);
-    bool setMapFile(string);
+    MapParser(const char*);
+    bool setMapFile(const char*);
     void parse(vector<GroupDescriptor>&) const;
 };
 
