@@ -8,6 +8,11 @@ GroupDescriptor::GroupDescriptor(int p, int w, int h)
   this->_height = h;
 }
 
+GroupDescriptor::GroupDescriptor()
+{
+  // No initialization.
+}
+
 int GroupDescriptor::getCrowdDirection(int x, int y) const
 {
   // TODO Determine the actual direction at this location from the parsed file.
@@ -55,3 +60,15 @@ int GroupDescriptor::population(int p)
   }
   return this->_population;
 }
+
+const char* GroupDescriptor::charmap() const
+{
+  return this->_charmap;
+}
+
+const char* GroupDescriptor::charmap(const char* cmap)
+{
+  this->_charmap = cmap;
+  return this->_charmap;
+}
+

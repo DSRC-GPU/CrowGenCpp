@@ -1,7 +1,12 @@
 
+#include <cstdlib>
+
 #include "MapParser.hpp"
 
 #include "tinyxml2-master/tinyxml2.h"
+
+using namespace std;
+using namespace tinyxml2;
 
 MapParser::MapParser(): mapFileName("")
 {
@@ -24,13 +29,18 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
 {
   XMLDocument doc;
   doc.LoadFile("testmap.xml");
-  XMLElement gdxml = doc.FirstChildElement("groupdescriptor");
-  // TODO Make loop over siblings.
+  const char* nodename = "groupdescriptor";
+  const XMLElement *gdxml = doc.FirstChildElement(nodename);
 
-  GroupDescriptor gd;
-  gd.population(gdxml.FirstChildElement("population")->GetText());
-//gdxml.FirstChildElement("sources"));  FIXME Initialize sources.
-  gd.width(gdxml.FirstChildElement("map")->Attribute("width"));
-  gd.height(gdxml.FirstChildElement("map")->Attribute("height"));
-  gd.charmap(gdxml.FirstChildElement("map")->GetText());
+  while (gdxml != NULL)
+  {
+    GroupDescriptor gd;
+    gd.population(atoi(gdxml->FirstChildElement("population")->GetText()));
+    //gdxml.FirstChildElement("sources"));  FIXME Initialize sources.
+    gd.width(atoi(gdxml->FirstChildElement("map")->Attribute("width")));
+    gd.height(atoi(gdxml->FirstChildElement("map")->Attribute("height")));
+    gd.charmap(gdxml->FirstChildElement("map")->GetText());
+    vec.push_back(gd);
+    gdxml = gdxml->NextSiblingElement(nodename);
+  }
 }

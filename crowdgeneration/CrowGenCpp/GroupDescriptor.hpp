@@ -9,7 +9,7 @@ class GroupDescriptor
     int _population;
 
     // Dynamically allocated 2d array used to store char map.
-    int **_charmap;
+     const char *_charmap;
 
   public:
     GroupDescriptor(int p, int w, int h);
@@ -25,8 +25,8 @@ class GroupDescriptor
     int width(int w);
     int population() const;
     int population(int p);
-    char* charmap() const;
-    char* charmap(char*);
+    const char* charmap() const;
+    const char* charmap(const char*);
 };
 
 #endif
