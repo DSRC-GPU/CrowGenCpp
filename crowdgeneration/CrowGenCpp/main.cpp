@@ -53,7 +53,7 @@ int main()
 
   MoveSimulator ms;
 
-  //ms.doTick(c, mm);
+  ms.doTick(c, descriptors, 100);
 
   return 0;
 }

@@ -44,7 +44,10 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
     parseSinks(gd, gdxml);
     gd.width(atoi(gdxml->FirstChildElement("map")->Attribute("width")));
     gd.height(atoi(gdxml->FirstChildElement("map")->Attribute("height")));
+    gd.rows(atoi(gdxml->FirstChildElement("map")->Attribute("rows")));
+    gd.cols(atoi(gdxml->FirstChildElement("map")->Attribute("cols")));
     gd.charmap(gdxml->FirstChildElement("map")->GetText());
+    cout << gd.charmap() << endl;
     vec.push_back(gd);
 
     gdxml = gdxml->NextSiblingElement(nodename);

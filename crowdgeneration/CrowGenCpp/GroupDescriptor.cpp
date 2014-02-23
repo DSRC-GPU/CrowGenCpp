@@ -2,6 +2,8 @@
 #include "GroupDescriptor.hpp"
 
 #include <algorithm>
+#include <iostream>
+#include <stdexcept>
 
 GroupDescriptor::GroupDescriptor(int p, int w, int h)
 {
@@ -17,8 +19,29 @@ GroupDescriptor::GroupDescriptor()
 
 int GroupDescriptor::getCrowdDirection(int x, int y) const
 {
-  // TODO Determine the actual direction at this location from the parsed file.
-  return 6; // People are moving to the right.
+  int col = calcCharCol(x);
+  int row = calcCharRow(y);
+
+  int offset = col + (_cols + 1) * row; 
+  char dir = _charmap[offset];
+  int res = dir - '0';
+  if (res < 0 && res > 9)
+    throw out_of_range("Read character was not an ascii-number.");
+  return res;
+}
+
+int GroupDescriptor::calcCharCol(int x) const
+{
+  int gridsize = _width / _cols;
+  int res = min(_cols - 1, x / gridsize);
+  return res;
+}
+
+int GroupDescriptor::calcCharRow(int y) const
+{
+  int gridsize = _height / _rows;
+  int res = min(_rows - 1, y / gridsize);
+  return res;
 }
 
 int GroupDescriptor::gid() const
@@ -60,6 +83,28 @@ int GroupDescriptor::width(int w)
   return this->_width;
 }
 
+int GroupDescriptor::rows() const
+{
+  return _rows;
+}
+
+int GroupDescriptor::rows(int nrows)
+{
+  _rows = nrows;
+  return _rows;
+}
+
+int GroupDescriptor::cols() const
+{
+  return _cols;
+}
+
+int GroupDescriptor::cols(int ncols)
+{
+  _cols = ncols;
+  return _cols;
+}
+
 int GroupDescriptor::population() const
 {
   return this->_population;
@@ -74,18 +119,18 @@ int GroupDescriptor::population(int p)
   return this->_population;
 }
 
-const char* GroupDescriptor::charmap() const
+string GroupDescriptor::charmap() const
 {
   return this->_charmap;
 }
 
-const char* GroupDescriptor::charmap(const char* cmap)
+string GroupDescriptor::charmap(const char* cmap)
 {
   string rawmap(cmap);
   rawmap.erase(std::remove(rawmap.begin(), rawmap.end(), ' '), rawmap.end());
   rawmap.erase(std::remove(rawmap.begin(), rawmap.begin() + 1, '\n'),
       rawmap.begin() + 1);
-  this->_charmap = rawmap.c_str();
+  this->_charmap = rawmap;
   return this->_charmap;
 }
 

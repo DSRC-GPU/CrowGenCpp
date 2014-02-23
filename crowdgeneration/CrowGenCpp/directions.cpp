@@ -3,26 +3,26 @@
 
 namespace directions
 {
-  vector<int> DIRS_1_X = { -1, 0 };
-  vector<int> DIRS_2_X = { -1, 0, 1 };
-  vector<int> DIRS_3_X = { 0, 1 };
-  vector<int> DIRS_4_X = { -1, 0 };
-  vector<int> DIRS_5_X = { -1, 0, 1 };
-  vector<int> DIRS_6_X = { 0, 1 };
-  vector<int> DIRS_7_X = { -1, 0 };
-  vector<int> DIRS_8_X = { -1, 0, 1 };
-  vector<int> DIRS_9_X = { 0, 1 };
-  vector<int> DIRS_1_Y = { -1, 0 };
-  vector<int> DIRS_2_Y = { -1, 0 };
-  vector<int> DIRS_3_Y = { -1, 0 };
-  vector<int> DIRS_4_Y = { -1, 0, 1 };
-  vector<int> DIRS_5_Y = { -1, 0, 1 };
-  vector<int> DIRS_6_Y = { -1, 0, 1 };
-  vector<int> DIRS_7_Y = { 1, 0 };
-  vector<int> DIRS_8_Y = { 1, 0 };
-  vector<int> DIRS_9_Y = { 1, 0 };
+  const vector<int> DIRS_1_X = { -1, 0 };
+  const vector<int> DIRS_2_X = { -1, 0, 1 };
+  const vector<int> DIRS_3_X = { 0, 1 };
+  const vector<int> DIRS_4_X = { -1, 0 };
+  const vector<int> DIRS_5_X = { -1, 0, 1 };
+  const vector<int> DIRS_6_X = { 0, 1 };
+  const vector<int> DIRS_7_X = { -1, 0 };
+  const vector<int> DIRS_8_X = { -1, 0, 1 };
+  const vector<int> DIRS_9_X = { 0, 1 };
+  const vector<int> DIRS_1_Y = { 1, 0 };
+  const vector<int> DIRS_2_Y = { 1, 0 };
+  const vector<int> DIRS_3_Y = { 1, 0 };
+  const vector<int> DIRS_4_Y = { -1, 0, 1 };
+  const vector<int> DIRS_5_Y = { -1, 0, 1 };
+  const vector<int> DIRS_6_Y = { -1, 0, 1 };
+  const vector<int> DIRS_7_Y = { -1, 0 };
+  const vector<int> DIRS_8_Y = { -1, 0 };
+  const vector<int> DIRS_9_Y = { -1, 0 };
 
-  vector<int> DIRS_X[10] = {
+  const vector<int> DIRS_X[10] = {
     DIRS_1_X,
     DIRS_2_X,
     DIRS_3_X,
@@ -34,7 +34,7 @@ namespace directions
     DIRS_9_X
   };
 
-  vector<int> DIRS_Y[10] = {
+  const vector<int> DIRS_Y[10] = {
     DIRS_1_Y,
     DIRS_2_Y,
     DIRS_3_Y,
@@ -45,4 +45,6 @@ namespace directions
     DIRS_8_Y,
     DIRS_9_Y
   };
+
+  const int numDirs = 10;
 }

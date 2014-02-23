@@ -1,5 +1,6 @@
 
 #include <cstdlib>
+#include <iostream>
 
 #include "CrowdGenerator.hpp"
 
@@ -25,7 +26,9 @@ void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd) const
     Vertex v(i);
     v.x(getRandomX(gd));
     v.y(getRandomY(gd));
+    v.gid(gd.gid());
     c.add(v);
+    cout << "Added " << v.id() << " at " << v.x() << "," << v.y() << endl;
   }
 }
 

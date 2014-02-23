@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <crowd>
   <groupdescriptor gid="1">
-    <population>500</population>
+    <population>200</population>
     <sources>
       <source type="spawn">
         <xborder start="0" end="0"></xborder>
-        <yborder start="10" end="50"></yborder>
+        <yborder start="40" end="60"></yborder>
       </source>
     </sources>
     <sinks>
     </sinks>
     <map width="100" height="100" rows="3" cols="3">
-      888
-      666
-      222
+      321
+      654
+      987
     </map>
   </groupdescriptor>
 </crowd>

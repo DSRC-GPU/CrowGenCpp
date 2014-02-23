@@ -3,6 +3,7 @@
 #define MOVEMAP_HPP
 
 #include <vector>
+#include <string>
 
 #include "Box.hpp"
 
@@ -14,10 +15,14 @@ class GroupDescriptor
     int _gid;
     int _width, _height;
     int _population;
-    const char *_charmap;
+    int _rows, _cols;
+    string _charmap;
     Box _spawn;
     vector<Box> _sources;
     vector<Box> _sinks;
+
+    int calcCharCol(int) const;
+    int calcCharRow(int) const;
 
   public:
     GroupDescriptor(int p, int w, int h);
@@ -33,10 +38,14 @@ class GroupDescriptor
     int height(int h);
     int width() const;
     int width(int w);
+    int rows() const;
+    int rows(int);
+    int cols() const;
+    int cols(int);
     int population() const;
     int population(int p);
-    const char* charmap() const;
-    const char* charmap(const char*);
+    string charmap() const;
+    string charmap(const char*);
     Box& spawn();
     void spawn(Box);
     vector<Box>& sources();
