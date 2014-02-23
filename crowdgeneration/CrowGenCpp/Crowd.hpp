@@ -8,10 +8,8 @@
 
 using namespace std;
 
-/*
- * The Crowd class is a container that holds all Vertex objects (nodes in the
- * crowd)
- */
+// The Crowd class is a container that holds all Vertex objects (nodes in the
+// crowd).
 class Crowd
 {
   private:

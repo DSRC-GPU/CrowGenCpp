@@ -5,6 +5,7 @@
 #include "Crowd.hpp"
 #include "GroupDescriptor.hpp"
 
+// The CrowdGenerator class populates a new Crowd object.
 class CrowdGenerator
 {
   private:

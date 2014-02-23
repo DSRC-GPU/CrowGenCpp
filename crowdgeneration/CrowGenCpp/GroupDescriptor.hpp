@@ -9,6 +9,15 @@
 
 using namespace std;
 
+// The GroupDescriptor class describes a group of people that are part of a
+// crowd. This class contains information about:
+//  1. Where the group of people is initially placed in the crowd (spawn)
+//  2. In which direction a member of this group should move, given his current
+//      location in the crowd.
+//  3. Where vertices from this group can leave the map (sinks).
+//  4. Where new vertices from this group will be placed as soon as old vertices
+//      hit a sink (sources).
+//  5. The number of vertices in the group (population).
 class GroupDescriptor
 {
   private:

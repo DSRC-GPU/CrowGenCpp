@@ -2,6 +2,7 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
+// The Point class represents a point in 2D space.
 class Point
 {
   private:

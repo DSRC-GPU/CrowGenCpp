@@ -10,6 +10,8 @@
 
 using namespace tinyxml2;
 
+// The SimulationWriter class writes the simulation as run by the MoveSimulator
+// to an XML file, to be reused later by other programs.
 class SimulationWriter
 {
   private:

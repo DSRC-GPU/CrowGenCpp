@@ -3,6 +3,9 @@
 
 using namespace std;
 
+// This namespace is used to store the constant direction arrays. These arrays
+// map the direction numbers (0-9) to actual coordinate changes (-1,0,1) for
+// both the X and Y directions.
 namespace directions
 {
   extern const vector<int> DIRS_1_X;

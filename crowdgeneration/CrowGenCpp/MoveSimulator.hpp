@@ -11,6 +11,9 @@
 
 using namespace std;
 
+// The MoveSimulator class simulates the movement of vertices in the crowd. It
+// iterates over all vertices in the Crowd and moves them based on their
+// corresponding GroupDescriptor.
 class MoveSimulator
 {
   private:

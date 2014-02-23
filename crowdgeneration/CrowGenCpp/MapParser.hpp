@@ -12,6 +12,8 @@
 using namespace std;
 using namespace tinyxml2;
 
+// The MapParser class reads a XML map file and parses its contends to a number
+// of GroupDescriptors.
 class MapParser
 {
   private:
