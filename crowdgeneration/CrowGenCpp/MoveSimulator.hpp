@@ -28,8 +28,8 @@ class MoveSimulator
   public:
     MoveSimulator();
     void initialize(Crowd&, vector<GroupDescriptor>&) const;
-    void doTick(Crowd&, vector<GroupDescriptor>&) const;
-    void doTick(Crowd&, vector<GroupDescriptor>&, int n) const;
+    void doTick(Crowd&, vector<GroupDescriptor>&);
+    void doTick(Crowd&, vector<GroupDescriptor>&, int n);
     void writeToFile(bool);
 };
 

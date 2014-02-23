@@ -53,6 +53,7 @@ int main()
 
   MoveSimulator ms;
 
+  ms.writeToFile(true);
   ms.doTick(c, descriptors, 100);
 
   return 0;

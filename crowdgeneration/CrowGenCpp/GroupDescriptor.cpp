@@ -5,16 +5,15 @@
 #include <iostream>
 #include <stdexcept>
 
-GroupDescriptor::GroupDescriptor(int p, int w, int h)
+GroupDescriptor::GroupDescriptor(int p, int w, int h): _gid(0)
 {
   this->_population = p;
   this->_width = w;
   this->_height = h;
 }
 
-GroupDescriptor::GroupDescriptor()
+GroupDescriptor::GroupDescriptor(): _gid(0)
 {
-
 }
 
 int GroupDescriptor::getCrowdDirection(int x, int y) const

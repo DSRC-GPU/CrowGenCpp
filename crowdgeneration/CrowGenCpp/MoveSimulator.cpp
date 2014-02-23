@@ -16,23 +16,31 @@ void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds) const
   _cg.populate(c, gds);
 }
 
-void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm) const
+void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
   for (int i = 0; i < c.size(); i++)
   {
     this->updateLocation(c.at(i), mm);
   }
 
+  c.age(c.age() + 1);
+
   if (_writeToFile)
     _sw.writeOut(c);
 }
 
-void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n) const
+void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
 {
+  if (_writeToFile)
+    _sw.initialize();
+
   for (int i = 0; i < n; i++)
   {
     this->doTick(c, mm);
   }
+
+  if (_writeToFile)
+    _sw.wrapUp();
 }
 
 void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&

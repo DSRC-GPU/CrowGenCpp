@@ -6,10 +6,10 @@ Point::Point(): _x(0), _y(0)
 
 }
 
-Point::Point(int x, int y)
+Point::Point(int nx, int ny)
 {
-  _x = x;
-  _y = y;
+  _x = nx;
+  _y = ny;
 }
 
 int Point::x() const
