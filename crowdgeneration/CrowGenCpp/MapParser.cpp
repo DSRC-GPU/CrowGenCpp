@@ -29,7 +29,7 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
   const char* nodename = "groupdescriptor";
 
   const XMLElement *gdxml = doc
-   .FirstChildElement("crowd")->FirstChildElement(nodename);
+    .FirstChildElement("crowd")->FirstChildElement(nodename);
   if (!gdxml)
   {
     cout << "Error in map file." << endl;
@@ -64,7 +64,7 @@ void MapParser::parseSources(GroupDescriptor& gd, const XMLElement*& gdxml) cons
   const char* endstr = "end";
 
   const XMLElement* sourcesxml = gdxml->FirstChildElement(sourcestr)
-   ->FirstChildElement("source");
+    ->FirstChildElement("source");
   while (sourcesxml)
   {
     Box sourceBox;
@@ -97,7 +97,7 @@ void MapParser::parseSinks(GroupDescriptor& gd, const XMLElement*& gdxml) const
   const char* endstr = "end";
 
   const XMLElement* sinksxml = gdxml->FirstChildElement(sinksstr)
-   ->FirstChildElement("sink");
+    ->FirstChildElement("sink");
   while (sinksxml)
   {
     Box sourceBox;

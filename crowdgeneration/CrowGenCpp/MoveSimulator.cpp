@@ -11,11 +11,13 @@ MoveSimulator::MoveSimulator()
   // Nothing to do here.
 }
 
+// Use the CrowdGenerator to fill the Crowd with vertices.
 void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds) const
 {
   _cg.populate(c, gds);
 }
 
+// Simulate a single tick on the given Crowd.
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
   for (int i = 0; i < c.size(); i++)
@@ -43,6 +45,7 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
     _sw.wrapUp();
 }
 
+// Update the location of a single Vertex in the Crowd.
 void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&
     descriptors) const
 {
@@ -72,6 +75,7 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
   cout << v.x() << "," << v.y() << endl;
 }
 
+// Get the GroupDescriptor for the given Vertex, based on the Vertex' GroupID.
 GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
     vector<GroupDescriptor>& descriptors) const
 {
@@ -85,6 +89,7 @@ GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
   throw invalid_argument("Vertex Group ID not found.");
 }
 
+// Returns true iff the given Vertex is located in a sink.
 bool MoveSimulator::inSink(Vertex& v, GroupDescriptor& gd) const
 {
   for (size_t i = 0; i < gd.sinks().size(); i++)
@@ -98,11 +103,15 @@ bool MoveSimulator::inSink(Vertex& v, GroupDescriptor& gd) const
   return false;
 }
 
+// Moves the given Vertex to a random point within a random spawn point.
+// Replaces the Vertex' ID with a new one, to simulate one person leaving the
+// area, and a new one entering.
 bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd) const
 {
   vector<Box>& sources = gd.sources();
   if (sources.size() > 0)
   {
+    // FIXME Give vertex a new ID, to simulate new person entering the area.
     int randomSource = rand() % sources.size();
     Point p;
     sources.at(randomSource).getPoint(p);

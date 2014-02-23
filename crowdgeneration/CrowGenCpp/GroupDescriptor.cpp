@@ -16,6 +16,7 @@ GroupDescriptor::GroupDescriptor(): _gid(0)
 {
 }
 
+// Finds the direction number (0 - 9) for the Vertex on the given position.
 int GroupDescriptor::getCrowdDirection(int x, int y) const
 {
   int col = calcCharCol(x);
@@ -29,6 +30,7 @@ int GroupDescriptor::getCrowdDirection(int x, int y) const
   return res;
 }
 
+// Calculate what row in the text-map matches the given x coordinate.
 int GroupDescriptor::calcCharCol(int x) const
 {
   int gridsize = _width / _cols;
@@ -36,6 +38,7 @@ int GroupDescriptor::calcCharCol(int x) const
   return res;
 }
 
+// Calculate what col in the text-map matches the given y coordinate.
 int GroupDescriptor::calcCharRow(int y) const
 {
   int gridsize = _height / _rows;
