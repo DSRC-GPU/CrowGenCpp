@@ -1,6 +1,10 @@
 
 #include "Box.hpp"
 
+#include <cstdlib>
+
+using namespace std;
+
 Box::Box() : lx(0), ux(0), ly(0), uy(0)
 {
   // Nothing to do here.
@@ -61,4 +65,32 @@ int Box::upperY(int ny)
 bool Box::inBox(int x, int y) const
 {
   return lx <= x && x <= ux && ly <= y && y <= uy;
+}
+
+void Box::getPoint(Point& p) const
+{
+  p.x(getRandomX());
+  p.y(getRandomY());
+}
+
+int Box::getRandomX() const
+{ 
+  int spawnWidth = this->upperX() - this->lowerX();
+  int res = this->upperX();
+  if (spawnWidth > 0)
+  {
+    res = rand() % spawnWidth + this->lowerX();
+  }
+  return res;
+}
+
+int Box::getRandomY() const
+{
+  int spawnHeight = this->upperY() - this->lowerY();
+  int res = this->upperY();
+  if (spawnHeight > 0)
+  {
+    res = rand() % spawnHeight + this->lowerY();
+  }
+  return res;
 }

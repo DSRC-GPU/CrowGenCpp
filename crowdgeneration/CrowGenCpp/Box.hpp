@@ -1,4 +1,9 @@
 
+#ifndef BOX_HPP
+#define BOX_HPP
+
+#include "Point.hpp"
+
 class Box
 {
   private:
@@ -19,4 +24,9 @@ class Box
     int upperY(int ny);
 
     bool inBox(int x, int y) const;
+    void getPoint(Point&) const;
+    int getRandomX() const;
+    int getRandomY() const;
 };
+
+#endif

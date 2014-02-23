@@ -11,12 +11,16 @@ MoveSimulator::MoveSimulator()
   // Nothing to do here.
 }
 
+void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds) const
+{
+  _cg.populate(c, gds);
+}
+
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm) const
 {
   for (int i = 0; i < c.size(); i++)
   {
     this->updateLocation(c.at(i), mm);
-    // FIXME Check new position, is it a sink?
   }
 }
 
@@ -37,7 +41,7 @@ void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&
 void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
 {
   cout << "Vertex " << v.id() << " moved from " << v.x() << "," << v.y()
-   << " to ";
+    << " to ";
 
   int xindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
   int yindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
@@ -50,9 +54,11 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
   // direction).
   v.x(v.x() + xs.at(rand() % xs.size()));
   v.y(v.y() + ys.at(rand() % ys.size()));
-  cout << v.x() << "," << v.y() << endl;
 
-  // FIXME Do we leave the map? -> Bounce!
+  if (inSink(v, mm))
+    respawn(v, mm);
+
+  cout << v.x() << "," << v.y() << endl;
 }
 
 GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
@@ -66,5 +72,31 @@ GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
     }
   }
   throw invalid_argument("Vertex Group ID not found.");
+}
+
+bool MoveSimulator::inSink(Vertex& v, GroupDescriptor& gd) const
+{
+  for (size_t i = 0; i < gd.sinks().size(); i++)
+  {
+    Box& sink = gd.sinks().at(i);
+    if (sink.inBox(v.x(), v.y()))
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd) const
+{
+  vector<Box>& sources = gd.sources();
+  if (sources.size() > 0)
+  {
+    int randomSource = rand() % sources.size();
+    Point p;
+    sources.at(randomSource).getPoint(p);
+    v.updateLocation(p);
+  }
+  return true;
 }
 

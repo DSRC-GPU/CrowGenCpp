@@ -35,7 +35,8 @@ int Vertex::x() const
 
 int Vertex::x(int newx)
 {
-  this->xpos = newx;
+  if (newx >= 0)
+    this->xpos = newx;
   return newx;
 }
 
@@ -46,8 +47,15 @@ int Vertex::y() const
 
 int Vertex::y(int newy)
 {
-  this->ypos = newy;
+  if (newy >= 0)
+    this->ypos = newy;
   return newy;
+}
+
+void Vertex::updateLocation(Point& p)
+{
+  x(p.x());
+  y(p.y());
 }
 
 bool Vertex::equal(Vertex other) const

@@ -2,6 +2,8 @@
 #ifndef VERTEX_HPP
 #define VERTEX_HPP
 
+#include "Point.hpp"
+
 /*
  * The Vertex class represents a single node in a crowd.
  */
@@ -21,6 +23,7 @@ class Vertex
     int x(int newx);
     int y() const;
     int y(int newy);
+    void updateLocation(Point&);
     bool equal(Vertex other) const;
 };
 
