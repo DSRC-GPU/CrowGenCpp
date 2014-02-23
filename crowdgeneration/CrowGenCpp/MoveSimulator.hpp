@@ -7,6 +7,7 @@
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
 #include "GroupDescriptor.hpp"
+#include "SimulationWriter.hpp"
 
 using namespace std;
 
@@ -14,6 +15,8 @@ class MoveSimulator
 {
   private:
     CrowdGenerator _cg;
+    SimulationWriter _sw;
+    bool _writeToFile;
 
     GroupDescriptor& getGroupDescriptor(Vertex& v, vector<GroupDescriptor>&)
      const;
@@ -27,6 +30,7 @@ class MoveSimulator
     void initialize(Crowd&, vector<GroupDescriptor>&) const;
     void doTick(Crowd&, vector<GroupDescriptor>&) const;
     void doTick(Crowd&, vector<GroupDescriptor>&, int n) const;
+    void writeToFile(bool);
 };
 
 #endif

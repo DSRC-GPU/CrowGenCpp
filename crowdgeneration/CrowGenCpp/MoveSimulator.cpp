@@ -22,6 +22,9 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm) const
   {
     this->updateLocation(c.at(i), mm);
   }
+
+  if (_writeToFile)
+    _sw.writeOut(c);
 }
 
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n) const
@@ -98,5 +101,10 @@ bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd) const
     v.updateLocation(p);
   }
   return true;
+}
+
+void MoveSimulator::writeToFile(bool val)
+{
+  _writeToFile = val;
 }
 
