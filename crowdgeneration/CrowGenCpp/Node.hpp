@@ -5,16 +5,16 @@
 #include "Point.hpp"
 
 /*
- * The Vertex class represents a single node in a crowd.
+ * The Node class represents a single node in a crowd.
  */
-class Vertex
+class Node
 {
   private:
     int _id, _gid;
     int xpos, ypos;
 
   public:
-    Vertex(int);
+    Node(int);
     int id() const;
     int id(int nid);
     int gid() const;
@@ -24,7 +24,7 @@ class Vertex
     int y() const;
     int y(int newy);
     void updateLocation(Point&);
-    bool equal(Vertex other) const;
+    bool equal(Node other) const;
 };
 
 #endif

@@ -1,64 +1,64 @@
 
-#include "Vertex.hpp"
+#include "Node.hpp"
 
-Vertex::Vertex(int vid): xpos(0), ypos(0)
+Node::Node(int vid): xpos(0), ypos(0)
 {
   this->_id = vid;
 }
 
-int Vertex::id() const
+int Node::id() const
 {
   return _id;
 }
 
-int Vertex::id(int nid)
+int Node::id(int nid)
 {
   _id = nid;
   return _id;
 }
 
-int Vertex::gid() const
+int Node::gid() const
 {
   return _gid;
 }
 
-int Vertex::gid(int ngid)
+int Node::gid(int ngid)
 {
   _gid = ngid;
   return _gid;
 }
 
-int Vertex::x() const
+int Node::x() const
 {
   return xpos;
 }
 
-int Vertex::x(int newx)
+int Node::x(int newx)
 {
   if (newx >= 0)
     this->xpos = newx;
   return newx;
 }
 
-int Vertex::y() const
+int Node::y() const
 {
   return ypos;
 }
 
-int Vertex::y(int newy)
+int Node::y(int newy)
 {
   if (newy >= 0)
     this->ypos = newy;
   return newy;
 }
 
-void Vertex::updateLocation(Point& p)
+void Node::updateLocation(Point& p)
 {
   x(p.x());
   y(p.y());
 }
 
-bool Vertex::equal(Vertex other) const
+bool Node::equal(Node other) const
 {
   return this->_id == other._id;
 }

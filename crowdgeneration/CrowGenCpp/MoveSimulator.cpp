@@ -45,14 +45,14 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
     _sw.wrapUp();
 }
 
-// Update the location of a single Vertex in the Crowd.
-void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&
+// Update the location of a single Node in the Crowd.
+void MoveSimulator::updateLocation(Node& v, vector<GroupDescriptor>&
     descriptors) const
 {
   updateLocation(v, getGroupDescriptor(v, descriptors));
 }
 
-void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
+void MoveSimulator::updateLocation(Node& v, GroupDescriptor& mm) const
 {
   int xindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
   int yindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
@@ -70,8 +70,8 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
     respawn(v, mm);
 }
 
-// Get the GroupDescriptor for the given Vertex, based on the Vertex' GroupID.
-GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
+// Get the GroupDescriptor for the given Node, based on the Node' GroupID.
+GroupDescriptor& MoveSimulator::getGroupDescriptor(Node& v,
     vector<GroupDescriptor>& descriptors) const
 {
   for (int i = 0; i < descriptors.size(); i++)
@@ -81,11 +81,11 @@ GroupDescriptor& MoveSimulator::getGroupDescriptor(Vertex& v,
       return descriptors.at(i);
     }
   }
-  throw invalid_argument("Vertex Group ID not found.");
+  throw invalid_argument("Node Group ID not found.");
 }
 
-// Returns true iff the given Vertex is located in a sink.
-bool MoveSimulator::inSink(Vertex& v, GroupDescriptor& gd) const
+// Returns true iff the given Node is located in a sink.
+bool MoveSimulator::inSink(Node& v, GroupDescriptor& gd) const
 {
   for (size_t i = 0; i < gd.sinks().size(); i++)
   {
@@ -98,10 +98,10 @@ bool MoveSimulator::inSink(Vertex& v, GroupDescriptor& gd) const
   return false;
 }
 
-// Moves the given Vertex to a random point within a random spawn point.
-// Replaces the Vertex' ID with a new one, to simulate one person leaving the
+// Moves the given Node to a random point within a random spawn point.
+// Replaces the Node' ID with a new one, to simulate one person leaving the
 // area, and a new one entering.
-bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd) const
+bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd) const
 {
   vector<Box>& sources = gd.sources();
   if (sources.size() > 0)

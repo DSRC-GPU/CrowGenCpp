@@ -35,7 +35,7 @@ void SimulationWriter::writeOut(Crowd& c)
 
   for (size_t i = 0; i < c.size(); i++)
   {
-    addVertex(currenttick, c.at(i));
+    addNode(currenttick, c.at(i));
   }
 }
 
@@ -44,7 +44,7 @@ void SimulationWriter::wrapUp()
   _doc.SaveFile("simulation_run");
 }
 
-void SimulationWriter::addVertex(XMLElement* currenttick, Vertex& v)
+void SimulationWriter::addNode(XMLElement* currenttick, Node& v)
 {
   // FIXME Implement. 
   XMLElement* vertex = _doc.NewElement("vertex");

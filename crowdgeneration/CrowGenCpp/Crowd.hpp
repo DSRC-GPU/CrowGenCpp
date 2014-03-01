@@ -4,25 +4,25 @@
 
 #include <vector>
 
-#include "Vertex.hpp"
+#include "Node.hpp"
 
 using namespace std;
 
-// The Crowd class is a container that holds all Vertex objects (nodes in the
+// The Crowd class is a container that holds all Node objects (nodes in the
 // crowd).
 class Crowd
 {
   private:
     int _age;
-    vector<Vertex>* vertices;
+    vector<Node>* vertices;
 
   public:
     Crowd();
     int size() const;
-    Vertex& at(int) const;
-    vector<Vertex>& getVertices() const;
-    bool add(Vertex);
-    bool remove(Vertex);
+    Node& at(int) const;
+    vector<Node>& getVertices() const;
+    bool add(Node);
+    bool remove(Node);
     int age() const;
     int age(int);
 };

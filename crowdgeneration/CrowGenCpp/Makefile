@@ -6,7 +6,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic -O3
 CXX     = g++ $(DEBUGDEFS) -g
 
 TARGETS = main 
-OBJECTS = main.o Vertex.o Crowd.o GroupDescriptor.o MapParser.o CrowdGenerator.o\
+OBJECTS = main.o Node.o Crowd.o GroupDescriptor.o MapParser.o CrowdGenerator.o\
  MoveSimulator.o directions.o tinyxml2-master/tinyxml2.o Box.o Point.o\
  SimulationWriter.o
 

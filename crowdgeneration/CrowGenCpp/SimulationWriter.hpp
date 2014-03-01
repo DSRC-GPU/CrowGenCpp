@@ -6,7 +6,7 @@
 
 #include "Crowd.hpp"
 
-#include "Vertex.hpp"
+#include "Node.hpp"
 
 using namespace tinyxml2;
 
@@ -18,7 +18,7 @@ class SimulationWriter
     bool _initialized;
     XMLDocument _doc;
 
-    void addVertex(XMLElement*,Vertex&);
+    void addNode(XMLElement*,Node&);
 
   public:
     SimulationWriter();

@@ -21,12 +21,12 @@ class MoveSimulator
     SimulationWriter _sw;
     bool _writeToFile;
 
-    GroupDescriptor& getGroupDescriptor(Vertex& v, vector<GroupDescriptor>&)
+    GroupDescriptor& getGroupDescriptor(Node& v, vector<GroupDescriptor>&)
      const;
-    void updateLocation(Vertex&, GroupDescriptor&) const;
-    void updateLocation(Vertex&, vector<GroupDescriptor>&) const;
-    bool inSink(Vertex&, GroupDescriptor&) const;
-    bool respawn(Vertex&, GroupDescriptor&) const;
+    void updateLocation(Node&, GroupDescriptor&) const;
+    void updateLocation(Node&, vector<GroupDescriptor>&) const;
+    bool inSink(Node&, GroupDescriptor&) const;
+    bool respawn(Node&, GroupDescriptor&) const;
 
   public:
     MoveSimulator();

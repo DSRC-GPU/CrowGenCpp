@@ -24,7 +24,7 @@ void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd) const
 {
   for (int i = 0; i < gd.population(); i++)
   {
-    Vertex v(i);
+    Node v(i);
     Point p;
     gd.spawn().getPoint(p);
     v.updateLocation(p);

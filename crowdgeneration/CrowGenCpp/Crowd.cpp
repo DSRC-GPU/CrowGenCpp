@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Crowd::Crowd(): _age(0), vertices(new vector<Vertex>())
+Crowd::Crowd(): _age(0), vertices(new vector<Node>())
 {
   // Nothing to do here.
 }
@@ -15,7 +15,7 @@ int Crowd::size() const
   return this->vertices->size();
 }
 
-Vertex& Crowd::at(int i) const
+Node& Crowd::at(int i) const
 {
   if (i < this->vertices->size())
   {
@@ -24,18 +24,18 @@ Vertex& Crowd::at(int i) const
   exit(EXIT_FAILURE);
 }
 
-vector<Vertex>& Crowd::getVertices() const
+vector<Node>& Crowd::getVertices() const
 {
   return *this->vertices;
 }
 
-bool Crowd::add(Vertex v)
+bool Crowd::add(Node v)
 {
   this->vertices->push_back(v);
   return true;
 }
 
-bool Crowd::remove(Vertex v)
+bool Crowd::remove(Node v)
 {
   for (size_t i = 0; i < size(); i++)
   {

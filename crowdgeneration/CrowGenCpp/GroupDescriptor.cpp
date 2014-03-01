@@ -16,7 +16,7 @@ GroupDescriptor::GroupDescriptor(): _gid(0)
 {
 }
 
-// Finds the direction number (0 - 9) for the Vertex on the given position.
+// Finds the direction number (0 - 9) for the Node on the given position.
 int GroupDescriptor::getCrowdDirection(int x, int y) const
 {
   int col = calcCharCol(x);

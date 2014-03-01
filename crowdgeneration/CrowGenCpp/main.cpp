@@ -8,7 +8,7 @@
 #include "GroupDescriptor.hpp"
 #include "MoveSimulator.hpp"
 #include "MapParser.hpp"
-#include "Vertex.hpp"
+#include "Node.hpp"
 
 using namespace std;
 
