@@ -1,6 +1,6 @@
 
-#ifndef VERTEX_HPP
-#define VERTEX_HPP
+#ifndef NODE_HPP
+#define NODE_HPP
 
 #include "Point.hpp"
 

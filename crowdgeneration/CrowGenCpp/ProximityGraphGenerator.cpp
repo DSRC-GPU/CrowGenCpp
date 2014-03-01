@@ -1,6 +1,11 @@
 
 #include "ProximityGraphGenerator.hpp"
 
+ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0)
+{
+  // Nothing to do here.
+}
+
 void ProximityGraphGenerator::setFalseNegative(double p)
 {
   if (0 <= p && p <= 1)

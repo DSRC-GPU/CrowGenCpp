@@ -15,6 +15,8 @@ class ProximityGraphGenerator
     double _falseNeg, _falsePos;
 
   public:
+    ProximityGraphGenerator();
+
     // Set the rate at which a node experiences a false negative (should detect
     // an edge, but doesn't). Range = [0,1]
     void setFalseNegative(double);
