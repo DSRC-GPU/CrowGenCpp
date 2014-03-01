@@ -27,7 +27,7 @@ void ProximityGraphGenerator::setFalsePositive(double p)
 void ProximityGraphGenerator::parseCrowd(string filename)
 {
   CrowdParser cp;
-  cp.parseFile(filename, simulationrun);
+  cp.parseFile(filename, *simulationrun);
 }
 
 // The createGraph analyses the double Vertex vector and translates this into a
@@ -48,14 +48,15 @@ void ProximityGraphGenerator::createGraph()
 // exists.
 void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
-  for (size_t i = 0; i < vertices.size(); i++)
+  for (size_t i = 0; i < vertices->size(); i++)
   {
     // FIXME Update vertex lifetime.
-    for (size_t j = 0; j < vertices.size(); j++)
+    for (size_t j = 0; j < vertices->size(); j++)
     {
-      Vertex& s = vertices.at(i);
-      Vertex& t = vertices.at(j);
-      if (t.id() > s.id() && s.closeTo(t))
+      Vertex& s = vertices->at(i);
+      Vertex& t = vertices->at(j);
+      // TODO Allow 5 as an external parameter.
+      if (t.id() > s.id() && s.location().closeTo(t.location(), 5))
       {
          updateEdge(s, t, ticknum);
       }
@@ -90,6 +91,6 @@ void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
 void ProximityGraphGenerator::writeGraph() const
 {
   GraphWriter gw;
-  gw.writeFile();
+  gw.writeGraph(*vertices, *edges);
 }
 

@@ -64,3 +64,9 @@ void Vertex::location(Point p)
 {
   _p = p;
 }
+
+bool Vertex::operator==(Vertex& v) const
+{
+  // FIXME Check if this gives weird behaviour.
+  return _id == v.id();
+}

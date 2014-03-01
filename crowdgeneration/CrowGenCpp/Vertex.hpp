@@ -26,6 +26,7 @@ class Vertex
     int end(int);
     Point& location();
     void location(Point);
+    bool operator==(Vertex&) const;
 };
 
 #endif

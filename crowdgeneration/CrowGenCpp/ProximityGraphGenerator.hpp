@@ -3,10 +3,10 @@
 #define PROXIMITYGRAPHGENERATOR_HPP
 
 #include <string>
-#include <unordered_map>
+#include <vector>
 
 #include "Vertex.hpp"
-#include "Point.hpp"
+#include "Edge.hpp"
 
 using namespace std;
 
@@ -20,6 +20,9 @@ class ProximityGraphGenerator
     vector<vector<Vertex>>* simulationrun;
     vector<Vertex>* vertices;
     vector<Edge>* edges;
+
+    void graphUpdate(int);
+    void updateEdge(Vertex&, Vertex&, int);
 
   public:
     ProximityGraphGenerator();

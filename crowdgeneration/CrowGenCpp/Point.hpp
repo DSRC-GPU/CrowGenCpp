@@ -15,6 +15,7 @@ class Point
     int x(int);
     int y() const;
     int y(int);
+    bool closeTo(Point&, int) const;
 };
 
 #endif

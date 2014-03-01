@@ -1,6 +1,8 @@
 
 #include "Point.hpp"
 
+#include <cstdlib>
+
 Point::Point(): _x(0), _y(0)
 {
 
@@ -32,4 +34,9 @@ int Point::y(int ny)
 {
   _y = ny;
   return _y;
+}
+
+bool Point::closeTo(Point& other, int max) const
+{
+  return abs(_x - other.x()) + abs(_y - other.y()) <= max;
 }
