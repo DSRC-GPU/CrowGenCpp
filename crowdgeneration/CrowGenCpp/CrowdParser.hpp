@@ -3,7 +3,7 @@
 #define CROWDPARSER_HPP
 
 #include <string>
-#include <unordered_map>
+#include <vector>
 
 #include "Vertex.hpp"
 #include "Point.hpp"
@@ -14,7 +14,7 @@ class CrowdParser
 {
   public:
     CrowdParser();
-    void parseFile(string filename, unordered_map<Vertex, Point>&) const;
+    void parseFile(string filename, vector<vector<Vertex>>&) const;
 };
 
 #endif

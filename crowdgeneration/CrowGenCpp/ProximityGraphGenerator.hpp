@@ -17,7 +17,9 @@ class ProximityGraphGenerator
 {
   private:
     double _falseNeg, _falsePos;
-    unordered_map<Vertex, Point>* vertices;
+    unordered_map<Vertex, Point>* vertexmap;
+    vector<Vertex>* vertices;
+    vector<Edge>* edges;
 
   public:
     ProximityGraphGenerator();
