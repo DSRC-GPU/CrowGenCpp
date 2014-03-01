@@ -3,12 +3,14 @@
 
 void ProximityGraphGenerator::setFalseNegative(double p)
 {
-  // FIXME set p.
+  if (0 <= p && p <= 1)
+    _falseNeg = p;
 }
 
 void ProximityGraphGenerator::setFalsePositive(double p)
 {
-  // FIXME set p.
+  if (0 <= p && p <= 1)
+    _falsePos = p;
 }
 
 void ProximityGraphGenerator::parseCrowd(string filename)

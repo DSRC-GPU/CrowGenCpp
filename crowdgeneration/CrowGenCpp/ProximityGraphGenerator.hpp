@@ -12,7 +12,7 @@ using namespace std;
 class ProximityGraphGenerator
 {
   private:
-    double falseNeg, falsePos;
+    double _falseNeg, _falsePos;
 
   public:
     // Set the rate at which a node experiences a false negative (should detect
