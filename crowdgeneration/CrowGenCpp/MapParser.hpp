@@ -23,7 +23,7 @@ class MapParser
 
   public:
     MapParser();
-    MapParser(const char*);
+    MapParser(string);
     bool setMapFile(const char*);
     void parse(vector<GroupDescriptor>&) const;
 };

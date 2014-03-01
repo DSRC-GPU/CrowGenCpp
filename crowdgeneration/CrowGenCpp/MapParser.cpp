@@ -10,9 +10,9 @@ MapParser::MapParser(): mapFileName("")
   // Nothing to do here.
 }
 
-MapParser::MapParser(const char* filename)
+MapParser::MapParser(string filename)
 {
-  this->mapFileName = filename;
+  this->mapFileName = filename.c_str();
 }
 
 bool MapParser::setMapFile(const char* filename)

@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
@@ -13,47 +14,19 @@ using namespace std;
 
 int main()
 {
-  cout << "Vertex test" << endl;
+  string input = "testmap.xml";
 
-  Vertex v(0);
-  
-  cout << v.x() << endl;
-  v.x(5);
-  cout << v.x() << endl;
-
-  cout << "Crowd test" << endl;
-
-  Crowd c;
-
-  cout << c.size() << endl;
-  c.add(v);
-  cout << c.size() << endl;
-  c.remove(v);
-  cout << c.size() << endl;
-
-  cout << "MapParser test" << endl;
-
-  MapParser parser("testmap.xml");
+  MapParser parser(input);
   vector<GroupDescriptor> descriptors;
-  cout << descriptors.size() << endl;
   parser.parse(descriptors);
-  cout << descriptors.size() << endl;
-
-  cout << descriptors.at(0).charmap();
-
-  cout << "CrowdGenerator test" << endl;
-
-  CrowdGenerator cg; 
-
-  cout << c.size() << endl;
-  cg.populate(c, descriptors);
-  cout << c.size() << endl;
 
   cout << "MoveSimulator test" << endl;
 
   MoveSimulator ms;
+  Crowd c;
 
   ms.writeToFile(true);
+  ms.initialize(c, descriptors);
   ms.doTick(c, descriptors, 100);
 
   return 0;
