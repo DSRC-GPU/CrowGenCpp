@@ -46,7 +46,6 @@ void SimulationWriter::wrapUp()
 
 void SimulationWriter::addNode(XMLElement* currenttick, Node& v)
 {
-  // FIXME Implement. 
   XMLElement* vertex = _doc.NewElement("vertex");
   XMLElement* position = _doc.NewElement("position");
 
