@@ -1,6 +1,8 @@
 
 #include "GraphWriter.hpp"
 
+#include <iostream>
+
 GraphWriter::GraphWriter()
 {
 }
@@ -65,7 +67,7 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
 void GraphWriter::writeEdges(vector<Edge>& edges) 
 {
   XMLElement* edgesxml = _doc.FirstChildElement("gexf")->FirstChildElement("graph")
-    ->FirstChildElement("nodes");
+    ->FirstChildElement("edges");
 
   for (size_t i = 0; i < edges.size(); i++)
   {
@@ -81,7 +83,7 @@ void GraphWriter::writeEdges(vector<Edge>& edges)
     edge->SetAttribute("id", e.id().c_str());
     edge->SetAttribute("source", e.source().id());
     edge->SetAttribute("target", e.target().id());
-    edge->SetAttribute("target", e.type().c_str());
+    edge->SetAttribute("type", e.type().c_str());
 
     spell->SetAttribute("start", e.start());
     spell->SetAttribute("end", e.end());

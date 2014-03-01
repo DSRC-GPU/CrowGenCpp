@@ -4,6 +4,8 @@
 #include "CrowdParser.hpp"
 #include "GraphWriter.hpp"
 
+#include <iostream>
+
 // TODO Make a destructor...
 ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0)
 {
@@ -73,8 +75,8 @@ void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
     if (s == v)
     {
       v.end(ticknum);
-    }
     return;
+    }
   }
   vertices->push_back(s);
 }

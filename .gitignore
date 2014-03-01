@@ -36,3 +36,6 @@
 # Java
 *.jar
 *.class
+
+# Graphs
+*.gexf

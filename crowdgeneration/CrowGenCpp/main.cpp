@@ -4,18 +4,20 @@
 #include <string>
 
 #include "Crowd.hpp"
-#include "CrowdGenerator.hpp"
 #include "GroupDescriptor.hpp"
 #include "MoveSimulator.hpp"
 #include "MapParser.hpp"
-#include "Node.hpp"
+#include "ProximityGraphGenerator.hpp"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-  string input = "testmap.xml";
+  string map_description_file = "testmap.xml";
+  // TODO Allow as parameter input.
+  string simulation_run_file = "simulation_run";
   int numTicks = 100;
+  bool _makeGraph = false;
 
   // Parsing inputs.
   for(size_t i = 1; i < argc; i++)
@@ -26,11 +28,15 @@ int main(int argc, char* argv[])
     }
     else if (!strcmp(argv[i], "-m"))
     {
-      input = argv[++i];
+      map_description_file = argv[++i];
+    }
+    else if (!strcmp(argv[i], "-g"))
+    {
+      _makeGraph = true;
     }
   }
 
-  MapParser parser(input);
+  MapParser parser(map_description_file);
   vector<GroupDescriptor> descriptors;
   parser.parse(descriptors);
 
@@ -49,6 +55,15 @@ int main(int argc, char* argv[])
   ms.doTick(c, descriptors, numTicks);
 
   cout << "done!" << endl;
+
+  if (_makeGraph)
+  {
+    // We process movement xml to gexf graph.
+    ProximityGraphGenerator pgg;
+    pgg.parseCrowd(simulation_run_file);
+    pgg.createGraph();
+    pgg.writeGraph();
+  }
 
   return 0;
 }

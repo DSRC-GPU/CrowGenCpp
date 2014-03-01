@@ -2,6 +2,7 @@
 #include "CrowdParser.hpp"
 
 #include <cstdlib>
+#include <iostream>
 
 CrowdParser::CrowdParser()
 {
@@ -25,15 +26,14 @@ void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
 void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
     XMLElement* tick)
 {
-  int ticknum = atoi(tick->Attribute("ticknum"));
+  int ticknum = atoi(tick->Attribute("num"));
   XMLElement* vertex = tick->FirstChildElement("vertex");
   vector<Vertex> currentVector;
-  simulation.push_back(currentVector);
 
   while (vertex)
   {
     int id = atoi(vertex->Attribute("id"));
-    int label = atoi(vertex->Attribute("label"));
+    int label = atoi(vertex->Attribute("gid"));
     XMLElement* position = vertex->FirstChildElement("position");
     int x = atoi(position->Attribute("x"));
     int y = atoi(position->Attribute("y"));
@@ -42,8 +42,11 @@ void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
     v.end(ticknum);
     Point p(x,y);
     v.location(p);
+    currentVector.push_back(v);
 
     vertex = vertex->NextSiblingElement("vertex");
   }
+
+  simulation.push_back(currentVector);
 }
 
