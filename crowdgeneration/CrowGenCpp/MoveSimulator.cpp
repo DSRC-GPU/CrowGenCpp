@@ -54,9 +54,6 @@ void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&
 
 void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
 {
-  cout << "Vertex " << v.id() << " moved from " << v.x() << "," << v.y()
-    << " to ";
-
   int xindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
   int yindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
 
@@ -71,8 +68,6 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm) const
 
   if (inSink(v, mm))
     respawn(v, mm);
-
-  cout << v.x() << "," << v.y() << endl;
 }
 
 // Get the GroupDescriptor for the given Vertex, based on the Vertex' GroupID.

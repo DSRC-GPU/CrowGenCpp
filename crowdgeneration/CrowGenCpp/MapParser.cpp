@@ -32,7 +32,7 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
     .FirstChildElement("crowd")->FirstChildElement(nodename);
   if (!gdxml)
   {
-    cout << "Error in map file." << endl;
+    cerr << "Error in map file." << endl;
     exit(EXIT_FAILURE);
   }
 
@@ -47,7 +47,6 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
     gd.rows(atoi(gdxml->FirstChildElement("map")->Attribute("rows")));
     gd.cols(atoi(gdxml->FirstChildElement("map")->Attribute("cols")));
     gd.charmap(gdxml->FirstChildElement("map")->GetText());
-    cout << gd.charmap() << endl;
     vec.push_back(gd);
 
     gdxml = gdxml->NextSiblingElement(nodename);

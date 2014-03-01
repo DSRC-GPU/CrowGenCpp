@@ -30,7 +30,6 @@ void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd) const
     v.updateLocation(p);
     v.gid(gd.gid());
     c.add(v);
-    cout << "Added " << v.id() << " at " << v.x() << "," << v.y() << endl;
   }
 }
 
