@@ -4,9 +4,7 @@
 
 #include "Point.hpp"
 
-/*
- * The Node class represents a single node in a crowd.
- */
+// The Node class represents a single node in a crowd.
 class Node
 {
   private:

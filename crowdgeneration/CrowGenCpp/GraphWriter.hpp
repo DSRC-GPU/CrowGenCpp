@@ -11,6 +11,11 @@ using namespace std;
 
 class GraphWriter
 {
+  private:
+    void writeBasics() const;
+    void writeVertices(vector<Vertex>&) const;
+    void writeEdges(vector<Edge>&) const;
+
   public:
     GraphWriter();
     void writeGraph(vector<Vertex>&, vector<Edge>&) const;

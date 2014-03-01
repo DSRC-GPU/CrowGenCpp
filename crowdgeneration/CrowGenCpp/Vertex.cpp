@@ -54,3 +54,13 @@ int Vertex::end(int nend)
   _end = nend;
   return _end;
 }
+
+Point& Vertex::location()
+{
+  return _p;
+}
+
+void Vertex::location(Point p)
+{
+  _p = p;
+}

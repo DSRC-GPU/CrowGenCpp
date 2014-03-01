@@ -50,6 +50,7 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
   for (size_t i = 0; i < vertices.size(); i++)
   {
+    // FIXME Update vertex lifetime.
     for (size_t j = 0; j < vertices.size(); j++)
     {
       Vertex& s = vertices.at(i);
