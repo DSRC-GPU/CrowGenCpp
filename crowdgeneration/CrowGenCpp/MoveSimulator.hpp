@@ -20,17 +20,18 @@ class MoveSimulator
     CrowdGenerator _cg;
     SimulationWriter _sw;
     bool _writeToFile;
+    int _lastNodeId;
 
     GroupDescriptor& getGroupDescriptor(Node& v, vector<GroupDescriptor>&)
      const;
-    void updateLocation(Node&, GroupDescriptor&) const;
-    void updateLocation(Node&, vector<GroupDescriptor>&) const;
+    void updateLocation(Node&, GroupDescriptor&);
+    void updateLocation(Node&, vector<GroupDescriptor>&);
     bool inSink(Node&, GroupDescriptor&) const;
-    bool respawn(Node&, GroupDescriptor&) const;
+    bool respawn(Node&, GroupDescriptor&);
 
   public:
     MoveSimulator();
-    void initialize(Crowd&, vector<GroupDescriptor>&) const;
+    void initialize(Crowd&, vector<GroupDescriptor>&);
     void doTick(Crowd&, vector<GroupDescriptor>&);
     void doTick(Crowd&, vector<GroupDescriptor>&, int n);
     void writeToFile(bool);

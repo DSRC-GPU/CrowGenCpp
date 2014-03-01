@@ -6,15 +6,16 @@
 #include "MoveSimulator.hpp"
 #include "directions.hpp"
 
-MoveSimulator::MoveSimulator()
+MoveSimulator::MoveSimulator(): _lastNodeId(0)
 {
   // Nothing to do here.
 }
 
 // Use the CrowdGenerator to fill the Crowd with vertices.
-void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds) const
+void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds)
 {
   _cg.populate(c, gds);
+  _lastNodeId = c.size();
 }
 
 // Simulate a single tick on the given Crowd.
@@ -47,12 +48,12 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
 
 // Update the location of a single Node in the Crowd.
 void MoveSimulator::updateLocation(Node& v, vector<GroupDescriptor>&
-    descriptors) const
+    descriptors) 
 {
   updateLocation(v, getGroupDescriptor(v, descriptors));
 }
 
-void MoveSimulator::updateLocation(Node& v, GroupDescriptor& mm) const
+void MoveSimulator::updateLocation(Node& v, GroupDescriptor& mm)
 {
   int xindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
   int yindex = mm.getCrowdDirection(v.x(), v.y()) - 1;
@@ -101,15 +102,15 @@ bool MoveSimulator::inSink(Node& v, GroupDescriptor& gd) const
 // Moves the given Node to a random point within a random spawn point.
 // Replaces the Node' ID with a new one, to simulate one person leaving the
 // area, and a new one entering.
-bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd) const
+bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd)
 {
   vector<Box>& sources = gd.sources();
   if (sources.size() > 0)
   {
-    // FIXME Give vertex a new ID, to simulate new person entering the area.
     int randomSource = rand() % sources.size();
     Point p;
     sources.at(randomSource).getPoint(p);
+    v.id(_lastNodeId++);
     v.updateLocation(p);
   }
   return true;

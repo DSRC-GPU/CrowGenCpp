@@ -48,20 +48,35 @@ void ProximityGraphGenerator::createGraph()
 // exists.
 void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
-  for (size_t i = 0; i < vertices->size(); i++)
+  vector<Vertex>& tickvertices = simulationrun->at(ticknum);
+  for (size_t i = 0; i < tickvertices.size(); i++)
   {
-    // FIXME Update vertex lifetime.
-    for (size_t j = 0; j < vertices->size(); j++)
+    Vertex& s = tickvertices.at(i);
+    updateVertex(s, ticknum);
+    for (size_t j = 0; j < tickvertices.size(); j++)
     {
-      Vertex& s = vertices->at(i);
-      Vertex& t = vertices->at(j);
+      Vertex& t = tickvertices.at(j);
       // TODO Allow 5 as an external parameter.
       if (t.id() > s.id() && s.location().closeTo(t.location(), 5))
       {
-         updateEdge(s, t, ticknum);
+        updateEdge(s, t, ticknum);
       }
     }
   }
+}
+
+void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
+{
+  for (size_t i = 0; i < vertices->size(); i++)
+  {
+    Vertex& v = vertices->at(i);
+    if (s == v)
+    {
+      v.end(ticknum);
+    }
+    return;
+  }
+  vertices->push_back(s);
 }
 
 // The updateEdge checks if there is an edge between to two given Vertices that

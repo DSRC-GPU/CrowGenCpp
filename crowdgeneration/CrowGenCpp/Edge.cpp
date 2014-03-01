@@ -4,7 +4,7 @@
 Edge::Edge(Vertex& nsource, Vertex& ntarget): _source(nsource), _target(ntarget),
   _start(0), _end(0), _type("undirected")
 {
-  _id = ""; // FIXME generate id.
+  _id = to_string(rand()); // TODO Ensure uniqueness.
 }
 
 string Edge::id() const

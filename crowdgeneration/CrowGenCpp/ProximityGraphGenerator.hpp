@@ -23,6 +23,7 @@ class ProximityGraphGenerator
 
     void graphUpdate(int);
     void updateEdge(Vertex&, Vertex&, int);
+    void updateVertex(Vertex, int);
 
   public:
     ProximityGraphGenerator();
