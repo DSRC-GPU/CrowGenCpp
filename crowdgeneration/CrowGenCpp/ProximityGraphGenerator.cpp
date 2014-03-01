@@ -1,9 +1,12 @@
 
 #include "ProximityGraphGenerator.hpp"
 
+#include "CrowdParser.hpp"
+#include "GraphWriter.hpp"
+
 ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0)
 {
-  // Nothing to do here.
+  vertices = new unordered_map<Vertex, Point>();
 }
 
 void ProximityGraphGenerator::setFalseNegative(double p)
@@ -20,10 +23,18 @@ void ProximityGraphGenerator::setFalsePositive(double p)
 
 void ProximityGraphGenerator::parseCrowd(string filename)
 {
-  // FIXME parse input file
+  CrowdParser cp;
+  cp.parseFile(filename, vertices);
 }
 
-void ProximityGraphGenerator::createGraph() const
+void ProximityGraphGenerator::createGraph()
 {
-  // FIXME Write output graph.
+  // FIXME Create graph based on parsed data.
 }
+
+void ProximityGraphGenerator::writeGraph() const
+{
+  GraphWriter gw;
+  gw.writeFile();
+}
+

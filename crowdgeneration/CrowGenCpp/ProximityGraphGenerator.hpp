@@ -3,6 +3,10 @@
 #define PROXIMITYGRAPHGENERATOR_HPP
 
 #include <string>
+#include <unordered_map>
+
+#include "Vertex.hpp"
+#include "Point.hpp"
 
 using namespace std;
 
@@ -13,6 +17,7 @@ class ProximityGraphGenerator
 {
   private:
     double _falseNeg, _falsePos;
+    unordered_map<Vertex, Point>* vertices;
 
   public:
     ProximityGraphGenerator();
@@ -29,9 +34,11 @@ class ProximityGraphGenerator
     // Read the xml-crowd file and puts everything in memory.
     void parseCrowd(string);
 
-    // Create a proximity graph based on the parsed xml-crowd file and write it
-    // to some ouput.
-    void createGraph() const;
+    // Create a proximity graph based on the parsed xml-crowd file.
+    void createGraph();
+
+    // Write graph data to some output.
+    void writeGraph() const;
 };
 
 
