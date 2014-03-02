@@ -58,8 +58,8 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
     for (size_t j = 0; j < tickvertices.size(); j++)
     {
       Vertex& t = tickvertices.at(j);
-      // TODO Allow 5 as an external parameter.
-      if (t.id() > s.id() && s.location().closeTo(t.location(), 5))
+      // TODO Allow distance as an external parameter.
+      if (t.id() > s.id() && s.location().closeTo(t.location(), 50))
       {
         updateEdge(s, t, ticknum);
       }

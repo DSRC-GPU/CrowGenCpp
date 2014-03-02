@@ -25,8 +25,15 @@ int GroupDescriptor::getCrowdDirection(int x, int y) const
   int offset = col + (_cols + 1) * row; 
   char dir = _charmap[offset];
   int res = dir - '0';
-  if (res < 0 && res > 9)
+  if (res < 0 || res > 9)
+  {
+    cout << "Position: (" << x << "," << y << ")" << endl;
+    cout << "Cols: " << _cols << " Rows: " << _rows << endl;
+    cout << "Col: " << col << " Row: " << row << endl;
+    cout << "Offset: " << offset << endl;
+    cout << "Char: [" << dir << "]" << endl;
     throw out_of_range("Read character was not an ascii-number.");
+  }
   return res;
 }
 

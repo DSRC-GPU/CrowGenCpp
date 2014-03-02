@@ -39,6 +39,7 @@ void MapParser::parse(vector<GroupDescriptor>& vec) const
   while (gdxml)
   {
     GroupDescriptor gd;
+    gd.gid(atoi(gdxml->Attribute("gid")));
     gd.population(atoi(gdxml->FirstChildElement("population")->GetText()));
     parseSources(gd, gdxml);
     parseSinks(gd, gdxml);

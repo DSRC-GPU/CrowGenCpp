@@ -38,6 +38,14 @@ void GraphWriter::writeBasics()
   graph->InsertEndChild(edges);
   creator->InsertEndChild(creatorText);
   description->InsertEndChild(descriptionText);
+
+  gexf->SetAttribute("xmlns", "http://www.gexf.net/1.2draft");
+  gexf->SetAttribute("version", "1.2");
+
+  graph->SetAttribute("defaultedgetype","undirected");
+  graph->SetAttribute("idtype","string");
+  graph->SetAttribute("mode","dynamic");
+  graph->SetAttribute("timeformat","integer");
 }
 
 void GraphWriter::writeVertices(vector<Vertex>& vertices) 

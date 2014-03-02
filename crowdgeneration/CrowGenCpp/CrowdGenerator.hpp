@@ -9,7 +9,8 @@
 class CrowdGenerator
 {
   private:
-    void populate(Crowd&, GroupDescriptor&) const;
+    void populate(Crowd&, GroupDescriptor&);
+    int _lastid;
 
   public:
     CrowdGenerator();
@@ -17,7 +18,7 @@ class CrowdGenerator
     // Generates vertices and places them randomly in the given crowd. The
     // number of vertices generated is equal to the population specified in the
     // given GroupDescriptor.
-    void populate(Crowd&, vector<GroupDescriptor>&) const;
+    void populate(Crowd&, vector<GroupDescriptor>&);
 };
 
 #endif

@@ -7,12 +7,12 @@
 
 using namespace std;
 
-CrowdGenerator::CrowdGenerator()
+CrowdGenerator::CrowdGenerator(): _lastid(0)
 {
   // Nothing to do here.
 }
 
-void CrowdGenerator::populate(Crowd& c, vector<GroupDescriptor>& gds) const
+void CrowdGenerator::populate(Crowd& c, vector<GroupDescriptor>& gds)
 {
   for (int i = 0; i < gds.size(); i++)
   {
@@ -20,11 +20,11 @@ void CrowdGenerator::populate(Crowd& c, vector<GroupDescriptor>& gds) const
   }
 }
 
-void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd) const
+void CrowdGenerator::populate(Crowd& c, GroupDescriptor& gd)
 {
   for (int i = 0; i < gd.population(); i++)
   {
-    Node v(i);
+    Node v(_lastid++);
     Point p;
     gd.spawn().getPoint(p);
     v.updateLocation(p);
