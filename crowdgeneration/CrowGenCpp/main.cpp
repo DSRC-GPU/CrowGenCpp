@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 
   ms.initialize(c, descriptors);
 
-  cout << "Simulating...";
+  cout << "Simulating..." << flush;
 
   ms.doTick(c, descriptors, numTicks);
 
@@ -58,11 +58,15 @@ int main(int argc, char* argv[])
 
   if (_makeGraph)
   {
+    cout << "Creating gexf graph..." << flush;
+
     // We process movement xml to gexf graph.
     ProximityGraphGenerator pgg;
     pgg.parseCrowd(simulation_run_file);
     pgg.createGraph();
     pgg.writeGraph();
+
+    cout << "done!" << endl;
   }
 
   return 0;

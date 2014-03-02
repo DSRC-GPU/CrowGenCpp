@@ -25,6 +25,10 @@ class ProximityGraphGenerator
     void updateEdge(Vertex&, Vertex&, int);
     void updateVertex(Vertex, int);
 
+    bool falsePositive() const;
+    bool falseNegative() const;
+    bool falseData(double) const;
+
   public:
     ProximityGraphGenerator();
 

@@ -61,6 +61,13 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
       // TODO Allow distance as an external parameter.
       if (t.id() > s.id() && s.location().closeTo(t.location(), 50))
       {
+        // Allow false negatives, based on the _falseNeg value.
+        if (falseNegative()) continue;
+        updateEdge(s, t, ticknum);
+      }
+      else if (falsePositive())
+      {
+        // Allow false positives, based on the _falsePos value.
         updateEdge(s, t, ticknum);
       }
     }
@@ -111,3 +118,20 @@ void ProximityGraphGenerator::writeGraph() const
   gw.writeGraph(*vertices, *edges);
 }
 
+bool ProximityGraphGenerator::falseNegative() const
+{
+  return falseData(_falseNeg);
+}
+
+bool ProximityGraphGenerator::falsePositive() const
+{
+  return falseData(_falsePos);
+}
+
+bool ProximityGraphGenerator::falseData(double prob) const
+{
+  double roll = rand() % 100;
+  double bar = prob * 100;
+  bool res = roll < bar ? true : false;
+  return res;
+}
