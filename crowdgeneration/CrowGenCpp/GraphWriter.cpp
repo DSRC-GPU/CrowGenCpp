@@ -40,6 +40,7 @@ void GraphWriter::writeBasics()
   description->InsertEndChild(descriptionText);
 
   gexf->SetAttribute("xmlns", "http://www.gexf.net/1.2draft");
+  gexf->SetAttribute("xmlns:viz", "http://www.gexf.net/1.2draft/viz");
   gexf->SetAttribute("version", "1.2");
 
   graph->SetAttribute("defaultedgetype","undirected");
@@ -59,13 +60,18 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
     XMLElement* node = _doc.NewElement("node");
     XMLElement* spells = _doc.NewElement("spells");
     XMLElement* spell = _doc.NewElement("spell");
+    XMLElement* viz_position = _doc.NewElement("viz:position");
 
     nodes->InsertEndChild(node);
     node->InsertEndChild(spells);
+    node->InsertEndChild(viz_position);
     spells->InsertEndChild(spell);
 
     node->SetAttribute("id", v.id());
     node->SetAttribute("label", v.label());
+
+    viz_position->SetAttribute("x", v.location().x());
+    viz_position->SetAttribute("y", v.location().y());
 
     spell->SetAttribute("start", v.start());
     spell->SetAttribute("end", v.end());

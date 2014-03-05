@@ -82,7 +82,7 @@ void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
     if (s == v)
     {
       v.end(ticknum);
-    return;
+      return;
     }
   }
   vertices->push_back(s);
