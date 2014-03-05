@@ -9,7 +9,7 @@ TARGETS = main
 OBJECTS = main.o Node.o Crowd.o GroupDescriptor.o MapParser.o CrowdGenerator.o\
  MoveSimulator.o directions.o tinyxml2-master/tinyxml2.o Box.o Point.o\
  SimulationWriter.o Vertex.o Edge.o CrowdParser.o GraphWriter.o\
- ProximityGraphGenerator.o
+ ProximityGraphGenerator.o MoveVisualizer.o
 
 
 # ----- Make Rules -----
