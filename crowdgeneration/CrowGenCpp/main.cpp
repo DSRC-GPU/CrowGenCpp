@@ -63,7 +63,8 @@ int main(int argc, char* argv[])
     // We process movement xml to gexf graph.
     ProximityGraphGenerator pgg;
     pgg.parseCrowd(simulation_run_file);
-    pgg.createGraph();
+    // Allow boolean as input parameter.
+    pgg.createGraph(false);
     pgg.writeGraph();
 
     cout << "done!" << endl;

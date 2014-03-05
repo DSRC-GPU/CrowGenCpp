@@ -21,7 +21,7 @@ class ProximityGraphGenerator
     vector<Vertex>* vertices;
     vector<Edge>* edges;
 
-    void graphUpdate(int);
+    void graphUpdate(int, bool);
     void updateEdge(Vertex&, Vertex&, int);
     void updateVertex(Vertex, int);
 
@@ -45,7 +45,7 @@ class ProximityGraphGenerator
     void parseCrowd(string);
 
     // Create a proximity graph based on the parsed xml-crowd file.
-    void createGraph();
+    void createGraph(bool);
 
     // Write graph data to some output.
     void writeGraph() const;

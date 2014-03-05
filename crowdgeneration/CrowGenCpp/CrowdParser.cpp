@@ -4,11 +4,11 @@
 #include <cstdlib>
 #include <iostream>
 
-CrowdParser::CrowdParser()
+CrowdParser::CrowdParser(): _uniqueNum(0)
 {
 }
 
-void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
+void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation, bool keepPosition)
 {
   XMLDocument doc;
   doc.LoadFile(filename.c_str());
@@ -18,13 +18,13 @@ void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
 
   while (tick)
   {
-    updateVertices(simulation, tick);
+    updateVertices(simulation, tick, keepPosition);
     tick = tick->NextSiblingElement("tick");
   }
 }
 
 void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
-    XMLElement* tick)
+    XMLElement* tick, bool keepPosition)
 {
   int ticknum = atoi(tick->Attribute("num"));
   XMLElement* vertex = tick->FirstChildElement("vertex");
@@ -32,7 +32,12 @@ void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
 
   while (vertex)
   {
-    int id = atoi(vertex->Attribute("id"));
+    int id = 0;
+    if (keepPosition)
+      id = rand();
+    else
+      id = atoi(vertex->Attribute("id"));
+
     int label = atoi(vertex->Attribute("gid"));
     XMLElement* position = vertex->FirstChildElement("position");
     int x = atoi(position->Attribute("x"));

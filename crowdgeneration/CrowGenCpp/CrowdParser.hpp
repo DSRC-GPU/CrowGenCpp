@@ -15,11 +15,13 @@ using namespace std;
 class CrowdParser
 {
   private:
-    void updateVertices(vector<vector<Vertex>>&, XMLElement*);
+    int _uniqueNum;
+
+    void updateVertices(vector<vector<Vertex>>&, XMLElement*, bool);
 
   public:
     CrowdParser();
-    void parseFile(string filename, vector<vector<Vertex>>&);
+    void parseFile(string filename, vector<vector<Vertex>>&, bool);
 };
 
 #endif

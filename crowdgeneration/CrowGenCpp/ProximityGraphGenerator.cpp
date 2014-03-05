@@ -29,18 +29,19 @@ void ProximityGraphGenerator::setFalsePositive(double p)
 void ProximityGraphGenerator::parseCrowd(string filename)
 {
   CrowdParser cp;
-  cp.parseFile(filename, *simulationrun);
+  // TODO Allow bool as input parameter.
+  cp.parseFile(filename, *simulationrun, true);
 }
 
 // The createGraph analyses the double Vertex vector and translates this into a
 // vector of Vertex and Edge objects that will be used to create the gexf
 // proximity graph.
-void ProximityGraphGenerator::createGraph()
+void ProximityGraphGenerator::createGraph(bool makeEdges)
 {
   // TODO Implement in a more efficient way, or find another job.
   for (size_t i = 0; i < simulationrun->size(); i++)
   {
-    graphUpdate(i);
+    graphUpdate(i, makeEdges);
   }
 }
 
@@ -48,27 +49,30 @@ void ProximityGraphGenerator::createGraph()
 // other Vertex. If it finds this is true, it will either update the lifetime of
 // the existing edge between the two Vertices, or create a new one if none
 // exists.
-void ProximityGraphGenerator::graphUpdate(int ticknum)
+void ProximityGraphGenerator::graphUpdate(int ticknum, bool makeEdges)
 {
   vector<Vertex>& tickvertices = simulationrun->at(ticknum);
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
     Vertex& s = tickvertices.at(i);
     updateVertex(s, ticknum);
-    for (size_t j = 0; j < tickvertices.size(); j++)
+    if (makeEdges)
     {
-      Vertex& t = tickvertices.at(j);
-      // TODO Allow distance as an external parameter.
-      if (t.id() > s.id() && s.location().closeTo(t.location(), 50))
+      for (size_t j = 0; j < tickvertices.size(); j++)
       {
-        // Allow false negatives, based on the _falseNeg value.
-        if (falseNegative()) continue;
-        updateEdge(s, t, ticknum);
-      }
-      else if (falsePositive())
-      {
-        // Allow false positives, based on the _falsePos value.
-        updateEdge(s, t, ticknum);
+        Vertex& t = tickvertices.at(j);
+        // TODO Allow distance as an external parameter.
+        if (t.id() > s.id() && s.location().closeTo(t.location(), 50))
+        {
+          // Allow false negatives, based on the _falseNeg value.
+          if (falseNegative()) continue;
+          updateEdge(s, t, ticknum);
+        }
+        else if (falsePositive())
+        {
+          // Allow false positives, based on the _falsePos value.
+          updateEdge(s, t, ticknum);
+        }
       }
     }
   }
