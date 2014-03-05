@@ -1,0 +1,14 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<path id="thepath" fill="none" stroke="#000000"
+d="M 10 10 50 50 100 1 2 60"/>
+</defs>
+<circle r="15" cx="15" cy="15" fill="slategrey">
+<animateMotion dur="3s" repeatCount="indefinite">
+<mpath xlink:href="#thepath"/>
+</animateMotion>
+</circle>
+</svg>
+
