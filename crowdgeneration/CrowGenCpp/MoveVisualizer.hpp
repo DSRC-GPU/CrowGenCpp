@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 #include "tinyxml2-master/tinyxml2.h"
 #include "Vertex.hpp"
@@ -16,9 +17,11 @@ using namespace tinyxml2;
 class MoveVisualizer
 {
   private:
+    set<int> _addedVertices;
     XMLDocument _doc;
+    XMLElement* findPathNode(int);
     void writeBasics();
-    void updateVertex(Vertex v);
+    void updateVertex(Vertex, int);
     void flush();
 
   public:
