@@ -3,6 +3,7 @@
 
 #include "CrowdParser.hpp"
 #include "GraphWriter.hpp"
+#include "MoveVisualizer.hpp"
 
 #include <iostream>
 
@@ -30,6 +31,10 @@ void ProximityGraphGenerator::parseCrowd(string filename)
 {
   CrowdParser cp;
   cp.parseFile(filename, *simulationrun);
+
+  // TODO Place this somewhere else
+  MoveVisualizer mv;
+  mv.visualize(*simulationrun, "sim.svg");
 }
 
 // The createGraph analyses the double Vertex vector and translates this into a

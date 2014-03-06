@@ -22,7 +22,7 @@ class MoveVisualizer
     XMLElement* findPathNode(int);
     void writeBasics();
     void updateVertex(Vertex, int);
-    void flush();
+    void flush(string);
 
   public:
     MoveVisualizer();

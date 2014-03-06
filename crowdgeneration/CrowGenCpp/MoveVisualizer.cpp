@@ -18,7 +18,7 @@ void MoveVisualizer::visualize(vector<vector<Vertex>>& simulation, string fout)
     }
   }
 
-  flush();
+  flush(fout);
 }
 
 void MoveVisualizer::writeBasics()
@@ -78,11 +78,21 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
 
 XMLElement* MoveVisualizer::findPathNode(int vid)
 {
-  // FIXME Implement.
+  XMLElement* xml_defs = _doc.FirstChildElement("svg")->FirstChildElement("defs");
+
+  XMLElement* xml_path = xml_defs->FirstChildElement("path");
+
+  while (xml_path)
+  {
+    if (xml_path->Attribute("id", ("p" + to_string(vid)).c_str()))
+        return xml_path;
+
+    xml_path = xml_path->NextSiblingElement("path");
+  }
   return NULL;
 }
 
-void MoveVisualizer::flush()
+void MoveVisualizer::flush(string fout)
 {
-  // FIXME Implement.
+  _doc.SaveFile(fout.c_str());
 }
