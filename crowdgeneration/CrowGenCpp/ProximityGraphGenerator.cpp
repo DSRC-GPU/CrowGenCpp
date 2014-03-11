@@ -34,6 +34,7 @@ void ProximityGraphGenerator::parseCrowd(string filename)
 
   // TODO Place this somewhere else
   MoveVisualizer mv;
+  // TODO Make output filename a program parameter.
   mv.visualize(*simulationrun, "sim.svg");
 }
 
