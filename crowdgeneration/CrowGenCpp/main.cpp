@@ -15,14 +15,13 @@ int main(int argc, char* argv[])
 {
   unsigned int u_argc = argc;
 
-  string map_description_file = "testmap.xml";
-  // TODO Allow as parameter input.
-  string simulation_run_file = "simulation_run";
+  string map_description_file = "";
+  string simulation_run_file = "default_sim_run.out";
   int numTicks = 100;
   bool _makeGraph = false;
 
   // Parsing inputs.
-  for(size_t i = 1; i < u_argc; i++)
+  for (size_t i = 1; i < u_argc; i++)
   {
     if (!strcmp(argv[i], "-t"))
     {
@@ -36,6 +35,21 @@ int main(int argc, char* argv[])
     {
       _makeGraph = true;
     }
+    else if (!strcmp(argv[i], "-m"))
+    {
+      map_description_file = argv[++i];
+    }
+    else if (!strcmp(argv[i], "-s"))
+    {
+      simulation_run_file = argv[++i];
+    }
+  }
+
+  // Checking inputs
+  if (map_description_file.compare("") == 0)
+  {
+    cout << "No input map specified. Use the -m parameter." << endl;
+    exit(EXIT_FAILURE);
   }
 
   MapParser parser(map_description_file);
