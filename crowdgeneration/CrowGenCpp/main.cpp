@@ -16,7 +16,8 @@ int main(int argc, char* argv[])
   unsigned int u_argc = argc;
 
   string map_description_file = "";
-  string simulation_run_file = "default_sim_run.out";
+  string simulation_run_file = "default_sim_out.xml";
+  string gexf_graph_output = "default_graph_out.gexf";
   int numTicks = 100;
   bool _makeGraph = false;
 
@@ -31,7 +32,7 @@ int main(int argc, char* argv[])
     {
       map_description_file = argv[++i];
     }
-    else if (!strcmp(argv[i], "-g"))
+    else if (!strcmp(argv[i], "-G"))
     {
       _makeGraph = true;
     }
@@ -42,6 +43,10 @@ int main(int argc, char* argv[])
     else if (!strcmp(argv[i], "-s"))
     {
       simulation_run_file = argv[++i];
+    }
+    else if (!strcmp(argv[i], "-g"))
+    {
+      gexf_graph_output = argv[++i];
     }
   }
 
@@ -80,7 +85,7 @@ int main(int argc, char* argv[])
     ProximityGraphGenerator pgg;
     pgg.parseCrowd(simulation_run_file);
     pgg.createGraph();
-    pgg.writeGraph();
+    pgg.writeGraph(gexf_graph_output);
 
     cout << "done!" << endl;
   }

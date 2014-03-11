@@ -48,7 +48,7 @@ class ProximityGraphGenerator
     void createGraph();
 
     // Write graph data to some output.
-    void writeGraph() const;
+    void writeGraph(string) const;
 };
 
 

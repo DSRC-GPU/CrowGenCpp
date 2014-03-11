@@ -7,13 +7,14 @@ GraphWriter::GraphWriter()
 {
 }
 
-void GraphWriter::writeGraph(vector<Vertex>& vertices, vector<Edge>& edges)
+void GraphWriter::writeGraph(vector<Vertex>& vertices, vector<Edge>& edges,
+    string fout)
 {
   writeBasics();
   writeVertices(vertices);
   writeEdges(edges);
 
-  flush();
+  flush(fout);
 }
 
 void GraphWriter::writeBasics() 
@@ -104,7 +105,7 @@ void GraphWriter::writeEdges(vector<Edge>& edges)
   }
 }
 
-void GraphWriter::flush()
+void GraphWriter::flush(string fout)
 {
-  _doc.SaveFile("out.gexf");
+  _doc.SaveFile(fout.c_str());
 }

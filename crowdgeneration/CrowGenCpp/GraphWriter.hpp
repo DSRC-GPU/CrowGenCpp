@@ -3,6 +3,7 @@
 #define GRAPHWRITER_HPP
 
 #include <vector>
+#include <string>
 
 #include "Vertex.hpp"
 #include "Edge.hpp"
@@ -19,11 +20,11 @@ class GraphWriter
     void writeBasics() ;
     void writeVertices(vector<Vertex>&) ;
     void writeEdges(vector<Edge>&) ;
-    void flush();
+    void flush(string);
 
   public:
     GraphWriter();
-    void writeGraph(vector<Vertex>&, vector<Edge>&) ;
+    void writeGraph(vector<Vertex>&, vector<Edge>&, string);
 };
 
 #endif

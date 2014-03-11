@@ -117,10 +117,10 @@ void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
   edges->push_back(ne);
 }
 
-void ProximityGraphGenerator::writeGraph() const
+void ProximityGraphGenerator::writeGraph(string fout) const
 {
   GraphWriter gw;
-  gw.writeGraph(*vertices, *edges);
+  gw.writeGraph(*vertices, *edges, fout);
 }
 
 bool ProximityGraphGenerator::falseNegative() const
