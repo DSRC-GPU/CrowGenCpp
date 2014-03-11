@@ -10,12 +10,12 @@ Crowd::Crowd(): _age(0), vertices(new vector<Node>())
   // Nothing to do here.
 }
 
-int Crowd::size() const
+unsigned int Crowd::size() const
 {
   return this->vertices->size();
 }
 
-Node& Crowd::at(int i) const
+Node& Crowd::at(unsigned int i) const
 {
   if (i < this->vertices->size())
   {

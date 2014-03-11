@@ -18,8 +18,8 @@ class Crowd
 
   public:
     Crowd();
-    int size() const;
-    Node& at(int) const;
+    unsigned int size() const;
+    Node& at(unsigned int) const;
     vector<Node>& getVertices() const;
     bool add(Node);
     bool remove(Node);

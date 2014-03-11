@@ -14,7 +14,7 @@ CrowdGenerator::CrowdGenerator(): _lastid(0)
 
 void CrowdGenerator::populate(Crowd& c, vector<GroupDescriptor>& gds)
 {
-  for (int i = 0; i < gds.size(); i++)
+  for (unsigned int i = 0; i < gds.size(); i++)
   {
     populate(c, gds.at(i));
   }

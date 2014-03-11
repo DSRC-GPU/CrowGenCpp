@@ -21,7 +21,7 @@ void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds)
 // Simulate a single tick on the given Crowd.
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
-  for (int i = 0; i < c.size(); i++)
+  for (unsigned int i = 0; i < c.size(); i++)
   {
     this->updateLocation(c.at(i), mm);
   }
@@ -75,7 +75,7 @@ void MoveSimulator::updateLocation(Node& v, GroupDescriptor& mm)
 GroupDescriptor& MoveSimulator::getGroupDescriptor(Node& v,
     vector<GroupDescriptor>& descriptors) const
 {
-  for (int i = 0; i < descriptors.size(); i++)
+  for (unsigned int i = 0; i < descriptors.size(); i++)
   {
     if (descriptors.at(i).gid() == v.gid())
     {
