@@ -25,11 +25,19 @@ bool MapParser::setMapFile(const char* filename)
 void MapParser::parse(vector<GroupDescriptor>& vec) const
 {
   XMLDocument doc;
-  doc.LoadFile(mapFileName);
+  int err = doc.LoadFile(mapFileName);
+  if (err != XML_NO_ERROR)
+  {
+    cout << "Error loading file: " << mapFileName << " " << err << endl;
+    cout << doc.GetErrorStr1() << endl;
+    cout << doc.GetErrorStr2() << endl;
+    exit(EXIT_FAILURE);
+  }
   const char* nodename = "groupdescriptor";
 
   const XMLElement *gdxml = doc
     .FirstChildElement("crowd")->FirstChildElement(nodename);
+
   if (!gdxml)
   {
     cerr << "Error in map file." << endl;

@@ -24,7 +24,7 @@ class SimulationWriter
     SimulationWriter();
     void initialize();
     void writeOut(Crowd&);
-    void wrapUp(string);
+    void wrapUp(string, unsigned int, unsigned int);
 };
 
 #endif

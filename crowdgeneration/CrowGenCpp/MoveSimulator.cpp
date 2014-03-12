@@ -7,7 +7,7 @@
 #include "directions.hpp"
 
 MoveSimulator::MoveSimulator():
-  _lastNodeId(0)
+  _lastNodeId(0), _maxx(0), _maxy(0)
 {
   // Nothing to do here.
 }
@@ -22,9 +22,15 @@ void MoveSimulator::initialize(Crowd& c, vector<GroupDescriptor>& gds)
 // Simulate a single tick on the given Crowd.
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
-  for (unsigned int i = 0; i < c.size(); i++)
+  for (size_t i = 0; i < c.size(); i++)
   {
     this->updateLocation(c.at(i), mm);
+  }
+
+  for (size_t i = 0; i < mm.size(); i++)
+  {
+    _maxx = max(_maxx, mm.at(i).width());
+    _maxy = max(_maxy, mm.at(i).height());
   }
 
   c.age(c.age() + 1);
@@ -45,7 +51,7 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n,
   }
 
   if (_writeToFile)
-    _sw.wrapUp(fout);
+    _sw.wrapUp(fout, _maxx, _maxy);
 }
 
 // Update the location of a single Node in the Crowd.

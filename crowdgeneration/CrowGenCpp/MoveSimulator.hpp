@@ -21,6 +21,7 @@ class MoveSimulator
     SimulationWriter _sw;
     bool _writeToFile;
     int _lastNodeId;
+    int _maxx, _maxy;
 
     GroupDescriptor& getGroupDescriptor(Node& v, vector<GroupDescriptor>&)
      const;

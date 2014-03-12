@@ -40,8 +40,10 @@ void SimulationWriter::writeOut(Crowd& c)
   }
 }
 
-void SimulationWriter::wrapUp(string fout)
+void SimulationWriter::wrapUp(string fout, unsigned int maxx, unsigned int maxy)
 {
+  _doc.FirstChildElement("simulation")->SetAttribute("width", maxx);
+  _doc.FirstChildElement("simulation")->SetAttribute("height",maxy);
   _doc.SaveFile(fout.c_str());
 }
 

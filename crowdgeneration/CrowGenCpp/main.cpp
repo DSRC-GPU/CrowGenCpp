@@ -62,7 +62,6 @@ int main(int argc, char* argv[])
   vector<GroupDescriptor> descriptors;
   parser.parse(descriptors);
 
-
   MoveSimulator ms;
   Crowd c;
 
