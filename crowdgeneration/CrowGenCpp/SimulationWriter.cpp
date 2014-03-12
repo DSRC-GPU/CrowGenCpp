@@ -20,6 +20,7 @@ void SimulationWriter::initialize()
 
     _doc.InsertEndChild(rootnode);
     rootnode->InsertEndChild(ticknode);
+
     _initialized = true;
   }
 }
@@ -39,9 +40,9 @@ void SimulationWriter::writeOut(Crowd& c)
   }
 }
 
-void SimulationWriter::wrapUp()
+void SimulationWriter::wrapUp(string fout)
 {
-  _doc.SaveFile("simulation_run");
+  _doc.SaveFile(fout.c_str());
 }
 
 void SimulationWriter::addNode(XMLElement* currenttick, Node& v)

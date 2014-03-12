@@ -33,7 +33,7 @@ class MoveSimulator
     MoveSimulator();
     void initialize(Crowd&, vector<GroupDescriptor>&);
     void doTick(Crowd&, vector<GroupDescriptor>&);
-    void doTick(Crowd&, vector<GroupDescriptor>&, int n);
+    void doTick(Crowd&, vector<GroupDescriptor>&, int, string);
     void writeToFile(bool);
 };
 

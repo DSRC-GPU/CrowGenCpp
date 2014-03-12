@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include "Crowd.hpp"
 #include "GroupDescriptor.hpp"
@@ -73,7 +74,7 @@ int main(int argc, char* argv[])
 
   cout << "Simulating..." << flush;
 
-  ms.doTick(c, descriptors, numTicks);
+  ms.doTick(c, descriptors, numTicks, simulation_run_file);
 
   cout << "done!" << endl;
 

@@ -64,8 +64,7 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
     for (size_t j = 0; j < tickvertices.size(); j++)
     {
       Vertex& t = tickvertices.at(j);
-      // TODO Allow distance as an external parameter.
-      if (t.id() > s.id() && s.location().closeTo(t.location(), 50))
+      if (t.id() > s.id() && s.location().closeTo(t.location(), _closeThreshold))
       {
         // Allow false negatives, based on the _falseNeg value.
         if (falseNegative()) continue;

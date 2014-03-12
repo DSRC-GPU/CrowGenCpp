@@ -2,11 +2,11 @@
 #ifndef SIMULATIONWRITER_HPP
 #define SIMULATIONWRITER_HPP
 
-#include "tinyxml2-master/tinyxml2.h"
+#include <string>
 
 #include "Crowd.hpp"
-
 #include "Node.hpp"
+#include "tinyxml2-master/tinyxml2.h"
 
 using namespace tinyxml2;
 
@@ -24,7 +24,7 @@ class SimulationWriter
     SimulationWriter();
     void initialize();
     void writeOut(Crowd&);
-    void wrapUp();
+    void wrapUp(string);
 };
 
 #endif

@@ -6,7 +6,8 @@
 #include "MoveSimulator.hpp"
 #include "directions.hpp"
 
-MoveSimulator::MoveSimulator(): _lastNodeId(0)
+MoveSimulator::MoveSimulator():
+  _lastNodeId(0)
 {
   // Nothing to do here.
 }
@@ -32,7 +33,8 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
     _sw.writeOut(c);
 }
 
-void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
+void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n,
+    string fout)
 {
   if (_writeToFile)
     _sw.initialize();
@@ -43,7 +45,7 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n)
   }
 
   if (_writeToFile)
-    _sw.wrapUp();
+    _sw.wrapUp(fout);
 }
 
 // Update the location of a single Node in the Crowd.

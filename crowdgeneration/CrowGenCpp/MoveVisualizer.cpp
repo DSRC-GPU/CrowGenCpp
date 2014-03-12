@@ -55,7 +55,7 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
     xml_defs->InsertEndChild(xml_path);
 
     xml_node->SetAttribute("id", v.id());
-    xml_node->SetAttribute("r", "15");
+    xml_node->SetAttribute("r", "5");
     xml_node->SetAttribute("cx", "15");
     xml_node->SetAttribute("cy", "15");
     xml_node->SetAttribute("fill", "slategrey");

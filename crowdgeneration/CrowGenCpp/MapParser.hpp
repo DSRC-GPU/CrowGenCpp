@@ -18,6 +18,7 @@ class MapParser
 {
   private:
     const char* mapFileName;
+
     void parseSources(GroupDescriptor&, const XMLElement*&) const;
     void parseSinks(GroupDescriptor&, const XMLElement*&) const;
 
