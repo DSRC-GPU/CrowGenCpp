@@ -94,3 +94,10 @@ int Box::getRandomY() const
   }
   return res;
 }
+
+bool Box::equal(Box other) const
+{
+  return lx == other.lowerX() && ux == other.upperX()
+    && ly == other.lowerY() && uy == other.upperY();
+}
+

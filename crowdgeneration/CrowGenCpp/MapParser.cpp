@@ -91,7 +91,7 @@ void MapParser::parseSources(GroupDescriptor& gd, const XMLElement*& gdxml) cons
       gd.spawn(sourceBox);
     }
 
-    sourcesxml = sourcesxml->NextSiblingElement(sourcestr);
+    sourcesxml = sourcesxml->NextSiblingElement("source");
   }
 }
 
@@ -108,16 +108,16 @@ void MapParser::parseSinks(GroupDescriptor& gd, const XMLElement*& gdxml) const
     ->FirstChildElement("sink");
   while (sinksxml)
   {
-    Box sourceBox;
+    Box sinkBox;
     const XMLElement* xborder = sinksxml->FirstChildElement(xborderstr);
     const XMLElement* yborder = sinksxml->FirstChildElement(yborderstr);
-    sourceBox.lowerX(atoi(xborder->Attribute(startstr)));
-    sourceBox.upperX(atoi(xborder->Attribute(endstr)));
-    sourceBox.lowerY(atoi(yborder->Attribute(startstr)));
-    sourceBox.upperY(atoi(yborder->Attribute(endstr)));
-    gd.sources().push_back(sourceBox);
+    sinkBox.lowerX(atoi(xborder->Attribute(startstr)));
+    sinkBox.upperX(atoi(xborder->Attribute(endstr)));
+    sinkBox.lowerY(atoi(yborder->Attribute(startstr)));
+    sinkBox.upperY(atoi(yborder->Attribute(endstr)));
+    gd.sinks().push_back(sinkBox);
 
-    sinksxml = sinksxml->NextSiblingElement(sinksstr);
+    sinksxml = sinksxml->NextSiblingElement("sink");
   }
 }
 

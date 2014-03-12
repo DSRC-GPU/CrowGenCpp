@@ -6,9 +6,11 @@
 #include "MoveVisualizer.hpp"
 
 #include <iostream>
+#include <cmath>
 
 // TODO Make a destructor...
-ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0)
+ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0),
+  _fieldWidth(0), _fieldHeight(0)
 {
   simulationrun = new vector<vector<Vertex>>();
   vertices = new vector<Vertex>();
@@ -31,6 +33,19 @@ void ProximityGraphGenerator::parseCrowd(string filename)
 {
   CrowdParser cp;
   cp.parseFile(filename, *simulationrun);
+  _fieldWidth = cp.width();
+  _fieldHeight = cp.height();
+
+  // Calculate the number of squares, and tile the complete area into
+  // _closeThreshold * _closeTheshold tiles. This will help up to determine
+  // which vertices are close to each other, later on.
+  _wsquares = ceil(_fieldWidth/(float)_closeThreshold);
+  _hsquares = ceil(_fieldHeight/(float)_closeThreshold);
+  _squares = new vector<Vertex*>*[_wsquares];
+  for (size_t i = 0; i < _wsquares; i++)
+  {
+    _squares[i] = new vector<Vertex*>[_hsquares];
+  }
 
   // TODO Place this somewhere else
   MoveVisualizer mv;
@@ -56,29 +71,73 @@ void ProximityGraphGenerator::createGraph()
 // exists.
 void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
+  // TODO Explain this crazy method. Hint: we devide the map into tiles and
+  // check for each vertex, the 9 closest tiles, and make edges with all
+  // vertices that are close to us, in these 9 tiles.
   vector<Vertex>& tickvertices = simulationrun->at(ticknum);
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
     Vertex& s = tickvertices.at(i);
-    updateVertex(s, ticknum);
-    for (size_t j = 0; j < tickvertices.size(); j++)
+
+    int v_w_square = max(0, (int) ceil(s.location().x() / (float) _closeThreshold) - 1);
+    int v_h_square = max(0, (int) ceil(s.location().y() / (float) _closeThreshold) - 1);
+
+    _squares[v_w_square][v_h_square].push_back(&s);
+  }
+
+
+  for (size_t i = 0; i < _wsquares; i++)
+  {
+    for (size_t j = 0; j < _hsquares; j++)
     {
-      Vertex& t = tickvertices.at(j);
-      if (t.id() > s.id() && s.location().closeTo(t.location(), _closeThreshold))
+      vector<Vertex*> current_square = _squares[i][j];
+      for (size_t k = 0; k < current_square.size(); k++)
       {
-        // Allow false negatives, based on the _falseNeg value.
-        if (falseNegative()) continue;
-        updateEdge(s, t, ticknum);
+        Vertex* s = current_square.at(k);
+        updateVertex(*s, ticknum);
+
+        for (size_t l = 0; l < 2; l++)
+        {
+          if (i + l >= 0 && i + l < _wsquares)
+          {
+            for (size_t m = 0; m < 2; m++)
+            {
+              if (j + m >= 0 && j + m < _hsquares)
+              {
+                vector<Vertex*> other_square = _squares[i + l][j + m];
+                for (size_t n = 0; n < other_square.size(); n++)
+                {
+                  Vertex* t = other_square.at(n);
+                  if (s->location().closeTo(t->location(), _closeThreshold))
+                  {
+                    // Allow false negatives, based on the _falseNeg value.
+                    if (falseNegative()) continue;
+                    updateEdge(*s, *t, ticknum);
+                  }
+                  else if (falsePositive())
+                  {
+                    // Allow false positives, based on the _falsePos value.
+                    updateEdge(*s, *t, ticknum);
+                  }
+                }
+              } 
+            }
+          }
+        }
       }
-      else if (falsePositive())
-      {
-        // Allow false positives, based on the _falsePos value.
-        updateEdge(s, t, ticknum);
-      }
+    }
+  }
+
+  for (size_t i = 0; i < _wsquares; i++)
+  {
+    for (size_t j = 0; j < _hsquares; j++)
+    {
+      _squares[i][j].clear();
     }
   }
 }
 
+// TODO Be more efficient.
 void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
 {
   for (size_t i = 0; i < vertices->size(); i++)

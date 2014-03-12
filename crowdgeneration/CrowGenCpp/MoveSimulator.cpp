@@ -72,8 +72,15 @@ void MoveSimulator::updateLocation(Node& v, GroupDescriptor& mm)
   // Change the position of the vertex to its current position + a random
   // possible offset selected from the vector of possible offsets (based on its
   // direction).
-  v.x(v.x() + xs.at(rand() % xs.size()));
-  v.y(v.y() + ys.at(rand() % ys.size()));
+  int newx = v.x() + xs.at(rand() % xs.size());
+  int newy = v.y() + ys.at(rand() % ys.size());
+
+  // TODO Keep map boundry records per group, in stead of max.
+  if (0 < newx && newx < _maxx && 0 < newy && newy < _maxy)
+  {
+    v.x(newx);
+    v.y(newy);
+  }
 
   if (inSink(v, mm))
     respawn(v, mm);
@@ -115,10 +122,17 @@ bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd)
   vector<Box>& sources = gd.sources();
   if (sources.size() > 0)
   {
-    int randomSource = rand() % sources.size();
+    int randomSource = -1;
+    while (randomSource < 0)
+    {
+      randomSource = rand() % sources.size();
+      if (sources.at(randomSource).equal(gd.spawn()))
+        randomSource = -1;
+    }
     Point p;
     sources.at(randomSource).getPoint(p);
-    v.id(_lastNodeId++);
+    // FIXME nodes should get new ids.
+    //v.id(_lastNodeId++);
     v.updateLocation(p);
   }
   return true;

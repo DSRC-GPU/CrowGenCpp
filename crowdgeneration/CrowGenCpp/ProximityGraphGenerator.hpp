@@ -18,6 +18,10 @@ class ProximityGraphGenerator
   private:
     // TODO Allow distance as an external parameter.
     const int _closeThreshold = 50;
+    unsigned int _fieldWidth, _fieldHeight;
+    
+    unsigned int _wsquares, _hsquares;
+    vector<Vertex*>** _squares;
 
     double _falseNeg, _falsePos;
     vector<vector<Vertex>>* simulationrun;

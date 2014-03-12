@@ -13,8 +13,11 @@ void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
   XMLDocument doc;
   doc.LoadFile(filename.c_str());
 
-  XMLElement* tick = doc.FirstChildElement("simulation")
-    ->FirstChildElement("ticks")->FirstChildElement("tick");
+  XMLElement* sim = doc.FirstChildElement("simulation");
+  XMLElement* tick = sim->FirstChildElement("ticks")->FirstChildElement("tick");
+
+  _width = stoi(string(sim->Attribute("width")));
+  _height = stoi(string(sim->Attribute("height")));
 
   while (tick)
   {
@@ -48,5 +51,15 @@ void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
   }
 
   simulation.push_back(currentVector);
+}
+
+unsigned int CrowdParser::width() const
+{
+  return _width;
+}
+
+unsigned int CrowdParser::height() const
+{
+  return _height;
 }
 

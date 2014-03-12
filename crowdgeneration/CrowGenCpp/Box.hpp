@@ -32,6 +32,7 @@ class Box
     void getPoint(Point&) const;
     int getRandomX() const;
     int getRandomY() const;
+    bool equal(Box) const;
 };
 
 #endif
