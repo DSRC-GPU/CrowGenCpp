@@ -24,7 +24,8 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
   for (size_t i = 0; i < c.size(); i++)
   {
-    this->updateLocation(c.at(i), mm);
+    if (!c.at(i).dead())
+      this->updateLocation(c.at(i), mm);
   }
 
   for (size_t i = 0; i < mm.size(); i++)
@@ -146,14 +147,12 @@ bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd)
     Point p;
     sources.at(randomSource).getPoint(p);
     Node nv(v);
+    v.dead(true);
     nv.updateLocation(p);
     nv.id(_lastNodeId++);
 
-    // The node that reached the sink is put in the old vertices list, a new
-    // vertex is put in the new vertices list. The old vertices will be removed
-    // from the the crowd, and the new vertices will be added to the crowd. This
-    // happens at the end of the current tick iteration.
-    _oldVertices.push_back(v);
+    // New vertices will be added to a temporary vector, that will be added to
+    // the crowd at the end of the current tick iteration.
     _newVertices.push_back(nv);
   }
   return true;

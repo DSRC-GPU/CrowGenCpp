@@ -55,6 +55,16 @@ int Vertex::end(int nend)
   return _end;
 }
 
+bool Vertex::alive() const
+{
+  return _alive;
+}
+
+void Vertex::alive(bool val)
+{
+  _alive = val;
+}
+
 Point& Vertex::location()
 {
   return _p;

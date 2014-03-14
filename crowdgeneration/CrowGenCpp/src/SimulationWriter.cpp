@@ -54,6 +54,7 @@ void SimulationWriter::addNode(XMLElement* currenttick, Node& v)
 
   vertex->SetAttribute("id", v.id());
   vertex->SetAttribute("gid", v.gid());
+  vertex->SetAttribute("dead", v.dead());
   position->SetAttribute("x", v.x());
   position->SetAttribute("y", v.y());
 
