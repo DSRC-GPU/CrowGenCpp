@@ -32,7 +32,6 @@ xml file with the following data:
 
 To make this more intuitive, have a look at this example file:
 
-  <?xml version="1.0" encoding="UTF-8"?>
   <crowd>
     <groupdescriptor gid="1">
       <population>50</population>
