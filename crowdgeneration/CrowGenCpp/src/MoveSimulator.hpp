@@ -3,10 +3,12 @@
 #define MOVESUMULATOR_HPP
 
 #include <exception>
+#include <vector>
 
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
 #include "GroupDescriptor.hpp"
+#include "Node.hpp"
 #include "SimulationWriter.hpp"
 
 using namespace std;
@@ -19,6 +21,8 @@ class MoveSimulator
   private:
     CrowdGenerator _cg;
     SimulationWriter _sw;
+    vector<Node> _oldVertices;
+    vector<Node> _newVertices;
     bool _writeToFile;
     int _lastNodeId;
     int _maxx, _maxy;

@@ -35,6 +35,20 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 
   c.age(c.age() + 1);
 
+  // Remove all vertices that hit a sink.
+  for (size_t i = 0; i < _oldVertices.size(); i++)
+  {
+    c.remove(_oldVertices.at(i));
+  }
+  _oldVertices.clear();
+
+  // Add new vertices that spawn.
+  for (size_t i = 0; i < _newVertices.size(); i++)
+  {
+    c.add(_newVertices.at(i));
+  }
+  _newVertices.clear();
+
   if (_writeToFile)
     _sw.writeOut(c);
 }
@@ -131,9 +145,16 @@ bool MoveSimulator::respawn(Node& v, GroupDescriptor& gd)
     }
     Point p;
     sources.at(randomSource).getPoint(p);
-    // FIXME nodes should get new ids.
-    //v.id(_lastNodeId++);
-    v.updateLocation(p);
+    Node nv(v);
+    nv.updateLocation(p);
+    nv.id(_lastNodeId++);
+
+    // The node that reached the sink is put in the old vertices list, a new
+    // vertex is put in the new vertices list. The old vertices will be removed
+    // from the the crowd, and the new vertices will be added to the crowd. This
+    // happens at the end of the current tick iteration.
+    _oldVertices.push_back(v);
+    _newVertices.push_back(nv);
   }
   return true;
 }
