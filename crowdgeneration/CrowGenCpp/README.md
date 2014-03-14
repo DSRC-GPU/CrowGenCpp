@@ -19,6 +19,7 @@ xml file with the following data:
 
   - crowd -- root node
     - groupdescriptor -- one for every node
+      - population -- the number of people in this group.
       - sources -- a container for source elements. These specify where people
         from this group should enter the crowd area.
         - source -- one for every area where people from this group can enter
