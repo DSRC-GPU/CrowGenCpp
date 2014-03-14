@@ -1,0 +1,7 @@
+Node.o: Node.cpp /usr/include/stdc-predef.h Node.hpp Point.hpp
+
+/usr/include/stdc-predef.h:
+
+Node.hpp:
+
+Point.hpp:

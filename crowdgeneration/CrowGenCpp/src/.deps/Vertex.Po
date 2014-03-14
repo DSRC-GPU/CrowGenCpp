@@ -1,0 +1,7 @@
+Vertex.o: Vertex.cpp /usr/include/stdc-predef.h Vertex.hpp Point.hpp
+
+/usr/include/stdc-predef.h:
+
+Vertex.hpp:
+
+Point.hpp:
