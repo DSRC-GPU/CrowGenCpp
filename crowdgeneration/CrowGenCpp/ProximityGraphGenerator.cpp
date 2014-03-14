@@ -9,8 +9,8 @@
 #include <cmath>
 
 // TODO Make a destructor...
-ProximityGraphGenerator::ProximityGraphGenerator(): _falseNeg(0), _falsePos(0),
-  _fieldWidth(0), _fieldHeight(0)
+ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeight(0),
+  _falseNeg(0), _falsePos(0)
 {
   simulationrun = new vector<vector<Vertex>>();
   vertices = new vector<Vertex>();
@@ -98,11 +98,11 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
 
         for (size_t l = 0; l < 2; l++)
         {
-          if (i + l >= 0 && i + l < _wsquares)
+          if (i + l < _wsquares)
           {
             for (size_t m = 0; m < 2; m++)
             {
-              if (j + m >= 0 && j + m < _hsquares)
+              if (j + m < _hsquares)
               {
                 vector<Vertex*> other_square = _squares[i + l][j + m];
                 for (size_t n = 0; n < other_square.size(); n++)
