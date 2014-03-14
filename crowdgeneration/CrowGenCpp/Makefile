@@ -20,7 +20,7 @@ main:   $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o main $(OBJECTS) $(SDL)
 
 fast:
-	make -j 8
+	make -j 9
 
 clean:
 	rm -f $(TARGETS) $(OBJECTS)
