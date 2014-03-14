@@ -5,7 +5,7 @@ DEBUGDEFS = -DDEBUG
 CXXFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic -O3
 CXX     = g++ $(DEBUGDEFS) -g
 
-TARGETS = main 
+TARGETS = cgc
 OBJECTS = main.o Node.o Crowd.o GroupDescriptor.o MapParser.o CrowdGenerator.o\
  MoveSimulator.o directions.o tinyxml2-master/tinyxml2.o Box.o Point.o\
  SimulationWriter.o Vertex.o Edge.o CrowdParser.o GraphWriter.o\
@@ -14,10 +14,8 @@ OBJECTS = main.o Node.o Crowd.o GroupDescriptor.o MapParser.o CrowdGenerator.o\
 
 # ----- Make Rules -----
 
-all:    $(TARGETS)
-
-main:   $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o main $(OBJECTS) $(SDL)
+all:   $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(TARGETS) $(OBJECTS) $(SDL)
 
 fast:
 	make -j 9
