@@ -30,6 +30,46 @@ xml file with the following data:
       - map -- this element defines what direction people that belong to this
         group move in.
 
+To make this more intuitive, have a look at this example file:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<crowd>
+  <groupdescriptor gid="1">
+    <population>50</population>
+    <sources>
+      <source type="spawn">
+        <xborder start="0" end="100"></xborder>
+        <yborder start="505" end="605"></yborder>
+      </source>
+    </sources>
+    <sinks>
+    </sinks>
+    <map width="1000" height="1000" rows="4" cols="1">
+      2
+      2
+      6
+      8
+    </map>
+  </groupdescriptor>
+  <groupdescriptor gid="2">
+    <population>50</population>
+    <sources>
+      <source type="spawn">
+        <xborder start="900" end="1000"></xborder>
+        <yborder start="395" end="495"></yborder>
+      </source>
+    </sources>
+    <sinks>
+    </sinks>
+    <map width="1000" height="1000" rows="4" cols="1">
+      2
+      4
+      8
+      8
+    </map>
+  </groupdescriptor>
+</crowd>
+
 ## Visualizing movement simulation
 
 ## Generating proximity graph
