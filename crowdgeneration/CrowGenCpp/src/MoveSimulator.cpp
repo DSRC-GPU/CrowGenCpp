@@ -153,6 +153,7 @@ bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd)
     // New vertices will be added to a temporary vector, that will be added to
     // the crowd at the end of the current tick iteration.
     _newVertices.push_back(nv);
+    _oldVertices.push_back(v);
   }
   return true;
 }

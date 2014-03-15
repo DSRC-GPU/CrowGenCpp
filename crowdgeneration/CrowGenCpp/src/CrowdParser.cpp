@@ -37,6 +37,7 @@ void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
   {
     int id = atoi(vertex->Attribute("id"));
     int label = atoi(vertex->Attribute("gid"));
+    int ntoken = atoi(vertex->Attribute("token"));
     XMLElement* position = vertex->FirstChildElement("position");
     int x = atoi(position->Attribute("x"));
     int y = atoi(position->Attribute("y"));
@@ -45,6 +46,7 @@ void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
     v.end(ticknum);
     Point p(x,y);
     v.location(p);
+    v.token(ntoken);
     currentVector.push_back(v);
 
     vertex = vertex->NextSiblingElement("vertex");

@@ -27,6 +27,7 @@ class Vertex
     int end() const;
     int end(int);
     int token() const;
+    void token(int);
     bool alive() const;
     void alive(bool);
     Point& location();

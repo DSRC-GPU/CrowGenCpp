@@ -54,6 +54,7 @@ void SimulationWriter::addVertex(XMLElement* currenttick, Vertex& v)
 
   vertex->SetAttribute("id", v.id());
   vertex->SetAttribute("gid", v.label());
+  vertex->SetAttribute("token", v.token());
   Point& pos = v.location();
   position->SetAttribute("x", pos.x());
   position->SetAttribute("y", pos.y());

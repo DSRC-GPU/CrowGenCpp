@@ -72,6 +72,11 @@ int Vertex::token() const
   return _token;
 }
 
+void Vertex::token(int ntoken)
+{
+  _token = ntoken;
+}
+
 Point& Vertex::location()
 {
   return _p;

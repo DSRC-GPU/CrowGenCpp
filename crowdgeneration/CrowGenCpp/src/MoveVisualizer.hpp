@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <map>
 
 #include "tinyxml2-master/tinyxml2.h"
 #include "Vertex.hpp"
@@ -18,6 +19,7 @@ class MoveVisualizer
 {
   private:
     set<int> _addedVertices;
+    map<int, int> _tokenMap;
     XMLDocument _doc;
     XMLElement* findPathVertex(int);
     void writeBasics();

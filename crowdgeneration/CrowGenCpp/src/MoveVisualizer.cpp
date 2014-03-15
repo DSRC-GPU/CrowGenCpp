@@ -1,6 +1,8 @@
 
 #include "MoveVisualizer.hpp"
 
+#include <iostream>
+
 MoveVisualizer::MoveVisualizer()
 {
 }
@@ -36,7 +38,7 @@ void MoveVisualizer::writeBasics()
 // TODO clean this up.
 void MoveVisualizer::updateVertex(Vertex v, int numTicks)
 {
-  if (_addedVertices.find(v.id()) == _addedVertices.end())
+  if (_addedVertices.find(v.token()) == _addedVertices.end())
   {
     // Vertex not yet added.
     XMLElement* xml_svg = _doc.FirstChildElement("svg");
@@ -54,38 +56,55 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
 
     xml_defs->InsertEndChild(xml_path);
 
-    xml_node->SetAttribute("id", v.id());
+    xml_node->SetAttribute("id", v.token());
     xml_node->SetAttribute("r", "5");
     xml_node->SetAttribute("cx", "15");
     xml_node->SetAttribute("cy", "15");
     xml_node->SetAttribute("fill", "slategrey");
 
-    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / 100) + "s").c_str());
+    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / 100) + "s")
+        .c_str());
     xml_animateMotion->SetAttribute("repeatCount", "indefinite");
 
-    xml_mpath->SetAttribute("xlink:href", ("#p" + to_string(v.id())).c_str());
+    xml_mpath->SetAttribute("xlink:href", ("#p" + to_string(v.token())).c_str());
 
-    xml_path->SetAttribute("id", ("p" + to_string(v.id())).c_str());
+    xml_path->SetAttribute("id", ("p" + to_string(v.token())).c_str());
     xml_path->SetAttribute("d", "M");
 
-    _addedVertices.insert(v.id());
+    // TODO Remove id's from set when vertex is removed (hit a sink).
+    _addedVertices.insert(v.token());
+    _tokenMap[v.token()] = v.id();
   }
 
-  XMLElement* xml_path = findPathVertex(v.id());
-  xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
-      + " " + to_string(v.location().x()) + " " + to_string(v.location().y())).c_str());
+  XMLElement* xml_path = findPathVertex(v.token());
+  // Checking if this vertex has respawned.
+  switch (_tokenMap[v.token()] == v.id())
+  {
+    case false:
+      // Yes, we should jump it to a spawn.
+      cout << v.id() << "," << v.token() << endl;
+      _tokenMap[v.token()] = v.id();
+      xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
+            + " M").c_str());
+    case true:
+      // We continue our path.
+      xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
+            + " " + to_string(v.location().x()) + " "
+            + to_string(v.location().y())).c_str());
+  }
 }
 
-XMLElement* MoveVisualizer::findPathVertex(int vid)
+XMLElement* MoveVisualizer::findPathVertex(int vtoken)
 {
-  XMLElement* xml_defs = _doc.FirstChildElement("svg")->FirstChildElement("defs");
+  XMLElement* xml_defs = _doc.FirstChildElement("svg")
+   ->FirstChildElement("defs");
 
   XMLElement* xml_path = xml_defs->FirstChildElement("path");
 
   while (xml_path)
   {
-    if (xml_path->Attribute("id", ("p" + to_string(vid)).c_str()))
-        return xml_path;
+    if (xml_path->Attribute("id", ("p" + to_string(vtoken)).c_str()))
+      return xml_path;
 
     xml_path = xml_path->NextSiblingElement("path");
   }
