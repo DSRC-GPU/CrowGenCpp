@@ -71,12 +71,12 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
     _addedVertices.insert(v.id());
   }
 
-  XMLElement* xml_path = findPathNode(v.id());
+  XMLElement* xml_path = findPathVertex(v.id());
   xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
       + " " + to_string(v.location().x()) + " " + to_string(v.location().y())).c_str());
 }
 
-XMLElement* MoveVisualizer::findPathNode(int vid)
+XMLElement* MoveVisualizer::findPathVertex(int vid)
 {
   XMLElement* xml_defs = _doc.FirstChildElement("svg")->FirstChildElement("defs");
 

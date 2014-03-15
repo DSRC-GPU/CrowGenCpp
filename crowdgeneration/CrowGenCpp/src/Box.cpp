@@ -67,6 +67,11 @@ bool Box::inBox(int x, int y) const
   return lx <= x && x <= ux && ly <= y && y <= uy;
 }
 
+bool Box::inBox(Point& p) const
+{
+  return inBox(p.x(), p.y());
+}
+
 void Box::getPoint(Point& p) const
 {
   p.x(getRandomX());

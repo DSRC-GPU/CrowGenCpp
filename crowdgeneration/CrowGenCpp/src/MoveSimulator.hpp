@@ -8,7 +8,7 @@
 #include "Crowd.hpp"
 #include "CrowdGenerator.hpp"
 #include "GroupDescriptor.hpp"
-#include "Node.hpp"
+#include "Vertex.hpp"
 #include "SimulationWriter.hpp"
 
 using namespace std;
@@ -21,18 +21,18 @@ class MoveSimulator
   private:
     CrowdGenerator _cg;
     SimulationWriter _sw;
-    vector<Node> _oldVertices;
-    vector<Node> _newVertices;
+    vector<Vertex> _oldVertices;
+    vector<Vertex> _newVertices;
     bool _writeToFile;
-    int _lastNodeId;
+    int _lastVertexId;
     int _maxx, _maxy;
 
-    GroupDescriptor& getGroupDescriptor(Node& v, vector<GroupDescriptor>&)
+    GroupDescriptor& getGroupDescriptor(Vertex& v, vector<GroupDescriptor>&)
      const;
-    void updateLocation(Node&, GroupDescriptor&);
-    void updateLocation(Node&, vector<GroupDescriptor>&);
-    bool inSink(Node&, GroupDescriptor&) const;
-    bool respawn(Node&, GroupDescriptor&);
+    void updateLocation(Vertex&, GroupDescriptor&);
+    void updateLocation(Vertex&, vector<GroupDescriptor>&);
+    bool inSink(Vertex&, GroupDescriptor&) const;
+    bool respawn(Vertex&, GroupDescriptor&);
 
   public:
     MoveSimulator();

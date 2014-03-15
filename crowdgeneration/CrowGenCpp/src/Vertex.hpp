@@ -15,6 +15,7 @@ class Vertex
 
   public:
     Vertex();
+    Vertex(int);
     Vertex(int, int);
 
     int id() const;

@@ -19,7 +19,7 @@ class MoveVisualizer
   private:
     set<int> _addedVertices;
     XMLDocument _doc;
-    XMLElement* findPathNode(int);
+    XMLElement* findPathVertex(int);
     void writeBasics();
     void updateVertex(Vertex, int);
     void flush(string);

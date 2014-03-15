@@ -1,11 +1,16 @@
 
 #include "Vertex.hpp"
 
-Vertex::Vertex(): _id(0), _label(0), _start(0), _end(0)
+Vertex::Vertex(): _id(0), _label(0), _start(0), _end(0), _alive(true)
 {
 }
 
-Vertex::Vertex(int nid, int nlabel): _start(0), _end(0)
+Vertex::Vertex(int nid): _label(0), _start(0), _end(0), _alive(true)
+{
+  _id = nid;
+}
+
+Vertex::Vertex(int nid, int nlabel): _start(0), _end(0), _alive(true)
 {
   _id = nid;
   _label = nlabel;

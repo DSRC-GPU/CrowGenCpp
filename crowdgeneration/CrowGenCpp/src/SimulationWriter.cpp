@@ -36,7 +36,7 @@ void SimulationWriter::writeOut(Crowd& c)
 
   for (size_t i = 0; i < c.size(); i++)
   {
-    addNode(currenttick, c.at(i));
+    addVertex(currenttick, c.at(i));
   }
 }
 
@@ -47,16 +47,17 @@ void SimulationWriter::wrapUp(string fout, unsigned int maxx, unsigned int maxy)
   _doc.SaveFile(fout.c_str());
 }
 
-void SimulationWriter::addNode(XMLElement* currenttick, Node& v)
+void SimulationWriter::addVertex(XMLElement* currenttick, Vertex& v)
 {
   XMLElement* vertex = _doc.NewElement("vertex");
   XMLElement* position = _doc.NewElement("position");
 
   vertex->SetAttribute("id", v.id());
-  vertex->SetAttribute("gid", v.gid());
-  vertex->SetAttribute("dead", v.dead());
-  position->SetAttribute("x", v.x());
-  position->SetAttribute("y", v.y());
+  vertex->SetAttribute("gid", v.label());
+  vertex->SetAttribute("alive", v.alive());
+  Point& pos = v.location();
+  position->SetAttribute("x", pos.x());
+  position->SetAttribute("y", pos.y());
 
   vertex->InsertEndChild(position);
   currenttick->InsertEndChild(vertex);

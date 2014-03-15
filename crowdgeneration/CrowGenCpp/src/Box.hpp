@@ -27,6 +27,7 @@ class Box
     // Returns true iff the given coordinates are inside the box boundaries or
     // on the box borders.
     bool inBox(int x, int y) const;
+    bool inBox(Point&) const;
     // Calculates a random point within the box boundaries or on the box
     // borders, and writes these coordinates to the given point.
     void getPoint(Point&) const;
