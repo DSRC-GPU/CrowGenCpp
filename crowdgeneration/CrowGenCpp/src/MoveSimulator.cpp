@@ -89,11 +89,11 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
   // possible offset selected from the vector of possible offsets (based on its
   // direction).
   Point npos(v.location());
-  int newx = npos.x() + xs.at(rand() % xs.size());
-  int newy = npos.y() + ys.at(rand() % ys.size());
+  npos.x(npos.x() + xs.at(rand() % xs.size()));
+  npos.y(npos.y() + ys.at(rand() % ys.size()));
 
   // TODO Keep map boundry records per group, in stead of max.
-  if (0 < newx && newx < _maxx && 0 < newy && newy < _maxy)
+  if (0 < npos.x() && npos.x() < _maxx && 0 < npos.y() && npos.y() < _maxy)
   {
     v.location(npos);
   }
