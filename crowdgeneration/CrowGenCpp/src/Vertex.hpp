@@ -10,7 +10,7 @@ class Vertex
   private:
     int _id, _label;
     int _start, _end;
-    bool _alive;
+    int _token;
     Point _p;
 
   public:
@@ -26,6 +26,7 @@ class Vertex
     int start(int);
     int end() const;
     int end(int);
+    int token() const;
     bool alive() const;
     void alive(bool);
     Point& location();

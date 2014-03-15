@@ -1,19 +1,26 @@
 
 #include "Vertex.hpp"
 
-Vertex::Vertex(): _id(0), _label(0), _start(0), _end(0), _alive(true)
+#include <cstdlib>
+
+using namespace std;
+
+Vertex::Vertex(): _id(0), _label(0), _start(0), _end(0)
 {
+  _token = rand();
 }
 
-Vertex::Vertex(int nid): _label(0), _start(0), _end(0), _alive(true)
+Vertex::Vertex(int nid): _label(0), _start(0), _end(0)
 {
   _id = nid;
+  _token = rand();
 }
 
-Vertex::Vertex(int nid, int nlabel): _start(0), _end(0), _alive(true)
+Vertex::Vertex(int nid, int nlabel): _start(0), _end(0)
 {
   _id = nid;
   _label = nlabel;
+  _token = rand();
 }
 
 int Vertex::id() const
@@ -60,14 +67,9 @@ int Vertex::end(int nend)
   return _end;
 }
 
-bool Vertex::alive() const
+int Vertex::token() const
 {
-  return _alive;
-}
-
-void Vertex::alive(bool val)
-{
-  _alive = val;
+  return _token;
 }
 
 Point& Vertex::location()

@@ -24,8 +24,7 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 {
   for (size_t i = 0; i < c.size(); i++)
   {
-    if (c.at(i).alive())
-      this->updateLocation(c.at(i), mm);
+    this->updateLocation(c.at(i), mm);
   }
 
   for (size_t i = 0; i < mm.size(); i++)
@@ -148,7 +147,6 @@ bool MoveSimulator::respawn(Vertex& v, GroupDescriptor& gd)
     Point p;
     sources.at(randomSource).getPoint(p);
     Vertex nv(v);
-    v.alive(false);
     nv.location(p);
     nv.id(_lastVertexId++);
 
