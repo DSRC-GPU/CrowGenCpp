@@ -62,7 +62,7 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
     xml_node->SetAttribute("cy", "15");
     xml_node->SetAttribute("fill", "slategrey");
 
-    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / 100) + "s")
+    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / 50) + "s")
         .c_str());
     xml_animateMotion->SetAttribute("repeatCount", "indefinite");
 
@@ -82,7 +82,6 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
   {
     case false:
       // Yes, we should jump it to a spawn.
-      cout << v.id() << "," << v.token() << endl;
       _tokenMap[v.token()] = v.id();
       xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
             + " M").c_str());
