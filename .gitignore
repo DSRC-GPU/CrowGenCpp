@@ -37,8 +37,8 @@
 *.jar
 *.class
 
-# Graphs
-*.gexf
+# Simulations
+crowdgeneration/CrowGenCpp/simulations/
 
 # Autoconf & Automake
 
