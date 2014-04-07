@@ -17,6 +17,11 @@ ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeig
   edges = new vector<Edge>();
 }
 
+void ProximityGraphGenerator::setDetectionRange(int r)
+{
+  _detectionRange = r;
+}
+
 void ProximityGraphGenerator::setFalseNegative(double p)
 {
   if (0 <= p && p <= 1)
@@ -37,10 +42,10 @@ void ProximityGraphGenerator::parseCrowd(string filename)
   _fieldHeight = cp.height();
 
   // Calculate the number of squares, and tile the complete area into
-  // _closeThreshold * _closeTheshold tiles. This will help up to determine
+  // _detectionRange * _detectionRange tiles. This will help up to determine
   // which vertices are close to each other, later on.
-  _wsquares = ceil(_fieldWidth/(float)_closeThreshold);
-  _hsquares = ceil(_fieldHeight/(float)_closeThreshold);
+  _wsquares = ceil(_fieldWidth/(float)_detectionRange);
+  _hsquares = ceil(_fieldHeight/(float)_detectionRange);
   _squares = new vector<Vertex*>*[_wsquares];
   for (size_t i = 0; i < _wsquares; i++)
   {
@@ -79,8 +84,8 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
   {
     Vertex& s = tickvertices.at(i);
 
-    int v_w_square = max(0, (int) ceil(s.location().x() / (float) _closeThreshold) - 1);
-    int v_h_square = max(0, (int) ceil(s.location().y() / (float) _closeThreshold) - 1);
+    int v_w_square = max(0, (int) ceil(s.location().x() / (float) _detectionRange) - 1);
+    int v_h_square = max(0, (int) ceil(s.location().y() / (float) _detectionRange) - 1);
 
     _squares[v_w_square][v_h_square].push_back(&s);
   }
@@ -108,7 +113,7 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
                 for (size_t n = 0; n < other_square.size(); n++)
                 {
                   Vertex* t = other_square.at(n);
-                  if (s->location().closeTo(t->location(), _closeThreshold))
+                  if (s->location().closeTo(t->location(), _detectionRange))
                   {
                     // Allow false negatives, based on the _falseNeg value.
                     if (falseNegative()) continue;

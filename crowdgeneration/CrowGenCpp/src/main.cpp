@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
   string map_description_file = "";
   string simulation_run_file = "default_sim_out.xml";
   string gexf_graph_output = "default_graph_out.gexf";
+  int detectionRange = 50;
   int numTicks = 100;
   bool _makeGraph = false;
 
@@ -48,6 +49,10 @@ int main(int argc, char* argv[])
     else if (!strcmp(argv[i], "-g"))
     {
       gexf_graph_output = argv[++i];
+    }
+    else if (!strcmp(argv[i], "-r"))
+    {
+      detectionRange = atoi(argv[++i]);
     }
   }
 
@@ -83,6 +88,7 @@ int main(int argc, char* argv[])
 
     // We process movement xml to gexf graph.
     ProximityGraphGenerator pgg;
+    pgg.setDetectionRange(detectionRange);
     pgg.parseCrowd(simulation_run_file);
     pgg.createGraph();
     pgg.writeGraph(gexf_graph_output);

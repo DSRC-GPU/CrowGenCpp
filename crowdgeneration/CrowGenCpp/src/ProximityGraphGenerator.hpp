@@ -16,8 +16,7 @@ using namespace std;
 class ProximityGraphGenerator
 {
   private:
-    // TODO Allow distance as an external parameter.
-    const int _closeThreshold = 50;
+    unsigned int _detectionRange = 50;
     unsigned int _fieldWidth, _fieldHeight;
     
     unsigned int _wsquares, _hsquares;
@@ -38,6 +37,9 @@ class ProximityGraphGenerator
 
   public:
     ProximityGraphGenerator();
+    
+    // Set the detection range between two vertices to create an edge
+    void setDetectionRange(int);
 
     // Set the rate at which a node experiences a false negative (should detect
     // an edge, but doesn't). Range = [0,1]
