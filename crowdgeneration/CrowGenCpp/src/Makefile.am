@@ -6,4 +6,5 @@ cgc_SOURCES = main.cpp Crowd.cpp GroupDescriptor.cpp MapParser.cpp\
   Vertex.cpp Edge.cpp CrowdParser.cpp GraphWriter.cpp\
   ProximityGraphGenerator.cpp MoveVisualizer.cpp
 AUTOMAKE_OPTIONS = subdir-objects
-cgc_CPPFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic
+cgc_LDFLAGS = -fopenmp -lpthread
+cgc_CPPFLAGS = -std=c++11 -Wall -Wextra -Wshadow -pedantic -fopenmp
