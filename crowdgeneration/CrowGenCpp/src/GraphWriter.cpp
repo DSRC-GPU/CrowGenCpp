@@ -10,14 +10,14 @@ GraphWriter::GraphWriter()
 void GraphWriter::writeGraph(vector<Vertex>& vertices, vector<Edge>& edges,
     string fout)
 {
-  writeBasics();
+  writeBasics(vertices.size(), edges.size());
   writeVertices(vertices);
   writeEdges(edges);
 
   flush(fout);
 }
 
-void GraphWriter::writeBasics() 
+void GraphWriter::writeBasics(int numvertices, int numedges) 
 {
   XMLElement* gexf = _doc.NewElement("gexf");
   XMLElement* meta = _doc.NewElement("meta");
@@ -48,6 +48,9 @@ void GraphWriter::writeBasics()
   graph->SetAttribute("idtype","string");
   graph->SetAttribute("mode","dynamic");
   graph->SetAttribute("timeformat","integer");
+
+  nodes->SetAttribute("count", numvertices);
+  edges->SetAttribute("count", numedges);
 }
 
 void GraphWriter::writeVertices(vector<Vertex>& vertices) 

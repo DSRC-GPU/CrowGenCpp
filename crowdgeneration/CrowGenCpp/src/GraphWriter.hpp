@@ -17,7 +17,7 @@ class GraphWriter
   private:
     XMLDocument _doc;
 
-    void writeBasics() ;
+    void writeBasics(int, int) ;
     void writeVertices(vector<Vertex>&) ;
     void writeEdges(vector<Edge>&) ;
     void flush(string);
