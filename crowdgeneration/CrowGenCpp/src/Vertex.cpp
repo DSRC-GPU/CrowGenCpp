@@ -87,6 +87,11 @@ void Vertex::location(Point p)
   _p = p;
 }
 
+bool Vertex::operator<(const Vertex v) const
+{
+  return _id < v.id();
+}
+
 bool Vertex::operator==(Vertex& v) const
 {
   return _id == v.id();

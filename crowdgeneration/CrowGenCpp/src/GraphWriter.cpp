@@ -1,6 +1,7 @@
 
 #include "GraphWriter.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 GraphWriter::GraphWriter()
@@ -57,6 +58,8 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
 {
   XMLElement* nodes = _doc.FirstChildElement("gexf")->FirstChildElement("graph")
     ->FirstChildElement("nodes");
+
+  sort(vertices.begin(), vertices.end());
 
   for (size_t i = 0; i < vertices.size(); i++)
   {

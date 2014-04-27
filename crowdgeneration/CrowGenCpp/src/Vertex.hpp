@@ -32,6 +32,7 @@ class Vertex
     void alive(bool);
     Point& location();
     void location(Point);
+    bool operator<(const Vertex) const;
     bool operator==(Vertex&) const;
 };
 
