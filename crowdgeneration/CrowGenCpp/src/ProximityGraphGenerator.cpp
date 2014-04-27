@@ -117,12 +117,18 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
                   {
                     // Allow false negatives, based on the _falseNeg value.
                     if (falseNegative()) continue;
-                    updateEdge(*s, *t, ticknum);
+                    if (s->id() < t->id())
+                      updateEdge(*s, *t, ticknum);
+                    else
+                      updateEdge(*t, *s, ticknum);
                   }
                   else if (falsePositive())
                   {
                     // Allow false positives, based on the _falsePos value.
-                    updateEdge(*s, *t, ticknum);
+                    if (s->id() < t->id())
+                      updateEdge(*s, *t, ticknum);
+                    else
+                      updateEdge(*t, *s, ticknum);
                   }
                 }
               } 
