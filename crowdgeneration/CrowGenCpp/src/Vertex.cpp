@@ -92,7 +92,13 @@ bool Vertex::operator<(const Vertex v) const
   return _id < v.id();
 }
 
-bool Vertex::operator==(Vertex& v) const
+bool Vertex::operator==(const Vertex& v) const
 {
   return _id == v.id();
 }
+
+bool Vertex::operator!=(const Vertex& v) const
+{
+  return !(*this == v);
+}
+

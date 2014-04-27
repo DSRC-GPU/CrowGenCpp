@@ -113,7 +113,8 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
                 for (size_t n = 0; n < other_square.size(); n++)
                 {
                   Vertex* t = other_square.at(n);
-                  if (s->location().closeTo(t->location(), _detectionRange))
+                  if (s->location().closeTo(t->location(), _detectionRange)
+                      && s != t)
                   {
                     // Allow false negatives, based on the _falseNeg value.
                     if (falseNegative()) continue;
