@@ -1,4 +1,4 @@
 main
 ====
 
-Main work for the DSRC-GPU Project.
+Crowd simulator and GEXF proximity graph generator.
