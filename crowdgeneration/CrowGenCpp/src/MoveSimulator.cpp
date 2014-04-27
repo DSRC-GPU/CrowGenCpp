@@ -35,6 +35,9 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
 
   c.age(c.age() + 1);
 
+  if (_writeToFile)
+    _sw.writeOut(c);
+
   // Remove all vertices that hit a sink.
   for (size_t i = 0; i < _oldVertices.size(); i++)
   {
@@ -48,9 +51,6 @@ void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm)
     c.add(_newVertices.at(i));
   }
   _newVertices.clear();
-
-  if (_writeToFile)
-    _sw.writeOut(c);
 }
 
 void MoveSimulator::doTick(Crowd& c, vector<GroupDescriptor>& mm, int n,
