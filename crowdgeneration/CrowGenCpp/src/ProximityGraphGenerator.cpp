@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <cmath>
+#include <algorithm>
+#include <cassert>
 
 // TODO Make a destructor...
 ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeight(0),
@@ -71,75 +73,34 @@ void ProximityGraphGenerator::createGraph()
 // exists.
 void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
-  // TODO Explain this crazy method. Hint: we devide the map into tiles and
-  // check for each vertex, the 9 closest tiles, and make edges with all
-  // vertices that are close to us, in these 9 tiles.
   vector<Vertex>& tickvertices = simulationrun->at(ticknum);
+  sort(tickvertices.begin(), tickvertices.end());
+
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
-    Vertex& s = tickvertices.at(i);
-
-    int v_w_square = max(0, (int) ceil(s.location().x() / (float) _detectionRange) - 1);
-    int v_h_square = max(0, (int) ceil(s.location().y() / (float) _detectionRange) - 1);
-
-    _squares[v_w_square][v_h_square].push_back(&s);
-  }
-
-
-  for (size_t i = 0; i < _wsquares; i++)
-  {
-    for (size_t j = 0; j < _hsquares; j++)
+    Vertex& a = tickvertices.at(i);
+    updateVertex(a, ticknum);
+    for (size_t j = i + 1; i < tickvertices.size(); j++)
     {
-      vector<Vertex*> current_square = _squares[i][j];
-      for (size_t k = 0; k < current_square.size(); k++)
+      Vertex& b = tickvertices.at(j);
+      if (a.location().closeTo(b.location(), _detectionRange)
+          && a != b)
       {
-        Vertex* s = current_square.at(k);
-        updateVertex(*s, ticknum);
-
-        for (size_t l = 0; l < 2; l++)
-        {
-          if (i + l < _wsquares)
-          {
-            for (size_t m = 0; m < 2; m++)
-            {
-              if (j + m < _hsquares)
-              {
-                vector<Vertex*> other_square = _squares[i + l][j + m];
-                for (size_t n = 0; n < other_square.size(); n++)
-                {
-                  Vertex* t = other_square.at(n);
-                  if (s->location().closeTo(t->location(), _detectionRange)
-                      && s != t)
-                  {
-                    // Allow false negatives, based on the _falseNeg value.
-                    if (falseNegative()) continue;
-                    if (s->id() < t->id())
-                      updateEdge(*s, *t, ticknum);
-                    else
-                      updateEdge(*t, *s, ticknum);
-                  }
-                  else if (falsePositive())
-                  {
-                    // Allow false positives, based on the _falsePos value.
-                    if (s->id() < t->id())
-                      updateEdge(*s, *t, ticknum);
-                    else
-                      updateEdge(*t, *s, ticknum);
-                  }
-                }
-              } 
-            }
-          }
-        }
+        // Allow false negatives, based on the _falseNeg value.
+        if (falseNegative()) continue;
+        if (a.id() < b.id())
+          updateEdge(a, b, ticknum);
+        else
+          updateEdge(b, a, ticknum);
       }
-    }
-  }
-
-  for (size_t i = 0; i < _wsquares; i++)
-  {
-    for (size_t j = 0; j < _hsquares; j++)
-    {
-      _squares[i][j].clear();
+      else if (falsePositive())
+      {
+        // Allow false positives, based on the _falsePos value.
+        if (a.id() < b.id())
+          updateEdge(a, b, ticknum);
+        else
+          updateEdge(b, a, ticknum);
+      }
     }
   }
 }
