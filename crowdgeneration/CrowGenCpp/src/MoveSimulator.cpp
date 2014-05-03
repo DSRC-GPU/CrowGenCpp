@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <iostream>
+#include <cassert>
 
 #include "MoveSimulator.hpp"
 #include "directions.hpp"
@@ -103,7 +104,11 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
 
 int MoveSimulator::getMovementValue(const vector<int>& dirRange)
 {
-  return (rand() % (dirRange.at(1) - dirRange.at(0) + 1)) + dirRange.at(0);
+  assert(dirRange.size() == 2);
+  assert(dirRange.at(0) < dirRange.at(1));
+
+  int rangeSize = dirRange.at(1) - dirRange.at(0) + 1;
+  return (rand() % rangeSize) + dirRange.at(0);
 }
 
 // Get the GroupDescriptor for the given Vertex, based on the Vertex' GroupID.

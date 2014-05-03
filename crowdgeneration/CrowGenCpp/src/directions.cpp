@@ -12,9 +12,9 @@ namespace directions
   const vector<int> DIRS_7_X = { -1, 0 };
   const vector<int> DIRS_8_X = { -1, 1 };
   const vector<int> DIRS_9_X = { 0, 1 };
-  const vector<int> DIRS_1_Y = { 1, 0 };
-  const vector<int> DIRS_2_Y = { 1, 0 };
-  const vector<int> DIRS_3_Y = { 1, 0 };
+  const vector<int> DIRS_1_Y = { 0, 1 };
+  const vector<int> DIRS_2_Y = { 0, 1 };
+  const vector<int> DIRS_3_Y = { 0, 1 };
   const vector<int> DIRS_4_Y = { -1, 1 };
   const vector<int> DIRS_5_Y = { -1, 1 };
   const vector<int> DIRS_6_Y = { -1, 1 };
