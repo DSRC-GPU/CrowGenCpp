@@ -7,16 +7,10 @@
 
 #include <iostream>
 #include <cmath>
-#include <algorithm>
-#include <cassert>
 
-// TODO Make a destructor...
 ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeight(0),
   _falseNeg(0), _falsePos(0)
 {
-  simulationrun = new vector<vector<Vertex>>();
-  vertices = new vector<Vertex>();
-  edges = new vector<Edge>();
 }
 
 void ProximityGraphGenerator::setDetectionRange(int r)
@@ -39,7 +33,7 @@ void ProximityGraphGenerator::setFalsePositive(double p)
 void ProximityGraphGenerator::parseCrowd(string filename)
 {
   CrowdParser cp;
-  cp.parseFile(filename, *simulationrun);
+  cp.parseFile(filename, simulationrun);
   _fieldWidth = cp.width();
   _fieldHeight = cp.height();
 
@@ -61,7 +55,7 @@ void ProximityGraphGenerator::parseCrowd(string filename)
 void ProximityGraphGenerator::createGraph()
 {
   // TODO Implement in a more efficient way, or find another job.
-  for (size_t i = 0; i < simulationrun->size(); i++)
+  for (size_t i = 0; i < simulationrun.size(); i++)
   {
     graphUpdate(i);
   }
@@ -73,8 +67,8 @@ void ProximityGraphGenerator::createGraph()
 // exists.
 void ProximityGraphGenerator::graphUpdate(int ticknum)
 {
-  vector<Vertex>& tickvertices = simulationrun->at(ticknum);
-  sort(tickvertices.begin(), tickvertices.end());
+  vector<Vertex>& tickvertices = simulationrun.at(ticknum);
+  //sort(tickvertices.begin(), tickvertices.end());
 
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
@@ -108,16 +102,16 @@ void ProximityGraphGenerator::graphUpdate(int ticknum)
 // TODO Be more efficient.
 void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
 {
-  for (size_t i = 0; i < vertices->size(); i++)
+  for (size_t i = 0; i < vertices.size(); i++)
   {
-    Vertex& v = vertices->at(i);
+    Vertex& v = vertices.at(i);
     if (s == v)
     {
       v.end(ticknum);
       return;
     }
   }
-  vertices->push_back(s);
+  vertices.push_back(s);
 }
 
 // The updateEdge checks if there is an edge between to two given Vertices that
@@ -126,9 +120,9 @@ void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
 // lifetime of [ticknum, ticknum].
 void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
 {
-  for (size_t i = 0; i < edges->size(); i++)
+  for (size_t i = 0; i < edges.size(); i++)
   {
-    Edge& e = edges->at(i);
+    Edge& e = edges.at(i);
     if (e.source() == s && e.target() == t)
     {
       if (e.end() == ticknum - 1)
@@ -141,21 +135,21 @@ void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
   Edge ne(s, t);
   ne.start(ticknum);
   ne.end(ticknum);
-  edges->push_back(ne);
+  edges.push_back(ne);
 }
 
-void ProximityGraphGenerator::writeGraph(string fout) const
+void ProximityGraphGenerator::writeGraph(string fout)
 {
   GraphWriter gw;
-  gw.writeGraph(*vertices, *edges, fout);
+  gw.writeGraph(vertices, edges, fout);
 }
 
-void ProximityGraphGenerator::createVisualization() const
+void ProximityGraphGenerator::createVisualization()
 {
   // TODO Place this somewhere else
   MoveVisualizer mv;
   // TODO Make output filename a program parameter.
-  mv.visualize(*simulationrun, "sim.svg");
+  mv.visualize(simulationrun, "sim.svg");
 }
 
 bool ProximityGraphGenerator::falseNegative() const

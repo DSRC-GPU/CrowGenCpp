@@ -23,9 +23,9 @@ class ProximityGraphGenerator
     vector<Vertex*>** _squares;
 
     double _falseNeg, _falsePos;
-    vector<vector<Vertex>>* simulationrun;
-    vector<Vertex>* vertices;
-    vector<Edge>* edges;
+    vector<vector<Vertex>> simulationrun;
+    vector<Vertex> vertices;
+    vector<Edge> edges;
 
     void graphUpdate(int);
     void updateEdge(Vertex&, Vertex&, int);
@@ -57,10 +57,10 @@ class ProximityGraphGenerator
     void createGraph();
 
     // Creates a SVG visualization.
-    void createVisualization() const;
+    void createVisualization();
     
     // Write graph data to some output.
-    void writeGraph(string) const;
+    void writeGraph(string);
 };
 
 
