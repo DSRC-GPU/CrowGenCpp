@@ -102,6 +102,15 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
     respawn(v, mm);
 }
 
+/**
+ * @brief Takes a vector of two elements representing a range and selects and
+ * returns a random value from this range.
+ *
+ * @param dirRange The vector representing a range. The first element must be
+ * smaller than the second element.
+ *
+ * @return A number selected uniformly at random from the given range.
+ */
 int MoveSimulator::getMovementValue(const vector<int>& dirRange)
 {
   assert(dirRange.size() == 2);
