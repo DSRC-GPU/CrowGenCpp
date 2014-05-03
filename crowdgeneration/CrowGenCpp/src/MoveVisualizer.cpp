@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#define TIME_SLICE 50
+
 MoveVisualizer::MoveVisualizer()
 {
 }
@@ -84,7 +86,7 @@ void MoveVisualizer::updateVertex(Vertex& v, int numTicks)
     xml_node->SetAttribute("cy", "15");
     xml_node->SetAttribute("fill", "slategrey");
 
-    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / 50) + "s")
+    xml_animateMotion->SetAttribute("dur", (to_string(numTicks / TIME_SLICE) + "s")
         .c_str());
     xml_animateMotion->SetAttribute("repeatCount", "indefinite");
 
@@ -123,62 +125,106 @@ void MoveVisualizer::updateEdge(Edge& e, int numTicks, int curTick)
     XMLElement* xml_svg = _doc.FirstChildElement("svg");
 
     XMLElement* xml_line = _doc.NewElement("line");
+    XMLElement* animateX1 = _doc.NewElement("animateTransform");
+    XMLElement* animateX2 = _doc.NewElement("animateTransform");
+    XMLElement* animateY1 = _doc.NewElement("animateTransform");
+    XMLElement* animateY2 = _doc.NewElement("animateTransform");
+
     xml_line->SetAttribute("id", e.id().c_str());
     xml_line->SetAttribute("x1", "-1");
     xml_line->SetAttribute("x2", "-1");
     xml_line->SetAttribute("y1", "-1");
     xml_line->SetAttribute("y2", "-1");
     xml_line->SetAttribute("style", "stroke:rgb(0,0,0);stroke-width:1;");
-
-    xml_svg->InsertEndChild(xml_line);
-    _addedEdges.insert(e.id());
-  }
-
-  if (curTick >= e.start())
-  {
-    XMLElement* edgeLine = findEdgeLine(e.id());
-    Point lineStart = findLinePoint(edgeLine, 0);
-    Point lineEnd = findLinePoint(edgeLine, 1);
-    
-    XMLElement* animateX1 = _doc.NewElement("animate");
-    XMLElement* animateX2 = _doc.NewElement("animate");
-    XMLElement* animateY1 = _doc.NewElement("animate");
-    XMLElement* animateY2 = _doc.NewElement("animate");
-    
     animateX1->SetAttribute("attributeName", "x1");
     animateX2->SetAttribute("attributeName", "x2");
     animateY1->SetAttribute("attributeName", "y1");
     animateY2->SetAttribute("attributeName", "y2");
+    animateX1->SetAttribute("type", "translate");
+    animateX2->SetAttribute("type", "translate");
+    animateY1->SetAttribute("type", "translate");
+    animateY2->SetAttribute("type", "translate");
+    animateX1->SetAttribute("repeatCount", "indefinite");
+    animateX2->SetAttribute("repeatCount", "indefinite");
+    animateY1->SetAttribute("repeatCount", "indefinite");
+    animateY2->SetAttribute("repeatCount", "indefinite");
+    animateX1->SetAttribute("dur", (to_string(numTicks / TIME_SLICE) + "s").c_str());
+    animateX2->SetAttribute("dur", (to_string(numTicks / TIME_SLICE) + "s").c_str());
+    animateY1->SetAttribute("dur", (to_string(numTicks / TIME_SLICE) + "s").c_str());
+    animateY2->SetAttribute("dur", (to_string(numTicks / TIME_SLICE) + "s").c_str());
+    animateX1->SetAttribute("values", "");
+    animateX2->SetAttribute("values", "");
+    animateY1->SetAttribute("values", "");
+    animateY2->SetAttribute("values", "");
 
-    if (curTick <= e.end() + 1)
-    {
-      // Edge is active.
-      int begin = 0; // FIXME calc begin
-      int dur = 1; // FIXME calc dur
-      
-      animateX1->SetAttribute("from", to_string(lineStart.x()).c_str());
-      animateX2->SetAttribute("from", to_string(lineEnd.x()).c_str());
-      animateY1->SetAttribute("from", to_string(lineStart.y()).c_str());
-      animateY2->SetAttribute("from", to_string(lineEnd.y()).c_str());
-      animateX1->SetAttribute("to", to_string(e.source().location().x()).c_str()); 
-      animateX2->SetAttribute("to", to_string(e.target().location().x()).c_str()); 
-      animateY1->SetAttribute("to", to_string(e.source().location().y()).c_str()); 
-      animateY2->SetAttribute("to", to_string(e.target().location().y()).c_str()); 
-    }
+    xml_svg->InsertEndChild(xml_line);
+    xml_line->InsertEndChild(animateX1);
+    xml_line->InsertEndChild(animateX2);
+    xml_line->InsertEndChild(animateY1);
+    xml_line->InsertEndChild(animateY2);
+
+    _addedEdges.insert(e.id());
   }
+  else
+  {
+    XMLElement* edgeLine = findEdgeLine(e.id());
+    XMLElement* lineX1 = edgeLine->FirstChildElement("animateTransform");
+    XMLElement* lineX2 = lineX1->NextSiblingElement("animateTransform");
+    XMLElement* lineY1 = lineX2->NextSiblingElement("animateTransform");
+    XMLElement* lineY2 = lineY1->NextSiblingElement("animateTransform");
+
+    lineX1->SetAttribute("values", (string(lineX1->Attribute("values"))
+        + ";").c_str());
+    lineX2->SetAttribute("values", (string(lineX2->Attribute("values"))
+        + ";").c_str());
+    lineY1->SetAttribute("values", (string(lineY1->Attribute("values"))
+        + ";").c_str());
+    lineY2->SetAttribute("values", (string(lineY2->Attribute("values"))
+        + ";").c_str());
+  }
+
+  XMLElement* edgeLine = findEdgeLine(e.id());
+  XMLElement* lineX1 = edgeLine->FirstChildElement("animateTransform");
+  XMLElement* lineX2 = lineX1->NextSiblingElement("animateTransform");
+  XMLElement* lineY1 = lineX2->NextSiblingElement("animateTransform");
+  XMLElement* lineY2 = lineY1->NextSiblingElement("animateTransform");
+
+  lineX1->SetAttribute("values", (string(lineX1->Attribute("values"))
+      + to_string(e.source().location().x())).c_str());
+  lineX2->SetAttribute("values", (string(lineX2->Attribute("values"))
+      + to_string(e.target().location().x())).c_str());
+  lineY1->SetAttribute("values", (string(lineY1->Attribute("values"))
+      + to_string(e.source().location().y())).c_str());
+  lineY2->SetAttribute("values", (string(lineY2->Attribute("values"))
+      + to_string(e.target().location().y())).c_str());
 }
 
 XMLElement* MoveVisualizer::findEdgeLine(string lineid)
 {
-  // FIXME Implement.
+  XMLElement* svg = _doc.FirstChildElement("svg");
+  XMLElement* line = svg->FirstChildElement("line");
+
+  while(line)
+  {
+    if (line->Attribute("id", lineid.c_str()))
+      return line;
+    line = line->NextSiblingElement("line");
+  }
   return NULL;
 }
 
-Point& MoveVisualizer::findLinePoint(XMLElement* line, int side)
+Point MoveVisualizer::findLinePoint(string lineid, int side)
 {
-  // FIXME Implement.
-  Point a;
-  return a;
+  if (side == 0)
+  {
+    return _lineStartPoints[lineid];
+  }
+  else if (side == 1)
+  {
+    return _lineEndPoints[lineid];
+  }
+  Point p;
+  return p;
 }
 
 XMLElement* MoveVisualizer::findPathVertex(int vtoken)

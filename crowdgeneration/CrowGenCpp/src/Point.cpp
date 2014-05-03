@@ -40,3 +40,14 @@ bool Point::closeTo(Point& other, int max) const
 {
   return abs(_x - other.x()) + abs(_y - other.y()) <= max;
 }
+
+bool Point::operator==(const Point& p)
+{
+  return _x == p.x() && _y == p.y();
+}
+
+bool Point::operator!=(const Point& p)
+{
+  return !(*this == p);
+}
+

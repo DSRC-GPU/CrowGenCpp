@@ -21,11 +21,14 @@ class MoveVisualizer
   private:
     set<int> _addedVertices;
     set<string> _addedEdges;
+    map<string, Point> _lineStartPoints;
+    map<string, Point> _lineEndPoints;
     map<int, int> _tokenMap;
     XMLDocument _doc;
+
     XMLElement* findPathVertex(int);
     XMLElement* findEdgeLine(string);
-    Point& findLinePoint(XMLElement*, int);
+    Point findLinePoint(string, int);
     void writeBasics();
     void updateVertex(Vertex&, int);
     void updateEdge(Edge&, int, int);
