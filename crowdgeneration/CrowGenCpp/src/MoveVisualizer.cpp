@@ -23,6 +23,28 @@ void MoveVisualizer::visualize(vector<vector<Vertex>>& simulation, string fout)
   flush(fout);
 }
 
+void MoveVisualizer::visualize(vector<vector<Vertex>>& simulation,
+    vector<Edge>& edges, string fout)
+{
+  writeBasics();
+
+  for (size_t i = 0; i < simulation.size(); i++)
+  {
+    vector<Vertex> vertices = simulation.at(i);
+    for (size_t j = 0; j < vertices.size(); j++)
+    {
+      updateVertex(vertices.at(j), simulation.size());
+    }
+
+    for (size_t k = 0; k < edges.size(); k++)
+    {
+      updateEdge(edges.at(k), simulation.size(), i);
+    }
+  }
+
+  flush(fout);
+}
+
 void MoveVisualizer::writeBasics()
 {
   XMLElement* xml_svg = _doc.NewElement("svg");
@@ -36,7 +58,7 @@ void MoveVisualizer::writeBasics()
 }
 
 // TODO clean this up.
-void MoveVisualizer::updateVertex(Vertex v, int numTicks)
+void MoveVisualizer::updateVertex(Vertex& v, int numTicks)
 {
   if (_addedVertices.find(v.token()) == _addedVertices.end())
   {
@@ -90,6 +112,26 @@ void MoveVisualizer::updateVertex(Vertex v, int numTicks)
       xml_path->SetAttribute("d", (string(xml_path->Attribute("d"))
             + " " + to_string(v.location().x()) + " "
             + to_string(v.location().y())).c_str());
+  }
+}
+
+void MoveVisualizer::updateEdge(Edge& e, int numTicks, int curTick)
+{
+  if (_addedEdges.find(e.id()) == _addedEdges.end())
+  {
+    // Edge not added yet.
+    XMLElement* xml_svg = _doc.FirstChildElement("svg");
+
+    XMLElement* xml_line = _doc.NewElement("line");
+    xml_line->SetAttribute("id", e.id().c_str());
+    xml_line->SetAttribute("x1", "-1");
+    xml_line->SetAttribute("x2", "-1");
+    xml_line->SetAttribute("y1", "-1");
+    xml_line->SetAttribute("y2", "-1");
+    xml_line->SetAttribute("style", "stroke:rgb(0,0,0);stroke-width:1;");
+
+    xml_svg->InsertEndChild(xml_line);
+    _addedEdges.insert(e.id());
   }
 }
 

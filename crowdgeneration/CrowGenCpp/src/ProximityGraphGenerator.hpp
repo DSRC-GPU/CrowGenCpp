@@ -56,6 +56,9 @@ class ProximityGraphGenerator
     // Create a proximity graph based on the parsed xml-crowd file.
     void createGraph();
 
+    // Creates a SVG visualization.
+    void createVisualization() const;
+    
     // Write graph data to some output.
     void writeGraph(string) const;
 };

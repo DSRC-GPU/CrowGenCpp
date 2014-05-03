@@ -51,11 +51,6 @@ void ProximityGraphGenerator::parseCrowd(string filename)
   {
     _squares[i] = new vector<Vertex*>[_hsquares];
   }
-
-  // TODO Place this somewhere else
-  MoveVisualizer mv;
-  // TODO Make output filename a program parameter.
-  mv.visualize(*simulationrun, "sim.svg");
 }
 
 // The createGraph analyses the double Vertex vector and translates this into a
@@ -192,6 +187,14 @@ void ProximityGraphGenerator::writeGraph(string fout) const
 {
   GraphWriter gw;
   gw.writeGraph(*vertices, *edges, fout);
+}
+
+void ProximityGraphGenerator::createVisualization() const
+{
+  // TODO Place this somewhere else
+  MoveVisualizer mv;
+  // TODO Make output filename a program parameter.
+  mv.visualize(*simulationrun, *edges, "sim.svg");
 }
 
 bool ProximityGraphGenerator::falseNegative() const

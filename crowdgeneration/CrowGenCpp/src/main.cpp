@@ -92,6 +92,7 @@ int main(int argc, char* argv[])
     pgg.parseCrowd(simulation_run_file);
     pgg.createGraph();
     pgg.writeGraph(gexf_graph_output);
+    pgg.createVisualization();
 
     cout << "done!" << endl;
   }
