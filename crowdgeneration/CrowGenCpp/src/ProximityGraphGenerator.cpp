@@ -194,7 +194,7 @@ void ProximityGraphGenerator::createVisualization() const
   // TODO Place this somewhere else
   MoveVisualizer mv;
   // TODO Make output filename a program parameter.
-  mv.visualize(*simulationrun, *edges, "sim.svg");
+  mv.visualize(*simulationrun, "sim.svg");
 }
 
 bool ProximityGraphGenerator::falseNegative() const
