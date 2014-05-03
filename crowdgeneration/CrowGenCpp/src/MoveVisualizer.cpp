@@ -133,6 +133,52 @@ void MoveVisualizer::updateEdge(Edge& e, int numTicks, int curTick)
     xml_svg->InsertEndChild(xml_line);
     _addedEdges.insert(e.id());
   }
+
+  if (curTick >= e.start())
+  {
+    XMLElement* edgeLine = findEdgeLine(e.id());
+    Point lineStart = findLinePoint(edgeLine, 0);
+    Point lineEnd = findLinePoint(edgeLine, 1);
+    
+    XMLElement* animateX1 = _doc.NewElement("animate");
+    XMLElement* animateX2 = _doc.NewElement("animate");
+    XMLElement* animateY1 = _doc.NewElement("animate");
+    XMLElement* animateY2 = _doc.NewElement("animate");
+    
+    animateX1->SetAttribute("attributeName", "x1");
+    animateX2->SetAttribute("attributeName", "x2");
+    animateY1->SetAttribute("attributeName", "y1");
+    animateY2->SetAttribute("attributeName", "y2");
+
+    if (curTick <= e.end() + 1)
+    {
+      // Edge is active.
+      int begin = 0; // FIXME calc begin
+      int dur = 1; // FIXME calc dur
+      
+      animateX1->SetAttribute("from", to_string(lineStart.x()).c_str());
+      animateX2->SetAttribute("from", to_string(lineEnd.x()).c_str());
+      animateY1->SetAttribute("from", to_string(lineStart.y()).c_str());
+      animateY2->SetAttribute("from", to_string(lineEnd.y()).c_str());
+      animateX1->SetAttribute("to", to_string(e.source().location().x()).c_str()); 
+      animateX2->SetAttribute("to", to_string(e.target().location().x()).c_str()); 
+      animateY1->SetAttribute("to", to_string(e.source().location().y()).c_str()); 
+      animateY2->SetAttribute("to", to_string(e.target().location().y()).c_str()); 
+    }
+  }
+}
+
+XMLElement* MoveVisualizer::findEdgeLine(string lineid)
+{
+  // FIXME Implement.
+  return NULL;
+}
+
+Point& MoveVisualizer::findLinePoint(XMLElement* line, int side)
+{
+  // FIXME Implement.
+  Point a;
+  return a;
 }
 
 XMLElement* MoveVisualizer::findPathVertex(int vtoken)

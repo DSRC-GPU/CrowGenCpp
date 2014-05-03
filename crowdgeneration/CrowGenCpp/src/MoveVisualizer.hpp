@@ -24,6 +24,8 @@ class MoveVisualizer
     map<int, int> _tokenMap;
     XMLDocument _doc;
     XMLElement* findPathVertex(int);
+    XMLElement* findEdgeLine(string);
+    Point& findLinePoint(XMLElement*, int);
     void writeBasics();
     void updateVertex(Vertex&, int);
     void updateEdge(Edge&, int, int);
