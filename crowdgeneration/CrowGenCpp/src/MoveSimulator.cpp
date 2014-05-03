@@ -88,8 +88,8 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
   // possible offset selected from the vector of possible offsets (based on its
   // direction).
   Point npos(v.location());
-  npos.x(npos.x() + xs.at(rand() % xs.size()));
-  npos.y(npos.y() + ys.at(rand() % ys.size()));
+  npos.x(npos.x() + getMovementValue(xs));
+  npos.y(npos.y() + getMovementValue(ys));
 
   // TODO Keep map boundry records per group, in stead of max.
   if (0 < npos.x() && npos.x() < _maxx && 0 < npos.y() && npos.y() < _maxy)
@@ -99,6 +99,11 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
 
   if (inSink(v, mm))
     respawn(v, mm);
+}
+
+int MoveSimulator::getMovementValue(const vector<int>& dirRange)
+{
+  return (rand() % (dirRange.at(1) - dirRange.at(0) + 1)) + dirRange.at(0);
 }
 
 // Get the GroupDescriptor for the given Vertex, based on the Vertex' GroupID.

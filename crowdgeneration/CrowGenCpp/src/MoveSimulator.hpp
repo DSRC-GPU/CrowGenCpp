@@ -31,6 +31,7 @@ class MoveSimulator
      const;
     void updateLocation(Vertex&, GroupDescriptor&);
     void updateLocation(Vertex&, vector<GroupDescriptor>&);
+    int getMovementValue(const vector<int>& dirRange);
     bool inSink(Vertex&, GroupDescriptor&) const;
     bool respawn(Vertex&, GroupDescriptor&);
 
