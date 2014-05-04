@@ -14,7 +14,7 @@ class GraphManager
 private:
     QGraphicsScene* qgs;
     std::vector<std::vector<Vertex>> simulation;
-    std::map<Vertex,QGraphicsLineItem*> linemap;
+    std::map<Vertex,QGraphicsEllipseItem*> circlemap;
 
 public:
     GraphManager();

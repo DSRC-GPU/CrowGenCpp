@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "graphmanager.h"
 #include <vector>
 #include <QMainWindow>
 
@@ -21,6 +22,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    GraphManager gm;
 };
 
 #endif // MAINWINDOW_H

@@ -19,12 +19,23 @@ void GraphManager::addVertices(std::string filename)
         vector<Vertex> vertices = simulation.at(i);
         for (size_t j = 0; j < vertices.size(); j++)
         {
-            if (linemap.find(vertices.at(j)) == linemap.end())
+            if (circlemap.find(vertices.at(j)) == circlemap.end())
             {
-                QGraphicsLineItem* item = new QGraphicsLineItem();
+                QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,10,10);
                 qgs->addItem(item);
-                linemap[vertices.at(j)] = item;
+                circlemap[vertices.at(j)] = item;
             }
         }
+    }
+}
+
+void GraphManager::drawTick(unsigned int ticknum)
+{
+    vector<Vertex> vertices = simulation.at(ticknum);
+    for (size_t i = 0; i < vertices.size(); i++)
+    {
+        Vertex v = vertices.at(i);
+        qDebug(to_string(v.location().x()).c_str());
+        circlemap.at(v)->setPos(v.location().x(), v.location().y());
     }
 }

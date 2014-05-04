@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(new QGraphicsScene);
+    gm.init(ui->graphicsView->scene());
+    gm.addVertices("default_sim_out.xml");
 }
 
 MainWindow::~MainWindow()
@@ -18,21 +20,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    static QGraphicsEllipseItem* e = new QGraphicsEllipseItem(0,0,10,10);
-    static QGraphicsEllipseItem* d = new QGraphicsEllipseItem(0,0,10,10);
-    static QGraphicsLineItem* f = new QGraphicsLineItem(0,0,100,100);
-    static bool first = true;
-    if (first)
-    {
-        ui->graphicsView->scene()->addItem(e);
-        ui->graphicsView->scene()->addItem(d);
-        ui->graphicsView->scene()->addItem(f);
-        first = false;
-    }
-    else
-    {
-        e->moveBy(5,5);
-        d->moveBy(-5,5);
-        f->setLine(e->x(), e->y(), d->x(), d->y());
-    }
+    static unsigned int i = 0;
+    gm.drawTick(i++);
 }
