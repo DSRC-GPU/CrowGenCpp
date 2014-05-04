@@ -3,12 +3,13 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 CrowdParser::CrowdParser()
 {
 }
 
-void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
+void CrowdParser::parseFile(string filename, vector<vector<Vertex> >& simulation)
 {
   XMLDocument doc;
   doc.LoadFile(filename.c_str());
@@ -16,8 +17,8 @@ void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
   XMLElement* sim = doc.FirstChildElement("simulation");
   XMLElement* tick = sim->FirstChildElement("ticks")->FirstChildElement("tick");
 
-  _width = stoi(string(sim->Attribute("width")));
-  _height = stoi(string(sim->Attribute("height")));
+  _width = std::stoi(string(sim->Attribute("width")));
+  _height = std::stoi(string(sim->Attribute("height")));
 
   while (tick)
   {
@@ -26,7 +27,7 @@ void CrowdParser::parseFile(string filename, vector<vector<Vertex>>& simulation)
   }
 }
 
-void CrowdParser::updateVertices(vector<vector<Vertex>>& simulation,
+void CrowdParser::updateVertices(vector<vector<Vertex> >& simulation,
     XMLElement* tick)
 {
   int ticknum = atoi(tick->Attribute("num"));

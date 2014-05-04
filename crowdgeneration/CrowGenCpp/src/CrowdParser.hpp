@@ -16,11 +16,11 @@ class CrowdParser
 {
   private:
     unsigned int _width, _height;
-    void updateVertices(vector<vector<Vertex>>&, XMLElement*);
+    void updateVertices(vector<vector<Vertex> >&, XMLElement*);
 
   public:
     CrowdParser();
-    void parseFile(string filename, vector<vector<Vertex>>&);
+    void parseFile(string filename, vector<vector<Vertex> >&);
     unsigned int width() const;
     unsigned int height() const;
 };
