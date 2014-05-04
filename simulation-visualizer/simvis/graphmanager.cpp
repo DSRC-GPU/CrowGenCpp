@@ -44,11 +44,22 @@ void GraphManager::addEdges(string filename)
 
 void GraphManager::drawTick(unsigned int ticknum)
 {
+    // TODO Make all vertices invisible.
     vector<Vertex> vertices = simulation.at(ticknum % simulation.size());
     for (size_t i = 0; i < vertices.size(); i++)
     {
         Vertex v = vertices.at(i);
+        // TODO Make vertex v visible.
         qDebug(to_string(v.location().x()).c_str());
         circlemap.at(v)->setPos(v.location().x(), v.location().y());
+    }
+    for (size_t i = 0; i < edges.size(); i++)
+    {
+        Edge e = edges.at(i);
+        if (e.start() <= ticknum && ticknum <= e.end())
+        {
+            linemap.at(e)->line().setP1(circlemap.at(e.source())->pos());
+            linemap.at(e)->line().setP2(circlemap.at(e.target())->pos());
+        }
     }
 }
