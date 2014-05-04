@@ -4,6 +4,7 @@
 #include "graphmanager.h"
 #include <vector>
 #include <QMainWindow>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -19,9 +20,11 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void simtick();
 
 private:
     Ui::MainWindow *ui;
+    QTimer* ticktimer;
     GraphManager gm;
 };
 
