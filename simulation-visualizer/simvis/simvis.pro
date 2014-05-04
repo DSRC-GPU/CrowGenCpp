@@ -18,9 +18,11 @@ SOURCES += main.cpp\
         ../../crowdgeneration/CrowGenCpp/src/CrowdParser.cpp\
         ../../crowdgeneration/CrowGenCpp/src/Vertex.cpp\
         ../../crowdgeneration/CrowGenCpp/src/Point.cpp\
-        ../../crowdgeneration/CrowGenCpp/src/tinyxml2-master/tinyxml2.cpp
+        ../../crowdgeneration/CrowGenCpp/src/tinyxml2-master/tinyxml2.cpp \
+    graphmanager.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    graphmanager.h
 
 FORMS    += mainwindow.ui
 

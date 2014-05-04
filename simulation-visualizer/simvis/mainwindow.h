@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "../../crowdgeneration/CrowGenCpp/src/Vertex.hpp"
 #include <vector>
 #include <QMainWindow>
 
@@ -22,7 +21,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    std::vector<std::vector<Vertex> > simulation;
 };
 
 #endif // MAINWINDOW_H

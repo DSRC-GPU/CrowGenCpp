@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../../crowdgeneration/CrowGenCpp/src/CrowdParser.hpp"
 
 #include <QGraphicsEllipseItem>
 
@@ -10,9 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(new QGraphicsScene);
-
-    CrowdParser cp;
-    cp.parseFile("default_sim_out.xml", simulation);
 }
 
 MainWindow::~MainWindow()
