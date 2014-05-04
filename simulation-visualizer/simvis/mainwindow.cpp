@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(new QGraphicsScene);
     gm.init(ui->graphicsView->scene());
     gm.addVertices("default_sim_out.xml");
+    gm.addEdges("default_graph_out.gexf");
 
     ticktimer = new QTimer(this);
     connect(ticktimer, SIGNAL(timeout()), this, SLOT(simtick()));

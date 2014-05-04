@@ -8,13 +8,16 @@
 #include <QGraphicsLineItem>
 
 #include "../../crowdgeneration/CrowGenCpp/src/Vertex.hpp"
+#include "../../crowdgeneration/CrowGenCpp/src/Edge.hpp"
 
 class GraphManager
 {
 private:
     QGraphicsScene* qgs;
     std::vector<std::vector<Vertex>> simulation;
+    std::vector<Edge> edges;
     std::map<Vertex,QGraphicsEllipseItem*> circlemap;
+    std::map<Edge,QGraphicsLineItem*> linemap;
 
 public:
     GraphManager();

@@ -1,5 +1,6 @@
 #include "graphmanager.h"
 #include "../../crowdgeneration/CrowGenCpp/src/CrowdParser.hpp"
+#include "edgeparser.h"
 
 GraphManager::GraphManager()
 {
@@ -26,6 +27,18 @@ void GraphManager::addVertices(std::string filename)
                 circlemap[vertices.at(j)] = item;
             }
         }
+    }
+}
+
+void GraphManager::addEdges(string filename)
+{
+    EdgeParser ep;
+    ep.parseFile(filename, edges);
+    for (size_t i = 0; i < edges.size(); i++)
+    {
+        QGraphicsLineItem* item = new QGraphicsLineItem(0,0,0,0);
+        qgs->addItem(item);
+        linemap[edges.at(i)] = item;
     }
 }
 

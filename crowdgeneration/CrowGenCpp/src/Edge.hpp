@@ -31,6 +31,7 @@ class Edge
     string type() const;
     void type(string);
 
+    bool operator<(const Edge&) const;
     Edge& operator=(const Edge&);
 };
 
