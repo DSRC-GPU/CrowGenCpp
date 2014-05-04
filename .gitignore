@@ -61,3 +61,6 @@ stamp-h?
 .libs/
 *.l[ao]
 *~
+
+# Build directories
+build*/
