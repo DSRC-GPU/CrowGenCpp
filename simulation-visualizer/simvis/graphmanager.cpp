@@ -58,8 +58,13 @@ void GraphManager::drawTick(unsigned int ticknum)
         Edge e = edges.at(i);
         if (e.start() <= ticknum && ticknum <= e.end())
         {
+            linemap.at(e)->setVisible(true);
             linemap.at(e)->line().setP1(circlemap.at(e.source())->pos());
             linemap.at(e)->line().setP2(circlemap.at(e.target())->pos());
+        }
+        else
+        {
+            linemap.at(e)->setVisible(false);
         }
     }
 }
