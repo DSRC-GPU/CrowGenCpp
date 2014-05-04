@@ -67,10 +67,15 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
   sort(tickvertices.begin(), tickvertices.end());
 
 #pragma omp parallel
+{
+  vector<Vertex> newVertices;
+  vector<Edge> newEdges;
+
+#pragma omp for 
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
     Vertex& a = tickvertices.at(i);
-    updateVertex(a, ticknum);
+    updateVertex(newVertices, a, ticknum);
     for (size_t j = i + 1; j < tickvertices.size(); j++)
     {
       Vertex& b = tickvertices.at(j);
@@ -80,24 +85,32 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
         // Allow false negatives, based on the _falseNeg value.
         if (falseNegative()) continue;
         if (a.id() < b.id())
-          updateEdge(a, b, ticknum);
+          updateEdge(newEdges, a, b, ticknum);
         else
-          updateEdge(b, a, ticknum);
+          updateEdge(newEdges, b, a, ticknum);
       }
       else if (falsePositive())
       {
         // Allow false positives, based on the _falsePos value.
         if (a.id() < b.id())
-          updateEdge(a, b, ticknum);
+          updateEdge(newEdges, a, b, ticknum);
         else
-          updateEdge(b, a, ticknum);
+          updateEdge(newEdges, b, a, ticknum);
       }
     }
   }
+
+#pragma omp critical
+  {
+  vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
+  edges.insert(edges.end(), newEdges.begin(), newEdges.end());
+  }
+}
 }
 
 // TODO Be more efficient.
-void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
+void ProximityGraphGenerator::updateVertex(vector<Vertex>& newVertices, Vertex s,
+    int ticknum)
 {
   for (size_t i = 0; i < vertices.size(); i++)
   {
@@ -108,14 +121,15 @@ void ProximityGraphGenerator::updateVertex(Vertex s, int ticknum)
       return;
     }
   }
-  vertices.push_back(s);
+  newVertices.push_back(s);
 }
 
 // The updateEdge checks if there is an edge between to two given Vertices that
 // ends in the previous tick. If there is, the lifetime of this edge is extended
 // to the current tick. If there isn't, a new Edge is created that has a
 // lifetime of [ticknum, ticknum].
-void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
+void ProximityGraphGenerator::updateEdge(vector<Edge>& newEdges, Vertex& s,
+    Vertex& t, int ticknum)
 {
   for (size_t i = 0; i < edges.size(); i++)
   {
@@ -132,7 +146,7 @@ void ProximityGraphGenerator::updateEdge(Vertex& s, Vertex& t, int ticknum)
   Edge ne(s, t);
   ne.start(ticknum);
   ne.end(ticknum);
-  edges.push_back(ne);
+  newEdges.push_back(ne);
 }
 
 void ProximityGraphGenerator::writeGraph(string fout)

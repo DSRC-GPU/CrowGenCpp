@@ -53,3 +53,15 @@ void Edge::type(string ntype)
 {
   _type = ntype;
 }
+
+Edge& Edge::operator=(const Edge& e)
+{
+  _source = e._source;
+  _target = e._target;
+  _start = e._start;
+  _end = e._end;
+  _id = e._id;
+  _type = e._type;
+  return *this;
+}
+

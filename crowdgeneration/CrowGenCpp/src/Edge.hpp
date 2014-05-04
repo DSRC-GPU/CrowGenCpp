@@ -30,6 +30,8 @@ class Edge
     int end(int);
     string type() const;
     void type(string);
+
+    Edge& operator=(const Edge&);
 };
 
 #endif

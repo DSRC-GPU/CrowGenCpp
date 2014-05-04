@@ -28,8 +28,8 @@ class ProximityGraphGenerator
     vector<Edge> edges;
 
     void graphUpdate(unsigned int);
-    void updateEdge(Vertex&, Vertex&, int);
-    void updateVertex(Vertex, int);
+    void updateEdge(vector<Edge>&, Vertex&, Vertex&, int);
+    void updateVertex(vector<Vertex>&, Vertex, int);
 
     bool falsePositive() const;
     bool falseNegative() const;
