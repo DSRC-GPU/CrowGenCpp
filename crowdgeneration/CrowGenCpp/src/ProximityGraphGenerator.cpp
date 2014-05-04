@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeight(0),
   _falseNeg(0), _falsePos(0)
@@ -42,11 +43,6 @@ void ProximityGraphGenerator::parseCrowd(string filename)
   // which vertices are close to each other, later on.
   _wsquares = ceil(_fieldWidth/(float)_detectionRange);
   _hsquares = ceil(_fieldHeight/(float)_detectionRange);
-  _squares = new vector<Vertex*>*[_wsquares];
-  for (size_t i = 0; i < _wsquares; i++)
-  {
-    _squares[i] = new vector<Vertex*>[_hsquares];
-  }
 }
 
 // The createGraph analyses the double Vertex vector and translates this into a
@@ -65,16 +61,17 @@ void ProximityGraphGenerator::createGraph()
 // other Vertex. If it finds this is true, it will either update the lifetime of
 // the existing edge between the two Vertices, or create a new one if none
 // exists.
-void ProximityGraphGenerator::graphUpdate(int ticknum)
+void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
 {
   vector<Vertex>& tickvertices = simulationrun.at(ticknum);
-  //sort(tickvertices.begin(), tickvertices.end());
+  sort(tickvertices.begin(), tickvertices.end());
 
+#pragma omp parallel
   for (size_t i = 0; i < tickvertices.size(); i++)
   {
     Vertex& a = tickvertices.at(i);
     updateVertex(a, ticknum);
-    for (size_t j = i + 1; i < tickvertices.size(); j++)
+    for (size_t j = i + 1; j < tickvertices.size(); j++)
     {
       Vertex& b = tickvertices.at(j);
       if (a.location().closeTo(b.location(), _detectionRange)
