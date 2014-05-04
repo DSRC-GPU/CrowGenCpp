@@ -27,7 +27,7 @@ class ProximityGraphGenerator
     vector<Vertex>* vertices;
     vector<Edge>* edges;
 
-    void graphUpdate(int);
+    void graphUpdate(unsigned int);
     void updateEdge(Vertex&, Vertex&, int);
     void updateVertex(Vertex, int);
 

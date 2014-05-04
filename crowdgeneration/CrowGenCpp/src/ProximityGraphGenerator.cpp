@@ -69,7 +69,7 @@ void ProximityGraphGenerator::createGraph()
 // other Vertex. If it finds this is true, it will either update the lifetime of
 // the existing edge between the two Vertices, or create a new one if none
 // exists.
-void ProximityGraphGenerator::graphUpdate(int ticknum)
+void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
 {
   // TODO Explain this crazy method. Hint: we devide the map into tiles and
   // check for each vertex, the 9 closest tiles, and make edges with all
