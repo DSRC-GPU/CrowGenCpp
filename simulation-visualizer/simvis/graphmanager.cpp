@@ -31,7 +31,7 @@ void GraphManager::addVertices(std::string filename)
 
 void GraphManager::drawTick(unsigned int ticknum)
 {
-    vector<Vertex> vertices = simulation.at(ticknum);
+    vector<Vertex> vertices = simulation.at(ticknum % simulation.size());
     for (size_t i = 0; i < vertices.size(); i++)
     {
         Vertex v = vertices.at(i);
