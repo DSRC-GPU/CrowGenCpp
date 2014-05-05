@@ -17,8 +17,8 @@ private:
     std::vector<std::vector<Vertex>> simulation;
     std::vector<Edge> edges;
     std::map<Vertex,QGraphicsEllipseItem*> circlemap;
-    std::map<Edge*,QGraphicsLineItem*> linemap;
-    std::map<int, Vertex*> ltocmap;
+    std::map<Edge,QGraphicsLineItem*> linemap;
+    std::map<int, Vertex> ltocmap;
 
 public:
     GraphManager();

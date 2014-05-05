@@ -25,7 +25,7 @@ void GraphManager::addVertices(std::string filename)
                 QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,10,10);
                 qgs->addItem(item);
                 circlemap[vertices.at(j)] = item;
-                ltocmap[vertices.at(j).id()] = &vertices.at(j);
+                ltocmap[vertices.at(j).id()] = vertices.at(j);
             }
         }
     }
@@ -40,7 +40,7 @@ void GraphManager::addEdges(string filename)
     {
        QGraphicsLineItem* item = new QGraphicsLineItem(0,0,0,0);
        qgs->addItem(item);
-       linemap[&edges.at(i)] = item;
+       linemap[edges.at(i)] = item;
     }
 }
 
@@ -56,18 +56,20 @@ void GraphManager::drawTick(unsigned int ticknum)
     }
     for (size_t i = 0; i < edges.size(); i++)
     {
-        Edge* e = &edges.at(i);
-        qDebug(to_string(edges.size()).c_str());
-        qDebug(to_string(linemap.size()).c_str());
-        if ((unsigned int)e->start <= ticknum && ticknum <= (unsigned int)e->end)
+        Edge e = edges.at(i);
+        if ((unsigned int)e.start <= ticknum && ticknum <= (unsigned int)e.end)
         {
-            linemap.at(e)->setVisible(true);
-            linemap.at(e)->line().setP1(circlemap.at(*ltocmap.at(e->source))->pos());
-            linemap.at(e)->line().setP2(circlemap.at(*ltocmap.at(e->target))->pos());
+          qreal x1, x2, y1, y2;
+          x1 = circlemap.at(ltocmap.at(e.source))->pos().x();
+          x2 = circlemap.at(ltocmap.at(e.target))->pos().x();
+          y1 = circlemap.at(ltocmap.at(e.source))->pos().y();
+          y2 = circlemap.at(ltocmap.at(e.target))->pos().y();
+          linemap.at(e)->setLine(x1, y1, x2, y2);
+          linemap.at(e)->setVisible(true);
         }
         else
         {
-            linemap.at(e)->setVisible(false);
+          linemap.at(e)->setVisible(false);
         }
     }
 }
