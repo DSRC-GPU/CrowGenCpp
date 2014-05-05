@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(new QGraphicsScene);
+
     gm.init(ui->graphicsView->scene());
     gm.addVertices("default_sim_out.xml");
     gm.addEdges("default_graph_out.gexf");
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ticktimer = new QTimer(this);
     connect(ticktimer, SIGNAL(timeout()), this, SLOT(simtick()));
     ticktimer->start(100);
-    ticktimer->setInterval(1000);
+    ticktimer->setInterval(100);
 }
 
 MainWindow::~MainWindow()

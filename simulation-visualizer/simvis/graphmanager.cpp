@@ -2,6 +2,8 @@
 #include "../../crowdgeneration/CrowGenCpp/src/CrowdParser.hpp"
 #include "edgeparser.h"
 
+#define CIRCLE_DIM 10
+
 GraphManager::GraphManager()
 {
 }
@@ -22,7 +24,7 @@ void GraphManager::addVertices(std::string filename)
         {
             if (circlemap.find(vertices.at(j)) == circlemap.end())
             {
-                QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,10,10);
+                QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,CIRCLE_DIM, CIRCLE_DIM);
                 qgs->addItem(item);
                 circlemap[vertices.at(j)] = item;
                 ltocmap[vertices.at(j).id()] = vertices.at(j);
@@ -46,8 +48,9 @@ void GraphManager::addEdges(string filename)
 
 void GraphManager::drawTick(unsigned int ticknum)
 {
+    ticknum = ticknum % simulation.size();
     // TODO Make all vertices invisible.
-    vector<Vertex> vertices = simulation.at(ticknum % simulation.size());
+    vector<Vertex> vertices = simulation.at(ticknum);
     for (size_t i = 0; i < vertices.size(); i++)
     {
         Vertex v = vertices.at(i);
@@ -60,10 +63,10 @@ void GraphManager::drawTick(unsigned int ticknum)
         if ((unsigned int)e.start <= ticknum && ticknum <= (unsigned int)e.end)
         {
           qreal x1, x2, y1, y2;
-          x1 = circlemap.at(ltocmap.at(e.source))->pos().x();
-          x2 = circlemap.at(ltocmap.at(e.target))->pos().x();
-          y1 = circlemap.at(ltocmap.at(e.source))->pos().y();
-          y2 = circlemap.at(ltocmap.at(e.target))->pos().y();
+          x1 = circlemap.at(ltocmap.at(e.source))->pos().x() + (CIRCLE_DIM / 2);
+          x2 = circlemap.at(ltocmap.at(e.target))->pos().x() + (CIRCLE_DIM / 2);
+          y1 = circlemap.at(ltocmap.at(e.source))->pos().y() + (CIRCLE_DIM / 2);
+          y2 = circlemap.at(ltocmap.at(e.target))->pos().y() + (CIRCLE_DIM / 2);
           linemap.at(e)->setLine(x1, y1, x2, y2);
           linemap.at(e)->setVisible(true);
         }
