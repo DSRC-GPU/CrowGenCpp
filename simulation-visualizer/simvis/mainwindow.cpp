@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ticktimer = new QTimer(this);
     connect(ticktimer, SIGNAL(timeout()), this, SLOT(simtick()));
     ticktimer->start(100);
-    ticktimer->setInterval(100);
+    ticktimer->setInterval(1000);
 }
 
 MainWindow::~MainWindow()

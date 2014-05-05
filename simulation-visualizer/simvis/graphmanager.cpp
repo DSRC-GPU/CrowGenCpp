@@ -25,9 +25,11 @@ void GraphManager::addVertices(std::string filename)
                 QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,10,10);
                 qgs->addItem(item);
                 circlemap[vertices.at(j)] = item;
+                ltocmap[vertices.at(j).id()] = &vertices.at(j);
             }
         }
     }
+    qDebug(("Number of vertices: " + to_string(circlemap.size())).c_str());
 }
 
 void GraphManager::addEdges(string filename)
@@ -36,9 +38,9 @@ void GraphManager::addEdges(string filename)
     ep.parseFile(filename, edges);
     for (size_t i = 0; i < edges.size(); i++)
     {
-        QGraphicsLineItem* item = new QGraphicsLineItem(0,0,0,0);
-        qgs->addItem(item);
-        linemap[edges.at(i)] = item;
+       QGraphicsLineItem* item = new QGraphicsLineItem(0,0,0,0);
+       qgs->addItem(item);
+       linemap[&edges.at(i)] = item;
     }
 }
 
@@ -50,17 +52,18 @@ void GraphManager::drawTick(unsigned int ticknum)
     {
         Vertex v = vertices.at(i);
         // TODO Make vertex v visible.
-        qDebug(to_string(v.location().x()).c_str());
         circlemap.at(v)->setPos(v.location().x(), v.location().y());
     }
     for (size_t i = 0; i < edges.size(); i++)
     {
-        Edge e = edges.at(i);
-        if (e.start() <= ticknum && ticknum <= e.end())
+        Edge* e = &edges.at(i);
+        qDebug(to_string(edges.size()).c_str());
+        qDebug(to_string(linemap.size()).c_str());
+        if ((unsigned int)e->start <= ticknum && ticknum <= (unsigned int)e->end)
         {
             linemap.at(e)->setVisible(true);
-            linemap.at(e)->line().setP1(circlemap.at(e.source())->pos());
-            linemap.at(e)->line().setP2(circlemap.at(e.target())->pos());
+            linemap.at(e)->line().setP1(circlemap.at(*ltocmap.at(e->source))->pos());
+            linemap.at(e)->line().setP2(circlemap.at(*ltocmap.at(e->target))->pos());
         }
         else
         {

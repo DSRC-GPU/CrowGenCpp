@@ -54,12 +54,9 @@ void Edge::type(string ntype)
   _type = ntype;
 }
 
-bool Edge::operator<(const Edge& e) const
+bool Edge::operator==(const Edge& e) const
 {
-  if (_start == e.start())
-    return _end < e.end();
-  else
-    return _start < e.start();
+  return !_id.compare(e._id);
 }
 
 Edge& Edge::operator=(const Edge& e)

@@ -17,15 +17,16 @@ SOURCES += main.cpp\
         mainwindow.cpp\
         ../../crowdgeneration/CrowGenCpp/src/CrowdParser.cpp\
         ../../crowdgeneration/CrowGenCpp/src/Vertex.cpp\
-        ../../crowdgeneration/CrowGenCpp/src/Edge.cpp\
         ../../crowdgeneration/CrowGenCpp/src/Point.cpp\
         ../../crowdgeneration/CrowGenCpp/src/tinyxml2-master/tinyxml2.cpp \
     graphmanager.cpp \
-    edgeparser.cpp
+    edgeparser.cpp \
+    edge.cpp
 
 HEADERS  += mainwindow.h \
     graphmanager.h \
-    edgeparser.h
+    edgeparser.h \
+    edge.h
 
 FORMS    += mainwindow.ui
 
