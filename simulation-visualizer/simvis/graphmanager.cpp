@@ -2,7 +2,7 @@
 #include "../../crowdgeneration/CrowGenCpp/src/CrowdParser.hpp"
 #include "edgeparser.h"
 
-#define CIRCLE_DIM 10
+#define CIRCLE_DIM 4
 
 GraphManager::GraphManager()
 {
@@ -15,6 +15,8 @@ void GraphManager::init(QGraphicsScene* qgs)
 
 void GraphManager::addVertices(std::string filename)
 {
+    QBrush brush(QColor("black"));
+
     CrowdParser cp;
     cp.parseFile(filename, simulation);
     for (size_t i = 0; i < simulation.size(); i++)
@@ -25,6 +27,8 @@ void GraphManager::addVertices(std::string filename)
             if (circlemap.find(vertices.at(j)) == circlemap.end())
             {
                 QGraphicsEllipseItem* item = new QGraphicsEllipseItem(0,0,CIRCLE_DIM, CIRCLE_DIM);
+                item->setBrush(brush);
+                item->setZValue(2);
                 qgs->addItem(item);
                 circlemap[vertices.at(j)] = item;
                 ltocmap[vertices.at(j).id()] = vertices.at(j);
@@ -36,11 +40,13 @@ void GraphManager::addVertices(std::string filename)
 
 void GraphManager::addEdges(string filename)
 {
+    QPen pen(QColor("red"));
     EdgeParser ep;
     ep.parseFile(filename, edges);
     for (size_t i = 0; i < edges.size(); i++)
     {
        QGraphicsLineItem* item = new QGraphicsLineItem(0,0,0,0);
+       item->setPen(pen);
        qgs->addItem(item);
        linemap[edges.at(i)] = item;
     }
