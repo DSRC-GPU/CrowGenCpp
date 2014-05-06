@@ -25,13 +25,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::simtick()
 {
     static unsigned int i = 0;
     gm.drawTick(i++);
-}
-
-void MainWindow::simtick()
-{
-    on_pushButton_clicked();
 }
