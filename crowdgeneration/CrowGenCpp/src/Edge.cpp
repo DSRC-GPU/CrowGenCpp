@@ -1,8 +1,10 @@
 
 #include "Edge.hpp"
 
+using namespace std;
+
 Edge::Edge(Vertex& nsource, Vertex& ntarget): _source(nsource), _target(ntarget),
-  _start(0), _end(0), _type("undirected")
+    _type("undirected")
 {
   _id = to_string(rand()); // TODO Ensure uniqueness.
 }
@@ -22,26 +24,23 @@ Vertex& Edge::target()
   return _target;
 }
 
-int Edge::start() const
+vector<pair<unsigned int,unsigned int>>& Edge::lifetimes()
 {
-  return _start;
+  return _lifetimes;
 }
 
-int Edge::start(int nstart)
+vector<pair<unsigned int, unsigned int>>::iterator Edge::getLifetimeWithEnd(
+    unsigned int end)
 {
-  _start = nstart;
-  return _start;
-}
-
-int Edge::end() const
-{
-  return _end;
-}
-
-int Edge::end(int nend)
-{
-  _end = nend;
-  return _end;
+  for (vector<pair<unsigned int, unsigned int>>::iterator it = _lifetimes
+      .begin(); it != _lifetimes.end(); it++)
+  {
+    if ((*it).second == end)
+    {
+      return it;
+    }
+  }
+  return _lifetimes.end();
 }
 
 string Edge::type() const
@@ -63,8 +62,7 @@ Edge& Edge::operator=(const Edge& e)
 {
   _source = e._source;
   _target = e._target;
-  _start = e._start;
-  _end = e._end;
+  _lifetimes = e._lifetimes;
   _id = e._id;
   _type = e._type;
   return *this;

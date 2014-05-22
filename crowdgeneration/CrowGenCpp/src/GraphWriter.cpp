@@ -95,20 +95,29 @@ void GraphWriter::writeEdges(vector<Edge>& edges)
     Edge e = edges.at(i);
     XMLElement* edge = _doc.NewElement("edge");
     XMLElement* spells = _doc.NewElement("spells");
-    XMLElement* spell = _doc.NewElement("spell");
 
     edgesxml->InsertEndChild(edge);
     edge->InsertEndChild(spells);
-    spells->InsertEndChild(spell);
 
     edge->SetAttribute("id", e.id().c_str());
     edge->SetAttribute("source", e.source().id());
     edge->SetAttribute("target", e.target().id());
     edge->SetAttribute("type", e.type().c_str());
 
-    spell->SetAttribute("start", e.start());
-    spell->SetAttribute("end", e.end());
+    for (pair<unsigned int, unsigned int> p : e.lifetimes())
+    {
+      writeEdgeSpell(p, spells);
+    }
   }
+}
+
+void GraphWriter::writeEdgeSpell(pair<unsigned int, unsigned int>& lifetime,
+    XMLElement* spellsElement)
+{
+  XMLElement* spell = _doc.NewElement("spell");
+  spell->SetAttribute("start", lifetime.first);
+  spell->SetAttribute("end", lifetime.second);
+  spellsElement->InsertEndChild(spell);
 }
 
 void GraphWriter::flush(string fout)

@@ -67,45 +67,45 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
   sort(tickvertices.begin(), tickvertices.end());
 
 #pragma omp parallel
-{
-  vector<Vertex> newVertices;
-  vector<Edge> newEdges;
+  {
+    vector<Vertex> newVertices;
+    vector<Edge> newEdges;
 
 #pragma omp for 
-  for (size_t i = 0; i < tickvertices.size(); i++)
-  {
-    Vertex& a = tickvertices.at(i);
-    updateVertex(newVertices, a, ticknum);
-    for (size_t j = i + 1; j < tickvertices.size(); j++)
+    for (size_t i = 0; i < tickvertices.size(); i++)
     {
-      Vertex& b = tickvertices.at(j);
-      if (a.location().closeTo(b.location(), _detectionRange)
-          && a != b)
+      Vertex& a = tickvertices.at(i);
+      updateVertex(newVertices, a, ticknum);
+      for (size_t j = i + 1; j < tickvertices.size(); j++)
       {
-        // Allow false negatives, based on the _falseNeg value.
-        if (falseNegative()) continue;
-        if (a.id() < b.id())
-          updateEdge(newEdges, a, b, ticknum);
-        else
-          updateEdge(newEdges, b, a, ticknum);
-      }
-      else if (falsePositive())
-      {
-        // Allow false positives, based on the _falsePos value.
-        if (a.id() < b.id())
-          updateEdge(newEdges, a, b, ticknum);
-        else
-          updateEdge(newEdges, b, a, ticknum);
+        Vertex& b = tickvertices.at(j);
+        if (a.location().closeTo(b.location(), _detectionRange)
+            && a != b)
+        {
+          // Allow false negatives, based on the _falseNeg value.
+          if (falseNegative()) continue;
+          if (a.id() < b.id())
+            updateEdge(newEdges, a, b, ticknum);
+          else
+            updateEdge(newEdges, b, a, ticknum);
+        }
+        else if (falsePositive())
+        {
+          // Allow false positives, based on the _falsePos value.
+          if (a.id() < b.id())
+            updateEdge(newEdges, a, b, ticknum);
+          else
+            updateEdge(newEdges, b, a, ticknum);
+        }
       }
     }
-  }
 
 #pragma omp critical
-  {
-  vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
-  edges.insert(edges.end(), newEdges.begin(), newEdges.end());
+    {
+      vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
+      edges.insert(edges.end(), newEdges.begin(), newEdges.end());
+    }
   }
-}
 }
 
 // TODO Be more efficient.
@@ -136,16 +136,22 @@ void ProximityGraphGenerator::updateEdge(vector<Edge>& newEdges, Vertex& s,
     Edge& e = edges.at(i);
     if (e.source() == s && e.target() == t)
     {
-      if (e.end() == ticknum - 1)
+      unsigned int end = (unsigned int) ticknum - 1;
+      vector<pair<unsigned int, unsigned int>>::iterator it =
+       e.getLifetimeWithEnd(end);
+      if (it != e.lifetimes().end())
       {
-        e.end(ticknum);
-        return;
+        (*it).second += 1;
       }
+      else
+      {
+        e.lifetimes().push_back(make_pair(ticknum, ticknum));
+      }
+      return;
     }
   }
   Edge ne(s, t);
-  ne.start(ticknum);
-  ne.end(ticknum);
+  ne.lifetimes().push_back(make_pair(ticknum, ticknum));
   newEdges.push_back(ne);
 }
 

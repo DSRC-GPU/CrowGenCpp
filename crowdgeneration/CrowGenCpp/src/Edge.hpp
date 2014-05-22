@@ -3,10 +3,9 @@
 #define EDGE_HPP
 
 #include <string>
-
+#include <vector>
+#include <utility>
 #include "Vertex.hpp"
-
-using namespace std;
 
 // This class represents an Edge between to Vertex objects in the gexf proximity
 // graph.
@@ -14,22 +13,21 @@ class Edge
 {
   private:
     Vertex& _source, _target;
-    int _start, _end;
-    string _id;
-    string _type;
+    std::vector<std::pair<unsigned int, unsigned int>> _lifetimes;
+    std::string _id;
+    std::string _type;
 
   public:
     Edge(Vertex&, Vertex&);
 
-    string id() const;
+    std::string id() const;
     Vertex& source();
     Vertex& target();
-    int start() const;
-    int start(int);
-    int end() const;
-    int end(int);
-    string type() const;
-    void type(string);
+    std::vector<std::pair<unsigned int, unsigned int>>& lifetimes();
+    std::vector<std::pair<unsigned int, unsigned int>>::iterator
+     getLifetimeWithEnd(unsigned int end);
+    std::string type() const;
+    void type(std::string);
 
     bool operator<(const Edge&) const;
     bool operator==(const Edge&) const;

@@ -20,6 +20,8 @@ class GraphWriter
     void writeBasics(int, int) ;
     void writeVertices(vector<Vertex>&) ;
     void writeEdges(vector<Edge>&) ;
+    void writeEdgeSpell(pair<unsigned int, unsigned int>& lifetime,
+      XMLElement* spellsElement);
     void flush(string);
 
   public:
