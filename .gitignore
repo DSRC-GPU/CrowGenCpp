@@ -64,3 +64,7 @@ stamp-h?
 
 # Build directories
 build*/
+
+# Qt
+*.user
+
