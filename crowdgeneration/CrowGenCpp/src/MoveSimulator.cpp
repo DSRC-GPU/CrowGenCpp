@@ -82,8 +82,8 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
   int xindex = mm.getCrowdDirection(pos.x(), pos.y()) - 1;
   int yindex = mm.getCrowdDirection(pos.x(), pos.y()) - 1;
 
-  const vector<int>& xs = directions::DIRS_X[xindex];
-  const vector<int>& ys = directions::DIRS_Y[yindex]; 
+  const vector<float>& xs = directions::DIRS_X[xindex];
+  const vector<float>& ys = directions::DIRS_Y[yindex]; 
 
   // Change the position of the vertex to its current position + a random
   // possible offset selected from the vector of possible offsets (based on its
@@ -111,7 +111,7 @@ void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
  *
  * @return A number selected uniformly at random from the given range.
  */
-int MoveSimulator::getMovementValue(const vector<int>& dirRange)
+float MoveSimulator::getMovementValue(const vector<float>& dirRange)
 {
   assert(dirRange.size() == 2);
   assert(dirRange.at(0) < dirRange.at(1));
