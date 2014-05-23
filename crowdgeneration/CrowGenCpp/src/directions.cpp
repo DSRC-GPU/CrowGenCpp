@@ -8,6 +8,7 @@ namespace directions
   const vector<float> DIRS_3_X = { 0, 0.705 };
   const vector<float> DIRS_4_X = { -1, 0 };
   const vector<float> DIRS_5_X = { -0.25, 0.25 };
+//  const vector<float> DIRS_5_X = { 0, 0 };
   const vector<float> DIRS_6_X = { 0, 1 };
   const vector<float> DIRS_7_X = { -0.705, 0};
   const vector<float> DIRS_8_X = { -0.25, 0.25 };
@@ -17,6 +18,7 @@ namespace directions
   const vector<float> DIRS_3_Y = { 0, 0.705 };
   const vector<float> DIRS_4_Y = { -0.25, 0.25 };
   const vector<float> DIRS_5_Y = { -0.25, 0.25 };
+//const vector<float> DIRS_5_Y = { 0, 0 };
   const vector<float> DIRS_6_Y = { -0.25, 0.25 };
   const vector<float> DIRS_7_Y = { -0.705, 0 };
   const vector<float> DIRS_8_Y = { -1, 0 };

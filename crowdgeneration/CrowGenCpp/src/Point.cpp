@@ -8,29 +8,29 @@ Point::Point(): _x(0), _y(0)
 
 }
 
-Point::Point(int nx, int ny)
+Point::Point(float nx, float ny)
 {
   _x = nx;
   _y = ny;
 }
 
-int Point::x() const
+float Point::x() const
 {
   return _x;
 }
 
-int Point::x(int nx)
+float Point::x(float nx)
 {
   _x = nx;
   return _x;
 }
 
-int Point::y() const
+float Point::y() const
 {
   return _y;
 }
 
-int Point::y(int ny)
+float Point::y(float ny)
 {
   _y = ny;
   return _y;

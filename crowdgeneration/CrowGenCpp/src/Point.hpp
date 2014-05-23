@@ -6,15 +6,15 @@
 class Point
 {
   private:
-    int _x, _y;
+    float _x, _y;
 
   public:
     Point();
-    Point(int, int);
-    int x() const;
-    int x(int);
-    int y() const;
-    int y(int);
+    Point(float, float);
+    float x() const;
+    float x(float);
+    float y() const;
+    float y(float);
     bool closeTo(Point&, int) const;
     bool operator==(const Point&);
     bool operator!=(const Point&);
