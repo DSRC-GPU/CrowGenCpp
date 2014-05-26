@@ -3,10 +3,12 @@
 
 using namespace std;
 
+static long long edgeId;
+
 Edge::Edge(Vertex& nsource, Vertex& ntarget): _source(nsource), _target(ntarget),
     _type("undirected")
 {
-  _id = to_string(rand()); // TODO Ensure uniqueness.
+  _id = to_string(edgeId++);
 }
 
 string Edge::id() const
