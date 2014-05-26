@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crowd>
+  <groupdescriptor gid="1">
+    <population>1000</population>
+    <sources>
+      <source type="spawn">
+        <xborder start="0" end="500"></xborder>
+        <yborder start="0" end="500"></yborder>
+      </source>
+      <source>
+        <xborder start="0" end="0"></xborder>
+        <yborder start="250" end="375"></yborder>
+      </source>
+    </sources>
+    <sinks>
+      <sink>
+        <xborder start="499" end="499"></xborder>
+        <yborder start="250" end="375"></yborder>
+      </sink>
+    </sinks>
+    <map width="500" height="500" rows="4" cols="1">
+      5
+      5
+      6
+      5
+    </map>
+  </groupdescriptor>
+</crowd>
