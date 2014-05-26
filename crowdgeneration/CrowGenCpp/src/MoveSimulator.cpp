@@ -3,9 +3,12 @@
 #include <stdexcept>
 #include <iostream>
 #include <cassert>
+#include <random>
 
 #include "MoveSimulator.hpp"
 #include "directions.hpp"
+
+std::default_random_engine generator;
 
 MoveSimulator::MoveSimulator():
   _lastVertexId(0), _maxx(0), _maxy(0)
@@ -115,9 +118,12 @@ float MoveSimulator::getMovementValue(const vector<float>& dirRange)
 {
   assert(dirRange.size() == 2);
   assert(dirRange.at(0) <= dirRange.at(1));
-
-  int rangeSize = dirRange.at(1) - dirRange.at(0);
-  return dirRange.at(0) + (rand() / (float) RAND_MAX) * rangeSize;
+  std::uniform_real_distribution<float> distribution(dirRange.at(0), dirRange.at(1));
+  float value = distribution(generator);
+  //std::cout << dirRange.at(0) << " " << dirRange.at(1) << " " << value << std::endl;
+  //int rangeSize = dirRange.at(1) - dirRange.at(0);
+  //return dirRange.at(0) + (rand() / (float) RAND_MAX) * rangeSize;
+  return value;
   //return (rand() % rangeSize) + dirRange.at(0);
 }
 
