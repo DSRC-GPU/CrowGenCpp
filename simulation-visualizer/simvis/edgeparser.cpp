@@ -7,6 +7,7 @@ EdgeParser::EdgeParser()
 void EdgeParser::parseFile(std::string filename, std::vector<Edge>& vedges)
 {
   XMLDocument doc;
+
   doc.LoadFile(filename.c_str());
 
   XMLElement* gexf = doc.FirstChildElement("gexf");
@@ -40,6 +41,7 @@ void EdgeParser::updateEdges(std::vector<Edge>& edges,
     e.target = wid;
     e.spellStart.push_back(start);
     e.spellStop.push_back(end);
+    spell = spell->NextSiblingElement("spell");
   }
   edges.push_back(e);
 }

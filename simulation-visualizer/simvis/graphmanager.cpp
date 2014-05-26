@@ -1,6 +1,7 @@
 #include "graphmanager.h"
 #include "../../crowdgeneration/CrowGenCpp/src/CrowdParser.hpp"
 #include "edgeparser.h"
+#include <iostream>
 
 #define CIRCLE_DIM 4
 
@@ -70,7 +71,8 @@ void GraphManager::drawTick(unsigned int ticknum)
         for (int i = 0; i < e.spellStart.size(); i++) {
           int start = e.spellStart[i];
           int stop = e.spellStop[i];
-          if ((unsigned int)start <= ticknum && ticknum <= (unsigned int)end) {
+          std::cout << start << " " << stop << " " << ticknum << std::endl;
+          if ((unsigned int)start <= ticknum && ticknum <= (unsigned int)stop) {
             edgePresent = true;
             break;
           }
@@ -83,6 +85,7 @@ void GraphManager::drawTick(unsigned int ticknum)
           x2 = circlemap.at(ltocmap.at(e.target))->pos().x() + (CIRCLE_DIM / 2);
           y1 = circlemap.at(ltocmap.at(e.source))->pos().y() + (CIRCLE_DIM / 2);
           y2 = circlemap.at(ltocmap.at(e.target))->pos().y() + (CIRCLE_DIM / 2);
+          std::cout << x1 << " " << x2 << " " << y1 << " " << y2 << std::endl;
           linemap.at(e)->setLine(x1, y1, x2, y2);
           linemap.at(e)->setVisible(true);
         }

@@ -40,8 +40,8 @@ void CrowdParser::updateVertices(vector<vector<Vertex> >& simulation,
     int label = atoi(vertex->Attribute("gid"));
     int ntoken = atoi(vertex->Attribute("token"));
     XMLElement* position = vertex->FirstChildElement("position");
-    int x = atoi(position->Attribute("x"));
-    int y = atoi(position->Attribute("y"));
+    float x = atof(position->Attribute("x"));
+    float y = atof(position->Attribute("y"));
     Vertex v(id, label);
     v.start(ticknum);
     v.end(ticknum);

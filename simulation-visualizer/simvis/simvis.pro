@@ -30,3 +30,7 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
+OTHER_FILES += \
+    default_sim_out.xml \
+    default_graph_out.gexf
+

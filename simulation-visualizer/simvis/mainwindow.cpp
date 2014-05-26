@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(gscene);
 
     gm.init(ui->graphicsView->scene());
-    gm.addVertices("default_sim_out.xml");
-    gm.addEdges("default_graph_out.gexf");
+    gm.addVertices("/Users/cma330/maarten/CrowGenCpp/crowdgeneration/CrowGenCpp/src/default_sim_out.xml");
+    gm.addEdges("/Users/cma330/maarten/CrowGenCpp/crowdgeneration/CrowGenCpp/src/default_graph_out.gexf");
 
     ui->graphicsView->fitInView(gscene->sceneRect(), Qt::KeepAspectRatio);
 
