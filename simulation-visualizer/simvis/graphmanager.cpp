@@ -57,16 +57,26 @@ void GraphManager::drawTick(unsigned int ticknum)
     ticknum = ticknum % simulation.size();
     // TODO Make all vertices invisible.
     vector<Vertex> vertices = simulation.at(ticknum);
-    for (size_t i = 0; i < vertices.size(); i++)
+    for (int i = 0; i < vertices.size(); i++)
     {
         Vertex v = vertices.at(i);
         // TODO Make vertex v visible.
         circlemap.at(v)->setPos(v.location().x(), v.location().y());
     }
-    for (size_t i = 0; i < edges.size(); i++)
+    for (int i = 0; i < edges.size(); i++)
     {
+        bool edgePresent = false;
         Edge e = edges.at(i);
-        if ((unsigned int)e.start <= ticknum && ticknum <= (unsigned int)e.end)
+        for (int i = 0; i < e.spellStart.size(); i++) {
+          int start = e.spellStart[i];
+          int stop = e.spellStop[i];
+          if ((unsigned int)start <= ticknum && ticknum <= (unsigned int)end) {
+            edgePresent = true;
+            break;
+          }
+        }
+
+        if (edgePresent)
         {
           qreal x1, x2, y1, y2;
           x1 = circlemap.at(ltocmap.at(e.source))->pos().x() + (CIRCLE_DIM / 2);

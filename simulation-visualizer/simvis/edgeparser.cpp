@@ -30,15 +30,17 @@ void EdgeParser::updateEdges(std::vector<Edge>& edges,
   wid = atoi(edge->Attribute("target"));
 
   XMLElement* spell = edge->FirstChildElement("spells")->FirstChildElement("spell");
-
-  start = atoi(spell->Attribute("start"));
-  end = atoi(spell->Attribute("end"));
-
   Edge e;
-  e.source = vid;
-  e.target = wid;
-  e.start = start;
-  e.end = end;
+
+  while (spell) {
+    start = atoi(spell->Attribute("start"));
+    end = atoi(spell->Attribute("end"));
+
+    e.source = vid;
+    e.target = wid;
+    e.spellStart.push_back(start);
+    e.spellStop.push_back(end);
+  }
   edges.push_back(e);
 }
 
