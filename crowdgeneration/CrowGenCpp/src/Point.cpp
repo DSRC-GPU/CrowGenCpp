@@ -2,6 +2,7 @@
 #include "Point.hpp"
 
 #include <cstdlib>
+#include <math.h>
 
 Point::Point(): _x(0), _y(0)
 {
@@ -38,7 +39,7 @@ float Point::y(float ny)
 
 bool Point::closeTo(Point& other, int max) const
 {
-  return abs(_x - other.x()) + abs(_y - other.y()) <= max;
+  return sqrt(pow(_x - other.x(), 2) + pow(_y - other.y(), 2)) <= max;
 }
 
 bool Point::operator==(const Point& p)
