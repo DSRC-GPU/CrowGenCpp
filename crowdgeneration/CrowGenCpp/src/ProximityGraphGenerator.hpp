@@ -2,6 +2,7 @@
 #ifndef PROXIMITYGRAPHGENERATOR_HPP
 #define PROXIMITYGRAPHGENERATOR_HPP
 
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -18,7 +19,7 @@ class ProximityGraphGenerator
   private:
     unsigned int _detectionRange = 50;
     unsigned int _fieldWidth, _fieldHeight;
-    
+
     unsigned int _wsquares, _hsquares;
     vector<Vertex*>** _squares;
 
@@ -37,7 +38,9 @@ class ProximityGraphGenerator
 
   public:
     ProximityGraphGenerator();
-    
+
+    void PrintGraph(ofstream &file, int ticknum);
+
     // Set the detection range between two vertices to create an edge
     void setDetectionRange(int);
 
@@ -58,7 +61,7 @@ class ProximityGraphGenerator
 
     // Creates a SVG visualization.
     void createVisualization();
-    
+
     // Write graph data to some output.
     void writeGraph(string);
 };

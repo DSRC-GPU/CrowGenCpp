@@ -9,6 +9,33 @@
 #include <cmath>
 #include <algorithm>
 
+void ProximityGraphGenerator::PrintGraph(ofstream &file, int ticknum) {
+    vector<Vertex>& tickvertices = simulationrun.at(ticknum);
+    file << ticknum << "\n";
+    file << "NumNodes: " << tickvertices.size() << "\n";
+
+    for (size_t i = 0; i < tickvertices.size(); i++)
+    {
+        Vertex& a =  tickvertices.at(i);
+        Point &loc = a.location();
+        file << a.id() << " " << a.label() << " "  << loc.x() << " " << loc.y() << "\n";
+    }
+
+    vector<Edge> crr_edges;
+    for (size_t i = 0; i < edges.size(); i++)
+    {
+        Edge& e = edges.at(i);
+        unsigned int end = (unsigned int) ticknum;
+        vector<pair<unsigned int, unsigned int>>::iterator it = e.getLifetimeWithEnd(end);
+        if (it != e.lifetimes().end())
+          crr_edges.push_back(e);
+    }
+
+    file << "NumEdges: " << crr_edges.size() << "\n";
+    for (Edge &e : crr_edges)
+      file << e.source().id() << " " << e.target().id() << "\n";
+}
+
 ProximityGraphGenerator::ProximityGraphGenerator():  _fieldWidth(0),  _fieldHeight(0),
   _falseNeg(0), _falsePos(0)
 {
@@ -50,11 +77,17 @@ void ProximityGraphGenerator::parseCrowd(string filename)
 // proximity graph.
 void ProximityGraphGenerator::createGraph()
 {
-  // TODO Implement in a more efficient way, or find another job.
-  for (size_t i = 0; i < simulationrun.size(); i++)
-  {
-    graphUpdate(i);
-  }
+    ofstream file ;
+    file.open("ground_truth.txt");
+
+    // TODO Implement in a more efficient way, or find another job.
+    for (size_t i = 0; i < simulationrun.size(); i++)
+    {
+        graphUpdate(i);
+        PrintGraph(file, i);
+    }
+
+    file.close();
 }
 
 // The graphUpdate checks for each Vertex in the graph if it is close to any
@@ -66,12 +99,12 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
   vector<Vertex>& tickvertices = simulationrun.at(ticknum);
   sort(tickvertices.begin(), tickvertices.end());
 
-#pragma omp parallel
+//#pragma omp parallel
   {
     vector<Vertex> newVertices;
     vector<Edge> newEdges;
 
-#pragma omp for 
+//#pragma omp for
     for (size_t i = 0; i < tickvertices.size(); i++)
     {
       Vertex& a = tickvertices.at(i);
@@ -79,19 +112,11 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
       for (size_t j = i + 1; j < tickvertices.size(); j++)
       {
         Vertex& b = tickvertices.at(j);
-        if (a.location().closeTo(b.location(), _detectionRange)
-            && a != b)
+        if (a == b)
+          continue;
+
+        if (a.location().closeTo(b.location(), _detectionRange))
         {
-          // Allow false negatives, based on the _falseNeg value.
-          if (falseNegative()) continue;
-          if (a.id() < b.id())
-            updateEdge(newEdges, a, b, ticknum);
-          else
-            updateEdge(newEdges, b, a, ticknum);
-        }
-        else if (falsePositive())
-        {
-          // Allow false positives, based on the _falsePos value.
           if (a.id() < b.id())
             updateEdge(newEdges, a, b, ticknum);
           else
@@ -100,13 +125,12 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
       }
     }
 
-#pragma omp critical
-    {
+//#pragma omp critical
       vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
       edges.insert(edges.end(), newEdges.begin(), newEdges.end());
-    }
   }
 }
+
 
 // TODO Be more efficient.
 void ProximityGraphGenerator::updateVertex(vector<Vertex>& newVertices, Vertex s,
@@ -181,6 +205,9 @@ bool ProximityGraphGenerator::falsePositive() const
 
 bool ProximityGraphGenerator::falseData(double prob) const
 {
+  if (!prob)
+    return false;
+
   double roll = rand() % 100;
   double bar = prob * 100;
   bool res = roll < bar ? true : false;
