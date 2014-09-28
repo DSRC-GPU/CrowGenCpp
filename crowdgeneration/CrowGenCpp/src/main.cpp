@@ -38,10 +38,6 @@ int main(int argc, char* argv[])
     {
       _makeGraph = true;
     }
-    else if (!strcmp(argv[i], "-m"))
-    {
-      map_description_file = argv[++i];
-    }
     else if (!strcmp(argv[i], "-s"))
     {
       simulation_run_file = argv[++i];
