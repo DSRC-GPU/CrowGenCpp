@@ -3,3 +3,6 @@
 *.gexf
 *.xml
 cgc
+
+# From DAS
+*.fs0
