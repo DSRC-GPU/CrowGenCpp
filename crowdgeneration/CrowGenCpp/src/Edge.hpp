@@ -41,7 +41,7 @@ namespace std {
     public:
       long operator() (const Edge& e) const
       {
-        return e.source().id() ^ e.target().id();
+        return (e.source().id() << 16) ^ e.target().id();
       }
   };
 }
