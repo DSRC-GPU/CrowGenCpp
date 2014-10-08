@@ -14,14 +14,14 @@ string Edge::id() const
   return _id;
 }
 
-Vertex& Edge::source()
+Vertex Edge::source() const
 {
-  return _source;
+  return Vertex(_source);
 }
 
-Vertex& Edge::target()
+Vertex Edge::target() const
 {
-  return _target;
+  return Vertex(_target);
 }
 
 vector<pair<unsigned int,unsigned int>>& Edge::lifetimes()

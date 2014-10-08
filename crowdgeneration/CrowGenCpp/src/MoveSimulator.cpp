@@ -78,7 +78,7 @@ void MoveSimulator::updateLocation(Vertex& v, vector<GroupDescriptor>&
 
 void MoveSimulator::updateLocation(Vertex& v, GroupDescriptor& mm)
 {
-  Point& pos = v.location();
+  Point pos = v.location();
   int xindex = mm.getCrowdDirection(pos.x(), pos.y()) - 1;
   int yindex = mm.getCrowdDirection(pos.x(), pos.y()) - 1;
 

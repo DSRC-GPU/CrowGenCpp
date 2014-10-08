@@ -11,11 +11,12 @@ class Point
   public:
     Point();
     Point(int, int);
+    Point(const Point&);
     int x() const;
     int x(int);
     int y() const;
     int y(int);
-    bool closeTo(Point&, int) const;
+    bool closeTo(const Point&, int) const;
     bool operator==(const Point&);
     bool operator!=(const Point&);
 };

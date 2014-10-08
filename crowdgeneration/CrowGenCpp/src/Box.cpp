@@ -67,7 +67,7 @@ bool Box::inBox(int x, int y) const
   return lx <= x && x <= ux && ly <= y && y <= uy;
 }
 
-bool Box::inBox(Point& p) const
+bool Box::inBox(const Point& p) const
 {
   return inBox(p.x(), p.y());
 }

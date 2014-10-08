@@ -21,8 +21,8 @@ class Edge
     Edge(Vertex&, Vertex&);
 
     std::string id() const;
-    Vertex& source();
-    Vertex& target();
+    Vertex source() const;
+    Vertex target() const;
     std::vector<std::pair<unsigned int, unsigned int>>& lifetimes();
     std::vector<std::pair<unsigned int, unsigned int>>::iterator
      getLifetimeWithEnd(unsigned int end);
@@ -33,6 +33,18 @@ class Edge
     bool operator==(const Edge&) const;
     Edge& operator=(const Edge&);
 };
+
+namespace std {
+  template<>
+  class hash<Edge>
+  {
+    public:
+      long operator() (const Edge& e) const
+      {
+        return e.source().id() ^ e.target().id();
+      }
+  };
+}
 
 #endif
 

@@ -23,6 +23,14 @@ Vertex::Vertex(int nid, int nlabel): _start(0), _end(0)
   _token = rand();
 }
 
+Vertex::Vertex(const Vertex& v)
+{
+  _id = v._id;
+  _label = v._label;
+  _token = v._token;
+  _p = v.location();
+}
+
 int Vertex::id() const
 {
   return _id;
@@ -77,9 +85,9 @@ void Vertex::token(int ntoken)
   _token = ntoken;
 }
 
-Point& Vertex::location()
+Point Vertex::location() const
 {
-  return _p;
+  return Point(_p);
 }
 
 void Vertex::location(Point p)

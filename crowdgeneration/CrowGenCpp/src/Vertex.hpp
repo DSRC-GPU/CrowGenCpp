@@ -17,6 +17,7 @@ class Vertex
     Vertex();
     Vertex(int);
     Vertex(int, int);
+    Vertex(const Vertex& v);
 
     int id() const;
     int id(int);
@@ -30,7 +31,7 @@ class Vertex
     void token(int);
     bool alive() const;
     void alive(bool);
-    Point& location();
+    Point location() const;
     void location(Point);
     bool operator<(const Vertex) const;
     bool operator==(const Vertex&) const;
