@@ -3,13 +3,17 @@
 #define GRAPHWRITER_HPP
 
 #include <vector>
+#include <unordered_set>
 #include <string>
 
 #include "Vertex.hpp"
 #include "Edge.hpp"
 #include "tinyxml2-master/tinyxml2.h"
 
-using namespace std;
+using std::vector;
+using std::string;
+using std::pair;
+using std::unordered_set;
 using namespace tinyxml2;
 
 class GraphWriter
@@ -19,14 +23,14 @@ class GraphWriter
 
     void writeBasics(int, int) ;
     void writeVertices(vector<Vertex>&) ;
-    void writeEdges(vector<Edge>&) ;
+    void writeEdges(unordered_set<Edge>&) ;
     void writeEdgeSpell(pair<unsigned int, unsigned int>& lifetime,
       XMLElement* spellsElement);
     void flush(string);
 
   public:
     GraphWriter();
-    void writeGraph(vector<Vertex>&, vector<Edge>&, string);
+    void writeGraph(vector<Vertex>&, unordered_set<Edge>&, string);
 };
 
 #endif

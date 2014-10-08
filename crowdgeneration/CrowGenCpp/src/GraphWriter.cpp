@@ -3,12 +3,15 @@
 
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
+
+using std::unordered_map;
 
 GraphWriter::GraphWriter()
 {
 }
 
-void GraphWriter::writeGraph(vector<Vertex>& vertices, vector<Edge>& edges,
+void GraphWriter::writeGraph(vector<Vertex>& vertices, unordered_set<Edge>& edges,
     string fout)
 {
   writeBasics(vertices.size(), edges.size());
@@ -85,14 +88,14 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
   }
 }
 
-void GraphWriter::writeEdges(vector<Edge>& edges) 
+void GraphWriter::writeEdges(unordered_set<Edge>& edges) 
 {
   XMLElement* edgesxml = _doc.FirstChildElement("gexf")->FirstChildElement("graph")
     ->FirstChildElement("edges");
 
-  for (size_t i = 0; i < edges.size(); i++)
+  for (unordered_set<Edge>::iterator it = edges.begin(); it != edges.end(); it++)
   {
-    Edge e = edges.at(i);
+    Edge e = *it;
     XMLElement* edge = _doc.NewElement("edge");
     XMLElement* spells = _doc.NewElement("spells");
 
