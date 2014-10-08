@@ -53,6 +53,7 @@ void ProximityGraphGenerator::createGraph()
   // TODO Implement in a more efficient way, or find another job.
   for (size_t i = 0; i < simulationrun.size(); i++)
   {
+    cout << "\rIteration #" << i + 1 << "\t/" << simulationrun.size() << flush;
     graphUpdate(i);
   }
 }
@@ -66,12 +67,10 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
   vector<Vertex>& tickvertices = simulationrun.at(ticknum);
   sort(tickvertices.begin(), tickvertices.end());
 
-#pragma omp parallel
   {
     vector<Vertex> newVertices;
     vector<Edge> newEdges;
 
-#pragma omp for 
     for (size_t i = 0; i < tickvertices.size(); i++)
     {
       Vertex& a = tickvertices.at(i);
@@ -100,10 +99,9 @@ void ProximityGraphGenerator::graphUpdate(unsigned int ticknum)
       }
     }
 
-#pragma omp critical
     {
       vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
-      edges.insert(edges.end(), newEdges.begin(), newEdges.end());
+      edges.insert(newEdges.begin(), newEdges.end());
     }
   }
 }
@@ -131,28 +129,30 @@ void ProximityGraphGenerator::updateVertex(vector<Vertex>& newVertices, Vertex s
 void ProximityGraphGenerator::updateEdge(vector<Edge>& newEdges, Vertex& s,
     Vertex& t, int ticknum)
 {
-  for (size_t i = 0; i < edges.size(); i++)
+  Edge search(s, t);
+  unordered_set<Edge>::const_iterator edgeIt = edges.find(search);
+  if (edgeIt != edges.end())
   {
-    Edge& e = edges.at(i);
-    if (e.source() == s && e.target() == t)
+    Edge e(*edgeIt);
+    edges.erase(edgeIt);
+
+    unsigned int end = (unsigned int) ticknum - 1;
+    vector<pair<unsigned int, unsigned int>>::iterator it =
+     e.getLifetimeWithEnd(end);
+    if (it != e.lifetimes().end())
     {
-      unsigned int end = (unsigned int) ticknum - 1;
-      vector<pair<unsigned int, unsigned int>>::iterator it =
-       e.getLifetimeWithEnd(end);
-      if (it != e.lifetimes().end())
-      {
-        (*it).second += 1;
-      }
-      else
-      {
-        e.lifetimes().push_back(make_pair(ticknum, ticknum));
-      }
-      return;
+      (*it).second += 1;
     }
+    else
+    {
+      e.lifetimes().push_back(make_pair(ticknum, ticknum));
+    }
+    edges.insert(e);
+  } else {
+    Edge ne(s, t);
+    ne.lifetimes().push_back(make_pair(ticknum, ticknum));
+    newEdges.push_back(ne);
   }
-  Edge ne(s, t);
-  ne.lifetimes().push_back(make_pair(ticknum, ticknum));
-  newEdges.push_back(ne);
 }
 
 void ProximityGraphGenerator::writeGraph(string fout)

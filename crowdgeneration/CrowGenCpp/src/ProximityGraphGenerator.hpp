@@ -4,12 +4,14 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 
 #include "Vertex.hpp"
 #include "Edge.hpp"
 
 using std::vector;
 using std::string;
+using std::unordered_set;
 
 // The ProximityGraphGenerator class generates a proximity graph based on a
 // xml-crowd file. It also allows the user to tweak some probability parameters
@@ -26,7 +28,7 @@ class ProximityGraphGenerator
     double _falseNeg, _falsePos;
     vector<vector<Vertex>> simulationrun;
     vector<Vertex> vertices;
-    vector<Edge> edges;
+    unordered_set<Edge> edges;
 
     void graphUpdate(unsigned int);
     void updateEdge(vector<Edge>&, Vertex&, Vertex&, int);
