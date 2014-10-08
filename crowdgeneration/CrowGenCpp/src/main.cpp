@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
   if (_makeGraph)
   {
-    cout << "Creating gexf graph..." << flush;
+    cout << "Starting writing gexf graph." << endl;
 
     // We process movement xml to gexf graph.
     ProximityGraphGenerator pgg;
@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
     pgg.writeGraph(gexf_graph_output);
     pgg.createVisualization();
 
-    cout << "done!" << endl;
+    cout << endl << "Gexf graph done!" << endl;
   }
 
   return 0;
