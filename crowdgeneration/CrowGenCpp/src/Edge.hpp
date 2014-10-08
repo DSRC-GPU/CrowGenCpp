@@ -19,6 +19,7 @@ class Edge
 
   public:
     Edge(Vertex&, Vertex&);
+    Edge(const Edge&);
 
     std::string id() const;
     Vertex source() const;

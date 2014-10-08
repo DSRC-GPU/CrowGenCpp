@@ -9,6 +9,13 @@ Edge::Edge(Vertex& nsource, Vertex& ntarget): _source(nsource), _target(ntarget)
   _id = to_string(rand()); // TODO Ensure uniqueness.
 }
 
+Edge::Edge(const Edge& e): _source(e._source), _target(e._target)
+{
+  _id = e._id;
+  _type = e._type;
+  _lifetimes = vector<pair<unsigned int, unsigned int>>(e._lifetimes);
+}
+
 string Edge::id() const
 {
   return _id;
