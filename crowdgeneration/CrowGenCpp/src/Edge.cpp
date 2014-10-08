@@ -55,7 +55,7 @@ void Edge::type(string ntype)
 
 bool Edge::operator==(const Edge& e) const
 {
-  return !_id.compare(e._id);
+  return _source == e._source && _target == e._target;
 }
 
 Edge& Edge::operator=(const Edge& e)
