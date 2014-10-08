@@ -8,7 +8,8 @@
 #include "Vertex.hpp"
 #include "Edge.hpp"
 
-using namespace std;
+using std::vector;
+using std::string;
 
 // The ProximityGraphGenerator class generates a proximity graph based on a
 // xml-crowd file. It also allows the user to tweak some probability parameters
