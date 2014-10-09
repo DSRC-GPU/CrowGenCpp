@@ -6,6 +6,9 @@
 #include <unordered_map>
 
 using std::unordered_map;
+using std::cout;
+using std::flush;
+using std::endl;
 
 GraphWriter::GraphWriter()
 {
@@ -64,8 +67,11 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
 
   sort(vertices.begin(), vertices.end());
 
+  cout << "Writing vertices." << endl;
   for (size_t i = 0; i < vertices.size(); i++)
   {
+    cout << "\rVertex " << i << "\tof " << vertices.size();
+    cout.flush();
     Vertex v = vertices.at(i);
     XMLElement* node = _doc.NewElement("node");
     XMLElement* spells = _doc.NewElement("spells");
@@ -86,6 +92,7 @@ void GraphWriter::writeVertices(vector<Vertex>& vertices)
     spell->SetAttribute("start", v.start());
     spell->SetAttribute("end", v.end());
   }
+  cout << endl;
 }
 
 void GraphWriter::writeEdges(unordered_set<Edge>& edges) 
@@ -93,8 +100,12 @@ void GraphWriter::writeEdges(unordered_set<Edge>& edges)
   XMLElement* edgesxml = _doc.FirstChildElement("gexf")->FirstChildElement("graph")
     ->FirstChildElement("edges");
 
+  cout << "Writing edges." << endl;
+  long i = 0;
   for (unordered_set<Edge>::iterator it = edges.begin(); it != edges.end(); it++)
   {
+    cout << "\rEdge " << i++ << "\tof " << edges.size();
+    cout.flush();
     Edge e = *it;
     XMLElement* edge = _doc.NewElement("edge");
     XMLElement* spells = _doc.NewElement("spells");
@@ -112,6 +123,7 @@ void GraphWriter::writeEdges(unordered_set<Edge>& edges)
       writeEdgeSpell(p, spells);
     }
   }
+  cout << endl;
 }
 
 void GraphWriter::writeEdgeSpell(pair<unsigned int, unsigned int>& lifetime,
